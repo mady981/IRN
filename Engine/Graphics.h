@@ -24,8 +24,8 @@
 #include <wrl.h>
 #include "ChiliException.h"
 #include "Colors.h"
-#include "Vector.h"
-#include "HitBox.h"
+#include "Vec2i.h"
+#include "RecI.h"
 
 class Graphics
 {

@@ -57,10 +57,16 @@
     <ClInclude Include="COMInitializer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vector.h">
+    <ClInclude Include="Vec2f.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HitBox.h">
+    <ClInclude Include="RecF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec2i.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RecI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -92,10 +98,16 @@
     <ClCompile Include="COMInitializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vector.cpp">
+    <ClCompile Include="Vec2f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HitBox.cpp">
+    <ClCompile Include="RecF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec2i.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RecI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
