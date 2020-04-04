@@ -4,10 +4,17 @@ template<typename T>
 class Vec2_
 {
 public:
+	Vec2_() = default;
 	Vec2_( T x_in,T y_in )
 		:
 		x( x_in ),
 		y( y_in )
+	{
+	}
+	Vec2_( const Vec2_<float>& src )
+		:
+		x( int( x ) ),
+		y( int( y ) )
 	{
 	}
 	Vec2_ operator+( const Vec2_& rhs ) const
@@ -65,9 +72,9 @@ public:
 	Vec2_ getNomalize() const
 	{
 		const T len = getLengthSq();
-		if ( len != 0.0f )
+		if ( len != ( T )0 )
 		{
-			return *this * ( 1.0f / len );
+			return *this * ( ( T )1 / len );
 		}
 		return *this;
 	}

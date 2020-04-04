@@ -5,6 +5,7 @@ template<typename T>
 class Rec_
 {
 public:
+	Rec_() = default;
 	Rec_( T left_in,T right_in,T top_in,T bottem_in )
 		:
 		left( left_in ),

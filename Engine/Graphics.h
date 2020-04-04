@@ -59,23 +59,7 @@ public:
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
 	}
 	void PutPixel( int x,int y,Color c );
-	void DrawRect( int x0 , int y0 , int x1 , int y1 , Color c );
-	void DrawRectDim( int x0 , int y0 , int width, int height, Color c )
-	{
-		DrawRect( x0,y0,x0 + width,y0 + height, c );
-	}
-	void DrawRect( const Vec2i& topleft,const Vec2i& bottemright,Color c )
-	{
-		DrawRect( topleft.x,topleft.y,bottemright.x,bottemright.y,c );
-	}
-	void DrawRectDim( const Vec2i& topleft,int width,int height,Color c )
-	{
-		DrawRectDim( topleft.x,topleft.y,width,height,c );
-	}
-	void DrawRectHB( const RecI& rec,Color c )
-	{
-		DrawRect( rec.left,rec.top,rec.bottem,rec.right,c );
-	}
+
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
