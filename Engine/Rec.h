@@ -39,6 +39,14 @@ public:
 		const Vec2f half( width / 2.0f,height / 2.0f );
 		return Rec_( center - half,center + half );
 	}
+	T getWidth() const
+	{
+		return right - left;
+	}
+	T getHeight() const
+	{
+		return bottem - top;
+	}
 public:
 	T left;
 	T right;

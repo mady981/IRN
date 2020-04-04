@@ -316,21 +316,63 @@ void Graphics::PutPixel( int x,int y,Color c )
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
 
-void Graphics::DrawRect( int x0 , int y0 , int x1 , int y1 , Color c )
+void Graphics::DrawSpriteNoChroma( int x,int y,RecI srcRect,const RecI& clip,const Surface& s )
 {
-	if ( x0 > x1 )
+	if ( x < clip.left )
 	{
-		std::swap( x0 , x1 );
+		srcRect.left += clip.left - x;
+		x = clip.left;
 	}
-	if ( y0 > y1 )
+	else if ( x + srcRect.getWidth() >= clip.right )
 	{
-		std::swap( y0 , y1 );
+		srcRect.right -= x + srcRect.getWidth() - clip.right;
 	}
-	for ( int y = y0; y < y1; ++y )
+	if ( y < clip.top )
 	{
-		for ( int x = x0; x < x1; ++x )
+		srcRect.top -= y - clip.top;
+		y = clip.top;
+	}
+	else if ( y + srcRect.getHeight() >= clip.bottem )
+	{
+		srcRect.bottem -= y + srcRect.getHeight() - clip.bottem;
+	}
+	for ( int sy = srcRect.top; sy < srcRect.bottem; ++sy )
+	{
+		for ( int sx = srcRect.left; sx < srcRect.right; ++sx )
 		{
-			PutPixel( x,y,c );
+			PutPixel( x + sx - srcRect.left,y + sy - srcRect.top,s.GetPixel( sx,sy ) );
+		}
+	}
+}
+
+void Graphics::DrawSprite( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,Color chroma )
+{
+	if ( x < clip.left )
+	{
+		srcRect.left += clip.left - x;
+		x = clip.left;
+	}
+	else if ( x + srcRect.getWidth() >= clip.right )
+	{
+		srcRect.right -= x + srcRect.getWidth() - clip.right;
+	}
+	if ( y < clip.top )
+	{
+		srcRect.top -= y - clip.top;
+		y = clip.top;
+	}
+	else if ( y + srcRect.getHeight() >= clip.bottem )
+	{
+		srcRect.bottem -= y + srcRect.getHeight() - clip.bottem;
+	}
+	for ( int sy = srcRect.top; sy < srcRect.bottem; ++sy )
+	{
+		for ( int sx = srcRect.left; sx < srcRect.right; ++sx )
+		{
+			if ( s.GetPixel( sx,sy ) != chroma )
+			{
+				PutPixel( x + sx - srcRect.left,y + sy - srcRect.top,s.GetPixel( sx,sy ) );
+			}
 		}
 	}
 }

@@ -26,6 +26,7 @@
 #include "Colors.h"
 #include "Vec2.h"
 #include "Rec.h"
+#include "Surface.h"
 
 class Graphics
 {
@@ -60,6 +61,25 @@ public:
 	}
 	void PutPixel( int x,int y,Color c );
 
+	void DrawSpriteNoChroma( int x,int y,const Surface& s )
+	{
+		DrawSpriteNoChroma( x,y,{ 0,s.getWidht(),0,s.getHeight() },s );
+	};
+	void DrawSpriteNoChroma( int x,int y,RecI srcRect,const Surface& s )
+	{
+		DrawSpriteNoChroma( x,y,srcRect,Screen,s );
+	};
+	void DrawSpriteNoChroma( int x,int y,RecI srcRect,const RecI& clip,const Surface& s );
+
+	void DrawSprite( int x,int y,const Surface& s,Color chroma = Colors::Magenta )
+	{
+		DrawSprite( x,y,{ 0,s.getWidht(),0,s.getHeight() },s,chroma );
+	}
+	void DrawSprite( int x,int y,RecI srcRect,const Surface& s,Color chroma = Colors::Magenta )
+	{
+		DrawSprite( x,y,srcRect,Screen,s,chroma );
+	}
+	void DrawSprite( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,Color chroma = Colors::Magenta );
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
@@ -78,4 +98,5 @@ private:
 public:
 	static constexpr int ScreenWidth = 800;
 	static constexpr int ScreenHeight = 600;
+	Rec_<int> Screen = { 0,ScreenWidth,0,ScreenHeight };
 };
