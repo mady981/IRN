@@ -23,6 +23,12 @@ public:
 		y( ( T )src.y )
 	{
 	}
+	Vec2_( const std::pair<T,T>& src )
+		:
+		x( src.first ),
+		y( src.second )
+	{
+	}
 	Vec2_ operator+( const Vec2_& rhs ) const
 	{
 		return Vec2_( x + rhs.x,y + rhs.y );
