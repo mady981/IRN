@@ -14,12 +14,12 @@ public:
 		bottem( bottem_in )
 	{
 	}
-	Rec_( const Vec2f& topleft,const Vec2f& bottemright )
+	Rec_( const Vec2_<T>& topleft,const Vec2_<T>& bottemright )
 		:
 		Rec_( topleft.x,bottemright.x,topleft.y,bottemright.y )
 	{
 	}
-	Rec_( const Vec2f& topleft,T width,T height )
+	Rec_( const Vec2_<T>& topleft,T width,T height )
 		:
 		Rec_( topleft,topleft + Vec2f( width,height ) )
 	{
@@ -29,12 +29,12 @@ public:
 		return right > other.left && left < other.right
 			&& bottem > other.top && top < other.bottem;
 	}
-	bool isOverlappingWith( const Vec2f& other ) const
+	bool isOverlappingWith( const Vec2_<T>& other ) const
 	{
 		return right > other.x && left < other.x
 			&& bottem > other.y && top < other.y;
 	}
-	Rec_ fromCenter( const Vec2f& center,T width,T height )
+	Rec_ fromCenter( const Vec2_<T>& center,T width,T height )
 	{
 		const Vec2f half( width / 2.0f,height / 2.0f );
 		return Rec_( center - half,center + half );

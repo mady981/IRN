@@ -13,8 +13,14 @@ public:
 	}
 	Vec2_( const Vec2_<float>& src )
 		:
-		x( int( x ) ),
-		y( int( y ) )
+		x( ( T )src.x ),
+		y( ( T )src.y )
+	{
+	}
+	Vec2_( const Vec2_<int>& src )
+		:
+		x( ( T )src.x ),
+		y( ( T )src.y )
 	{
 	}
 	Vec2_ operator+( const Vec2_& rhs ) const

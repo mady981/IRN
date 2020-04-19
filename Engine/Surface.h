@@ -5,7 +5,7 @@
 class Surface
 {
 public:
-	Surface( const std::string& filename );
+	Surface( const std::wstring& filename );
 	Surface( int width,int height );
 	Surface( const Surface& rhs );
 	~Surface();
@@ -19,4 +19,3 @@ private:
 	int width;
 	int height;
 };
-
