@@ -325,6 +325,55 @@ Color Graphics::getPixel( int x,int y )
 	return pSysBuffer[Graphics::ScreenWidth * y + x];
 }
 
+void Graphics::DrawRec( int x0,int y0,int x1,int y1,Color c )
+{
+	if ( x0 > x1 )
+	{
+		std::swap( x0,x1 );
+	}
+	if ( y0 > y1 )
+	{
+		std::swap( y0,y1 );
+	}
+	for ( int y = y0; y < y1; ++y )
+	{
+		for ( int x = x0; x < x1; ++x )
+		{
+			PutPixel( x,y,c );
+		}
+	}
+}
+
+void Graphics::DrawRecDimClip( Vec2i pos,int width,int height,Color c )
+{
+	RecI srcRec = RecI( pos.x,pos.x + width,pos.y,pos.y + height );
+	if ( pos.x < Screen.left )
+	{
+		srcRec.left += Screen.left - pos.x;
+		pos.x = Screen.left;
+	}
+	else if ( pos.x + srcRec.getWidth() >= Screen.right )
+	{
+		srcRec.right -= pos.x + srcRec.getWidth() - Screen.right;
+	}
+	if ( pos.y < Screen.top )
+	{
+		srcRec.top -= pos.y - Screen.top;
+		pos.y = Screen.top;
+	}
+	else if ( pos.y + srcRec.getHeight() >= Screen.bottem )
+	{
+		srcRec.bottem -= pos.y + srcRec.getHeight() - Screen.bottem;
+	}
+	for ( int sy = srcRec.top; sy < srcRec.bottem; ++sy )
+	{
+		for ( int sx = srcRec.left; sx < srcRec.right; ++sx )
+		{
+			PutPixel( pos.x + sx - srcRec.left,pos.y + sy - srcRec.top,c );
+		}
+	}
+}
+
 void Graphics::DrawSpriteNoChroma( int x,int y,RecI srcRect,const RecI& clip,const Surface& s )
 {
 	if ( x < clip.left )

@@ -61,6 +61,12 @@ public:
 	}
 	void PutPixel( int x,int y,Color c );
 	Color getPixel( int x,int y );
+	void DrawRec( int x0,int y0,int x1,int y1,Color c );
+	void DrawRecDim( const Vec2i& pos,int width,int height,Color c )
+	{
+		DrawRec( pos.x,pos.y,pos.x + width,pos.y + height,c );
+	}
+	void DrawRecDimClip( Vec2i pos,int width,int height,Color c );
 
 	void DrawSpriteNoChroma( int x,int y,const Surface& s )
 	{
