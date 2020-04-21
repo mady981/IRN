@@ -20,7 +20,7 @@ public:
 	void Draw( Graphics& gfx );
 public:
 	static constexpr int ChunkDimantion = 16;
-	static constexpr int BlockDimantion = 32;
+	static constexpr int BlockDimantion = 16;
 private:
 	struct customless
 	{

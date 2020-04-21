@@ -20,6 +20,16 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include <Windows.h>
+#include <iostream>
+#include <sstream>
+
+#define DBOUT( s )            \
+{                             \
+   std::wostringstream os_;    \
+   os_ << s;                   \
+   OutputDebugStringW( os_.str().c_str() );  \
+}
 
 Game::Game( MainWindow& wnd )
 	:
@@ -38,8 +48,31 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+    if ( wnd.kbd.KeyIsPressed( VK_UP ) )
+    {
+        dir.y -= 1.0f;
+    }
+    if ( wnd.kbd.KeyIsPressed( VK_DOWN ) )
+    {
+        dir.y += 1.0f;
+    }
+    if ( wnd.kbd.KeyIsPressed( VK_LEFT ) )
+    {
+        dir.x -= 1.0f;
+    }
+    if ( wnd.kbd.KeyIsPressed( VK_RIGHT ) )
+    {
+        dir.x += 1.0f;
+    }
+    map.Render( Vec2f( dir.x,dir.y ),gfx );
+    DBOUT( dir.x );
+    DBOUT( "   " );
+    DBOUT( dir.y );
+    DBOUT( "\n" );
 }
+    
 
 void Game::ComposeFrame()
 {
+    map.Draw( gfx );
 }

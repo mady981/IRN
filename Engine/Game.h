@@ -23,6 +23,7 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Map.h"
 
 class Game
 {
@@ -37,4 +38,6 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
+    Map map;
+    Vec2f dir = { 0.0f,0.0f };
 };
