@@ -50,7 +50,7 @@ void Game::UpdateModel()
 {
     if ( wnd.kbd.KeyIsPressed( VK_UP ) )
     {
-        dir.y -= 1.0f;
+        dir.y -= 1.0;
     }
     if ( wnd.kbd.KeyIsPressed( VK_DOWN ) )
     {
@@ -66,7 +66,7 @@ void Game::UpdateModel()
     }
     map.Render( Vec2f( dir.x,dir.y ),gfx );
     DBOUT( dir.x );
-    DBOUT( "   " );
+    DBOUT( "  " );
     DBOUT( dir.y );
     DBOUT( "\n" );
 }
@@ -74,5 +74,6 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-    map.Draw( gfx );
+    map.Draw( dir,gfx );
+    gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
 }

@@ -9,7 +9,7 @@ private:
 	{
 	public:
 		Tile( const Vec2i& pos,int blockid );
-		void Draw( Graphics& gfx ) const;
+		void Draw( const Vec2i& Plpos,Graphics& gfx ) const;
 	private:
 		Vec2i pos;
 		int blockid;
@@ -17,7 +17,7 @@ private:
 public:
 	Map();
 	void Render( const Vec2i& Plpos,Graphics& gfx );
-	void Draw( Graphics& gfx );
+	void Draw( const Vec2i& Plpos,Graphics& gfx );
 public:
 	static constexpr int ChunkDimantion = 16;
 	static constexpr int BlockDimantion = 16;

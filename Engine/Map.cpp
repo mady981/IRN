@@ -1,5 +1,13 @@
 #include "Map.h"
 #include <assert.h>
+#include <sstream>
+
+#define DBOUT( s )            \
+{                             \
+   std::wostringstream os_;    \
+   os_ << s;                   \
+   OutputDebugStringW( os_.str().c_str() );  \
+}
 
 Map::Tile::Tile( const Vec2i& pos,int blockid )
 	:
@@ -8,9 +16,14 @@ Map::Tile::Tile( const Vec2i& pos,int blockid )
 {
 }
 
-void Map::Tile::Draw( Graphics& gfx ) const
+void Map::Tile::Draw( const Vec2i& Plpos,Graphics& gfx ) const
 {
-	gfx.DrawRecDimClip( pos * BlockDimantion,Map::BlockDimantion - 1,Map::BlockDimantion - 1,Color( 0,255,0 ) );
+	gfx.DrawRecDimClip(
+		pos + Plpos + Vec2i( ( gfx.ScreenWidth / 2 ),( gfx.ScreenHeight / 2 ) ),
+		Map::BlockDimantion - 1,
+		Map::BlockDimantion - 1,
+		Color( 0,255,0 )
+	);
 }
 
 Map::Map()
@@ -19,7 +32,7 @@ Map::Map()
 	{
 		for ( int x = 0; x < ChunkDimantion; ++x )
 		{
-			pMap.insert( { Vec2i( x,y ),new Tile( Vec2i( x,y ),-1 ) } );
+			pMap.insert( { Vec2i( x,y ),new Tile( Vec2i( x,y ) * BlockDimantion,-1 ) } );
 		}
 	}
 }
@@ -30,7 +43,7 @@ void Map::Render( const Vec2i& Plpos,Graphics& gfx )
 	rtiles.clear();
 	for ( int y = Plpos.y - ( ( gfx.ScreenHeight / 2 ) / BlockDimantion ); y < Plpos.y + ( ( gfx.ScreenHeight / 2 ) / BlockDimantion ); ++y )
 	{
-		for ( int x = Plpos.x - ( ( gfx.ScreenWidth / 2 ) / BlockDimantion ); x < Plpos.x + ( ( gfx.ScreenWidth / 2 ) / BlockDimantion ); ++x )
+		for ( int x = Plpos.x - ( ( gfx.ScreenWidth / 2 ) ); x < Plpos.x + ( ( gfx.ScreenWidth / 2 ) ); ++x )
 		{
 			if ( pMap.contains( Vec2i( x,y ) ) )
 			{
@@ -41,10 +54,10 @@ void Map::Render( const Vec2i& Plpos,Graphics& gfx )
 	}
 }
 
-void Map::Draw( Graphics& gfx )
+void Map::Draw( const Vec2i& Plpos,Graphics& gfx )
 {
 	for ( int t = 0; t < rtiles.size(); ++t )
 	{
-		rtiles.find( t )->second->Draw( gfx );
+		rtiles.find( t )->second->Draw( Plpos,gfx );
 	}
 }
