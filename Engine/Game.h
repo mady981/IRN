@@ -24,6 +24,8 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Map.h"
+#include "Player.h"
+#include "FrameTimer.h"
 
 class Game
 {
@@ -38,6 +40,9 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
+    FrameTimer ft;
     Map map;
-    Vec2f scrPos = { 0.0f - ( float )gfx.ScreenWidth / 2.0f,0.0f - ( float )gfx.ScreenHeight / 2.0f };
+    Player Pl;
+private:
+    float dt = 0;
 };

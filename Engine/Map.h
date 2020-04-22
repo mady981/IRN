@@ -18,7 +18,8 @@ public:
 		tPos( tPos ),
 		TileDimantion( &Tdim )
 	{}
-	void Draw( const Vec2i& scrPos,Graphics& gfx );
+	void Draw( const Vec2i& scrPos,Graphics& gfx ) const;
+	RecI TileHitBox() const;
 private:
 	const Vec2i tPos;
 	const int* TileDimantion;
@@ -37,7 +38,8 @@ public:
 		mTiles.emplace( Vec2i( -1,-1 ),new Tile( Vec2i( -1,-1 ),TileDimantion ) );
 	}
 	std::map<Vec2i,Tile*,customless> getMap() const;
-	void Draw( const Vec2i& scrPos,Graphics& gfx );
+	void Draw( const Vec2i& scrPos,Graphics& gfx ) const;
+	int getTileDimantion() const;
 private:
 	std::map<Vec2i,Tile*,customless> mTiles;
 	static constexpr int TileDimantion = 16;

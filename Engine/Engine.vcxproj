@@ -149,6 +149,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Rec.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
@@ -173,6 +174,7 @@
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Text.cpp" />

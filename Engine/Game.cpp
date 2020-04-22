@@ -20,21 +20,12 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
-#include <Windows.h>
-#include <iostream>
-#include <sstream>
-
-#define DBOUT( s )            \
-{                             \
-   std::wostringstream os_;    \
-   os_ << s;                   \
-   OutputDebugStringW( os_.str().c_str() );  \
-}
 
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+    Pl( { 20,-50 } )
 {
 }
 
@@ -48,31 +39,40 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+    dt = ft.Duration();
+    Vec2f dir = { 0.0f,0.0f };
     if ( wnd.kbd.KeyIsPressed( VK_UP ) )
     {
-        scrPos.y -= 1.0;
+        dir.y -= 1.0;
     }
     if ( wnd.kbd.KeyIsPressed( VK_DOWN ) )
     {
-        scrPos.y += 1.0f;
+        dir.y += 1.0f;
     }
     if ( wnd.kbd.KeyIsPressed( VK_LEFT ) )
     {
-        scrPos.x -= 1.0f;
+        dir.x -= 1.0f;
     }
     if ( wnd.kbd.KeyIsPressed( VK_RIGHT ) )
     {
-        scrPos.x += 1.0f;
+        dir.x += 1.0f;
     }
-    DBOUT( scrPos.x );
-    DBOUT( "  " );
-    DBOUT( scrPos.y );
-    DBOUT( "\n" );
+    if ( wnd.kbd.KeyIsPressed( VK_SPACE ) )
+    {
+
+        Pl.setDir( dir,true );
+    }
+    else
+    {
+        Pl.setDir( dir,false );
+    }
+    Pl.Tick( dt );
 }
     
 
 void Game::ComposeFrame()
 {
-    map.Draw( scrPos,gfx );
+    map.Draw( Pl.PlayerPos() - Vec2i( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2 ),gfx );
+    Pl.Draw( gfx );
     gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
 }

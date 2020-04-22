@@ -14,6 +14,20 @@ public:
 		bottem( bottem_in )
 	{
 	}
+	Rec_( const Rec_<int>& rhs )
+		:
+		left( ( T )rhs.left ),
+		right( ( T )rhs.right),
+		top( ( T )rhs.top ),
+		bottem( ( T )rhs.bottem )
+	{}
+	Rec_( const Rec_<float> & rhs )
+		:
+		left( ( T )rhs.left ),
+		right( ( T )rhs.right ),
+		top( ( T )rhs.top ),
+		bottem( ( T )rhs.bottem )
+	{}
 	Rec_( const Vec2_<T>& topleft,const Vec2_<T>& bottemright )
 		:
 		Rec_( topleft.x,bottemright.x,topleft.y,bottemright.y )
