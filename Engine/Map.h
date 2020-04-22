@@ -2,33 +2,43 @@
 #include "Graphics.h"
 #include <map>
 
+struct customless
+{
+	bool operator()( const Vec2i& a,const Vec2i& b ) const
+	{
+		return a.y == b.y ? a.x < b.x : a.y < b.y;
+	}
+};
+
+class Tile
+{
+public:
+	Tile( const Vec2i& tPos,const int& Tdim )
+		:
+		tPos( tPos ),
+		TileDimantion( &Tdim )
+	{}
+	void Draw( const Vec2i& scrPos,Graphics& gfx );
+private:
+	const Vec2i tPos;
+	const int* TileDimantion;
+};
+
 class Map
 {
-private:
-	class Tile
-	{
-	public:
-		Tile( const Vec2i& pos,int blockid );
-		void Draw( const Vec2i& Plpos,Graphics& gfx ) const;
-	private:
-		Vec2i pos;
-		int blockid;
-	};
 public:
-	Map();
-	void Render( const Vec2i& Plpos,Graphics& gfx );
-	void Draw( const Vec2i& Plpos,Graphics& gfx );
-public:
-	static constexpr int ChunkDimantion = 16;
-	static constexpr int BlockDimantion = 16;
-private:
-	struct customless
+	Map()
 	{
-		bool operator()( const Vec2i& a,const Vec2i& b ) const
+		for ( int x = 0; x < 20; ++x )
 		{
-			return ( a.y * Map::ChunkDimantion + a.x ) < ( b.y * Map::ChunkDimantion + b.x );
+			mTiles.emplace( Vec2i( x,0 ),new Tile( Vec2i( x,0 ),TileDimantion ) );
 		}
-	};
-	std::map<Vec2i,Tile*,customless> pMap;
-	std::map<int,Tile*> rtiles;
+		mTiles.emplace( Vec2i( 0,1 ),new Tile( Vec2i( 0,1 ),TileDimantion ) );
+		mTiles.emplace( Vec2i( -1,-1 ),new Tile( Vec2i( -1,-1 ),TileDimantion ) );
+	}
+	std::map<Vec2i,Tile*,customless> getMap() const;
+	void Draw( const Vec2i& scrPos,Graphics& gfx );
+private:
+	std::map<Vec2i,Tile*,customless> mTiles;
+	static constexpr int TileDimantion = 16;
 };

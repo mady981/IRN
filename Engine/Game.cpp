@@ -50,30 +50,29 @@ void Game::UpdateModel()
 {
     if ( wnd.kbd.KeyIsPressed( VK_UP ) )
     {
-        dir.y -= 1.0;
+        scrPos.y -= 1.0;
     }
     if ( wnd.kbd.KeyIsPressed( VK_DOWN ) )
     {
-        dir.y += 1.0f;
+        scrPos.y += 1.0f;
     }
     if ( wnd.kbd.KeyIsPressed( VK_LEFT ) )
     {
-        dir.x -= 1.0f;
+        scrPos.x -= 1.0f;
     }
     if ( wnd.kbd.KeyIsPressed( VK_RIGHT ) )
     {
-        dir.x += 1.0f;
+        scrPos.x += 1.0f;
     }
-    map.Render( Vec2f( dir.x,dir.y ),gfx );
-    DBOUT( dir.x );
+    DBOUT( scrPos.x );
     DBOUT( "  " );
-    DBOUT( dir.y );
+    DBOUT( scrPos.y );
     DBOUT( "\n" );
 }
     
 
 void Game::ComposeFrame()
 {
-    map.Draw( dir,gfx );
+    map.Draw( scrPos,gfx );
     gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
 }

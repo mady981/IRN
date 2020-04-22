@@ -39,5 +39,5 @@ private:
 	MainWindow& wnd;
 	Graphics gfx;
     Map map;
-    Vec2f dir = { 0.0f,0.0f };
+    Vec2f scrPos = { 0.0f - ( float )gfx.ScreenWidth / 2.0f,0.0f - ( float )gfx.ScreenHeight / 2.0f };
 };
