@@ -3,7 +3,7 @@
 Entity::Entity( const Vec2f& pos,const Vec2f& vel,const float health,const float speed,const float jumpvel,
 	const float fallvelinc,const int width,const int height,const Surface& sprite,Map& map )
 	:
-	ePos( pos / map.getTileDimantion() ),
+	ePos( pos / ( float )map.getTileDimantion() ),
 	eVel( vel ),
 	eHealth( health ),
 	eSpeed( speed ),
@@ -19,11 +19,23 @@ Entity::Entity( const Vec2f& pos,const Vec2f& vel,const float health,const float
 void Entity::setDir( const Vec2f& dir,const bool jump )
 {
 	eVel = dir * eSpeed;
+	if ( map.Collishion( ePos.getRound(),EntityHitBox() ) )
+	{
+		eCurrCumpVel = 0;
+		if ( dir.y > 0 )
+		{
+			eVel.y = 0;
+		}
+		if ( jump )
+		{
+			eCurrCumpVel = eJumpVel;
+		}
+	}
 }
 
-void Entity::Draw( Graphics& gfx ) const
+void Entity::Draw( const Vec2i& scrPos,Graphics& gfx ) const
 {
-	// draw entity
+	gfx.DrawRecDimClip( ePos * ( float )map.getTileDimantion - scrPos,eWidth,eHeight,Colors::Red );
 }
 
 void Entity::Tick( const float dt )
@@ -45,13 +57,20 @@ void Entity::Jump( const float dt )
 
 void Entity::Physiks( const float dt )
 {
-	ePos.y -= eCurrFallVel * dt;
-	eCurrFallVel += eFallVelInc * dt;
+	if ( map.Collishion( ePos.getRound(),EntityHitBox() ) )
+	{
+		ePos.y -= eCurrFallVel * dt;
+		eCurrFallVel += eFallVelInc * dt;
+	}
+	else
+	{
+		eCurrFallVel = 0;
+	}
 }
 
-RecI Entity::EntityHitBox() const
+RecF Entity::EntityHitBox() const
 {
-	return RecI(
+	return RecF(
 		ePos.x * ( float )map.getTileDimantion() - eWidth / 2,
 		ePos.x * ( float )map.getTileDimantion() + eWidth / 2,
 		ePos.y * ( float )map.getTileDimantion() - eHealth,

@@ -10,14 +10,14 @@ public:
 	Entity( const Vec2f& pos,const Vec2f& vel,const float health,const float speed,const float jumpvel,
 		const float fallvelinc,const int width,const int height,const Surface& sprite,Map& map );
 	void setDir( const Vec2f& dir,const bool jump );
-	void Draw( Graphics& gfx ) const;
+	void Draw( const Vec2i& scrPos,Graphics& gfx ) const;
 	void Tick( const float dt );
 private:
 	void Update( const float dt );
 	void Jump( const float dt );
 	void Physiks( const float dt );
 public:
-	RecI EntityHitBox() const;
+	RecF EntityHitBox() const;
 private:
 	Vec2f ePos;
 	Vec2f eVel;
@@ -28,6 +28,7 @@ private:
 	const int eHeight;
 	const float eFallVelInc;
 	float eCurrFallVel = 0;
+	float eCurrCumpVel = 0;
 private:
 	const Surface eSprite;
 	std::vector<Animation> animations;
