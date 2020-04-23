@@ -69,6 +69,14 @@ public:
 	{
 		return !( *this == rhs );
 	}
+	Vec2_& Round()
+	{
+		return *this = getRound();
+	}
+	Vec2_ getRound() const
+	{
+		return { std::round( x ),std::round( y ) };
+	}
 	T getLength() const
 	{
 		return std::sqrt( getLengthSq() );

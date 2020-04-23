@@ -13,32 +13,22 @@ struct customless
 class Tile
 {
 public:
-	Tile( const Vec2i& tPos,const int& Tdim )
-		:
-		tPos( tPos ),
-		TileDimantion( &Tdim )
-	{}
+	Tile( const Vec2i& tPos,const int& Tdim );
 	void Draw( const Vec2i& scrPos,Graphics& gfx ) const;
 	RecI TileHitBox() const;
 private:
+	const RecI TileHB;
 	const Vec2i tPos;
-	const int* TileDimantion;
+	const int* pTileDimantion;
 };
 
 class Map
 {
 public:
-	Map()
-	{
-		for ( int x = 0; x < 20; ++x )
-		{
-			mTiles.emplace( Vec2i( x,0 ),new Tile( Vec2i( x,0 ),TileDimantion ) );
-		}
-		mTiles.emplace( Vec2i( 0,1 ),new Tile( Vec2i( 0,1 ),TileDimantion ) );
-		mTiles.emplace( Vec2i( -1,-1 ),new Tile( Vec2i( -1,-1 ),TileDimantion ) );
-	}
+	Map();
 	std::map<Vec2i,Tile*,customless> getMap() const;
 	void Draw( const Vec2i& scrPos,Graphics& gfx ) const;
+	bool Collishion( const Vec2i& other,const RecF& rec ) const;
 	int getTileDimantion() const;
 private:
 	std::map<Vec2i,Tile*,customless> mTiles;

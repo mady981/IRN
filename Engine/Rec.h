@@ -38,12 +38,12 @@ public:
 		Rec_( topleft,topleft + Vec2f( width,height ) )
 	{
 	}
-	bool isOverlappingWith( const Rec_& other ) const
+	bool isOverlappingWith( const Rec_<float>& other ) const
 	{
 		return right > other.left && left < other.right
 			&& bottem > other.top && top < other.bottem;
 	}
-	bool isOverlappingWith( const Vec2_<T>& other ) const
+	bool isOverlappingWith( const Vec2_<float>& other ) const
 	{
 		return right > other.x && left < other.x
 			&& bottem > other.y && top < other.y;

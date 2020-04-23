@@ -25,7 +25,7 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-    Pl( { 20,-50 } )
+    Pl( { 50,-300 },map )
 {
 }
 

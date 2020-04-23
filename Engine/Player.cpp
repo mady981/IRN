@@ -9,29 +9,22 @@
    OutputDebugStringW( os_.str().c_str() );  \
 }
 
-Player::Player( const Vec2f& pos )
+Player::Player( const Vec2f& pos,Map& map )
 	:
-	pos( pos )
+	map( map ),
+	pos( pos / ( float )map.getTileDimantion() )
 {
 }
 
 void Player::setDir( const Vec2f& dir,const bool jump )
 {
 	vel = dir * speed;
-	if ( map.getMap().contains( ( Vec2i )pos / map.getTileDimantion() - Vec2i( 0,1 ) ) )
+	if ( map.Collishion( pos.getRound(),PlayerHitBox() ) )
 	{
-		if ( map.getMap().find( ( Vec2i )pos / map.getTileDimantion() - Vec2i( 0,1 ) )->second->TileHitBox().isOverlappingWith( RecF{
-				PlayerHitBox().left / ( float )map.getTileDimantion(),
-				PlayerHitBox().right / ( float )map.getTileDimantion(),
-				PlayerHitBox().top / ( float )map.getTileDimantion(),
-				PlayerHitBox().bottem / ( float )map.getTileDimantion()
-				} ) )
+		jvel = 0;
+		if ( dir.y > 0 )
 		{
-			jvel = 0;
-			if ( dir.y > 0 )
-			{
-				vel.y = 0;
-			}
+			vel.y = 0;
 		}
 	}
 	if ( jump )
@@ -74,17 +67,9 @@ void Player::Jump( const float dt )
 void Player::Physiks( const float dt )
 {
 
-	if ( map.getMap().contains( ( Vec2i )pos / map.getTileDimantion() - Vec2i( 0,1 ) ) )
+	if ( map.Collishion( pos.getRound(),PlayerHitBox() ) )
 	{
-		if ( map.getMap().find( ( Vec2i )pos / map.getTileDimantion() - Vec2i( 0,1 ) )->second->TileHitBox().isOverlappingWith( RecF{
-				PlayerHitBox().left / ( float )map.getTileDimantion(),
-				PlayerHitBox().right / ( float )map.getTileDimantion(),
-				PlayerHitBox().top / ( float )map.getTileDimantion(),
-				PlayerHitBox().bottem / ( float )map.getTileDimantion()
-			} ) )
-		{
-			currfvel = 0.0f;
-		}
+		currfvel = 0.0f;
 	}
 	else
 	{
@@ -95,10 +80,15 @@ void Player::Physiks( const float dt )
 
 RecF Player::PlayerHitBox() const
 {
-	return RecF( pos.x,pos.x + 16.0f,pos.y - 24,pos.y );
+	return RecF(
+		pos.x * ( float )map.getTileDimantion() - PlayerWidth / 2,
+		pos.x * ( float )map.getTileDimantion() + PlayerWidth / 2,
+		pos.y * ( float )map.getTileDimantion() - PlayerHeight,
+		pos.y * ( float )map.getTileDimantion()
+	);
 }
 
-Vec2i Player::PlayerPos() const
+Vec2f Player::PlayerPos() const
 {
-	return Vec2i( pos );
+	return Vec2f( pos * ( float )map.getTileDimantion() );
 }
