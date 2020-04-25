@@ -1,7 +1,6 @@
 #pragma once
 #include "Graphics.h"
 #include <map>
-#include <vector>
 
 struct customless
 {
@@ -35,6 +34,7 @@ public:
 		mTiles.emplace( Vec2i( 2,1 ),new Tile( Vec2i( 2,1 ),1 ) );
 		mTiles.emplace( Vec2i( -1,-1 ),new Tile( Vec2i( -1,-1 ),1 ) );
 	}
+	~Map();
 	bool setTile( const Vec2i& pos,const int id = 0 );
 	int getContens( const Vec2i& pos );
 	bool Collision( const Vec2f& pos,const RecF& rec ) const;
