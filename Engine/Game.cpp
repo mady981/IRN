@@ -25,7 +25,8 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-    Pl( { 50,-300 },map )
+    Pl( { 3,-6 },map ),
+    cam( { 3,-6 },map,Pl )
 {
 }
 
@@ -41,6 +42,8 @@ void Game::UpdateModel()
 {
     dt = ft.Duration();
     Vec2f dir = { 0.0f,0.0f };
+    Vec2f cdir = { 0.0f,0.0f };
+    bool jump = false;
     if ( wnd.kbd.KeyIsPressed( VK_UP ) )
     {
         dir.y -= 1.0;
@@ -59,20 +62,32 @@ void Game::UpdateModel()
     }
     if ( wnd.kbd.KeyIsPressed( VK_SPACE ) )
     {
-
-        Pl.setDir( dir,true );
+        jump = true;
     }
-    else
+    if ( wnd.kbd.KeyIsPressed( 'W' ) )
     {
-        Pl.setDir( dir,false );
+        cdir.y -= 1.0;
     }
+    if ( wnd.kbd.KeyIsPressed( 'S' ) )
+    {
+        cdir.y += 1.0f;
+    }
+    if ( wnd.kbd.KeyIsPressed( 'A' ) )
+    {
+        cdir.x -= 1.0f;
+    }
+    if ( wnd.kbd.KeyIsPressed( 'D' ) )
+    {
+        cdir.x += 1.0f;
+    }
+    Pl.setDir( dir,jump );
     Pl.Tick( dt );
+    cam.Move( cdir );
+    cam.Update( dt );
 }
-    
 
 void Game::ComposeFrame()
 {
-    map.Draw( Pl.PlayerPos() - Vec2i( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2 ),gfx );
-    Pl.Draw( gfx );
     gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
+    cam.Draw( gfx );
 }

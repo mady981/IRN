@@ -7,15 +7,16 @@ class Player
 public:
 	Player( const Vec2f& pos,Map& map );
 	void setDir( const Vec2f& dir,const bool jump );
-	void Draw( Graphics& gfx ) const;
 	void Tick( const float& dt );
+	RecF PlHitBox() const;
+	Vec2f PlPos() const;
+	int PlWidth() const;
+	int PlHeight() const;
 private:
 	void Update( const float dt );
 	void Jump( const float dt );
 	void Physiks( const float dt );
 public:
-	RecF PlayerHitBox() const;
-	Vec2f PlayerPos() const;
 private:
 	Vec2f pos;
 	Vec2f vel = { 0,0 };

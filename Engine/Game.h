@@ -25,6 +25,7 @@
 #include "Graphics.h"
 #include "Map.h"
 #include "Player.h"
+#include "Camera.h"
 #include "FrameTimer.h"
 
 class Game
@@ -43,6 +44,7 @@ private:
     FrameTimer ft;
     Map map;
     Player Pl;
+    Camara cam;
 private:
     float dt = 0;
 };

@@ -75,7 +75,7 @@ public:
 	}
 	Vec2_ getRound() const
 	{
-		return { std::round( x ),std::round( y ) };
+		return { ( T )round( x ),( T )round( y ) };
 	}
 	T getLength() const
 	{

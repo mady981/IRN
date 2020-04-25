@@ -1,65 +1,39 @@
 #include "Map.h"
 #include <assert.h>
 
-Tile::Tile( const Vec2i& tPos,const int& Tdim )
-	:
-	tPos( tPos ),
-	pTileDimantion( &Tdim ),
-	TileHB( RecI( tPos.x* Tdim,tPos.x* Tdim + Tdim,tPos.y* Tdim,tPos.y* Tdim + Tdim ) )
+bool Map::setTile( const Vec2i& pos,const int id )
 {
-}
-
-void Tile::Draw( const Vec2i& scrPos,Graphics& gfx ) const
-{
-	gfx.DrawRecDimClip( ( tPos * *pTileDimantion ) - scrPos,*pTileDimantion - 1,*pTileDimantion - 1,Colors::Green );
-}
-
-RecI Tile::TileHitBox() const
-{
-	return TileHB;
-}
-
-Map::Map()
-{
-	for ( int x = 2; x < 20; ++x )
+	if ( !mTiles.contains( pos ) )
 	{
-		mTiles.emplace( Vec2i( x,0 ),new Tile( Vec2i( x,0 ),TileDimantion ) );
-	}
-	mTiles.emplace( Vec2i( 0,1 ),new Tile( Vec2i( 0,1 ),TileDimantion ) );
-	mTiles.emplace( Vec2i( -1,-1 ),new Tile( Vec2i( -1,-1 ),TileDimantion ) );
-	mTiles.emplace( Vec2i( -2,-2 ),new Tile( Vec2i( -2,-2 ),TileDimantion ) );
-}
-
-std::map<Vec2i,Tile*,customless> Map::getMap() const
-{
-	return mTiles;
-}
-
-void Map::Draw( const Vec2i& scrPos,Graphics& gfx ) const
-{
-	for ( auto t : mTiles )
-	{
-		t.second->Draw( scrPos,gfx );
-	}
-}
-
-bool Map::Collishion( const Vec2i& other,const RecF& rec ) const
-{
-	// check if target exists
-	for ( int x = -1; x <= 1; ++x )
-	{
-		if ( mTiles.contains( other + Vec2i( x,0 ) ) )
+		if ( id == -1 )
 		{
-			if ( mTiles.find( other + Vec2i( x,0 ) )->second->TileHitBox().isOverlappingWith( rec ) )
-			{
-				return true;
-			}
+			delete mTiles.find( pos )->second;
+			mTiles.erase( pos );
+			return true;
+		}
+		else
+		{
+			mTiles.emplace( pos,new Tile( pos,id ) );
+			return true;
 		}
 	}
 	return false;
 }
 
-int Map::getTileDimantion() const
+int Map::getContens( const Vec2i& pos )
 {
-	return TileDimantion;
+	if ( mTiles.contains( pos ) )
+	{
+		return mTiles.find( pos )->second->id;
+	}
+	return -1;
+}
+
+bool Map::Collision( const Vec2f& pos,const RecF& rec ) const
+{
+	if ( mTiles.contains( pos.getRound() ) )
+	{
+		return mTiles.find( pos.getRound() )->second->TileHitBox.isOverlappingWith( rec );
+	}
+	return false;
 }
