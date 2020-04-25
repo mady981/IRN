@@ -31,9 +31,15 @@ int Map::getContens( const Vec2i& pos )
 
 bool Map::Collision( const Vec2f& pos,const RecF& rec ) const
 {
-	if ( mTiles.contains( pos.getRound() ) )
+	for ( int y = -1; y <= 1; ++y )
 	{
-		return mTiles.find( pos.getRound() )->second->TileHitBox.isOverlappingWith( rec );
+		for ( int x = -1; x <= 1; ++x )
+		{
+			if ( mTiles.contains( pos.getRound() - Vec2i( x,y ) ) )
+			{
+				return mTiles.find( pos.getRound() - Vec2i( x,y ) )->second->TileHitBox.isOverlappingWith( rec );
+			}
+		}
 	}
 	return false;
 }

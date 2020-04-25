@@ -33,7 +33,7 @@ public:
 		mTiles.emplace( Vec2i( 0,0 ),new Tile( Vec2i( 0,0 ),1 ) );
 		mTiles.emplace( Vec2i( 1,0 ),new Tile( Vec2i( 1,0 ),1 ) );
 		mTiles.emplace( Vec2i( 2,1 ),new Tile( Vec2i( 2,1 ),1 ) );
-		mTiles.emplace( Vec2i( -1,0 ),new Tile( Vec2i( -1,0 ),1 ) );
+		mTiles.emplace( Vec2i( -1,-1 ),new Tile( Vec2i( -1,-1 ),1 ) );
 	}
 	bool setTile( const Vec2i& pos,const int id = 0 );
 	int getContens( const Vec2i& pos );
