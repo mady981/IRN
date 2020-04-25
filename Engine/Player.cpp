@@ -1,4 +1,13 @@
 #include "Player.h"
+#include <iostream>
+#include <sstream>
+
+#define DBOUT( s )            \
+{                             \
+   std::wostringstream os_;    \
+   os_ << s;                   \
+   OutputDebugStringW( os_.str().c_str() );  \
+}
 
 Player::Player( const Vec2f& pos,Map& map )
 	:
@@ -33,7 +42,12 @@ void Player::Tick( const float& dt )
 
 RecF Player::PlHitBox() const
 {
-	return RecF( pos.x - PlayerWidth / 2,pos.x + PlayerWidth / 2,pos.y - PlayerHeight,pos.y );
+	return RecF(
+		pos.x * map.getTileDim() - PlayerWidth / 2,
+		pos.x * map.getTileDim() + PlayerWidth / 2,
+		pos.y * map.getTileDim() - PlayerHeight,
+		pos.y * map.getTileDim()
+	);
 }
 
 Vec2f Player::PlPos() const
@@ -54,6 +68,10 @@ int Player::PlHeight() const
 void Player::Update( const float dt )
 {
 	pos += vel * dt;
+	DBOUT( pos.x );
+	DBOUT( "  " );
+	DBOUT( pos.y );
+	DBOUT( "\n" );
 }
 
 void Player::Jump( const float dt )

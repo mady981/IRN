@@ -10,22 +10,30 @@ struct customless
 	}
 };
 
-class Tile
-{
-public:
-	Tile( const Vec2i& pos,const int id )
-		:
-		pos( pos ),
-		id( id )
-	{}
-	const Vec2i pos;
-	const int id;
-	static constexpr int TileDimantion = 16;
-	const RecI TileHitBox = RecI( pos.x,pos.x + TileDimantion,pos.y,pos.y + TileDimantion );
-};
-
 class Map
 {
+private:
+	class Tile
+	{
+	public:
+		Tile( const Vec2i& pos,const int id )
+			:
+			pos( pos ),
+			id( id )
+		{}
+		RecI TileHitBox() const
+		{
+			return RecI(
+				pos.x * TileDimantion,
+				pos.x * TileDimantion + TileDimantion,
+				pos.y * TileDimantion,
+				pos.y * TileDimantion + TileDimantion
+			);
+		}
+		const Vec2i pos;
+		const int id;
+		static constexpr int TileDimantion = 16;
+	};
 public:
 	Map()
 	{
@@ -38,6 +46,7 @@ public:
 	bool setTile( const Vec2i& pos,const int id = 0 );
 	int getContens( const Vec2i& pos );
 	bool Collision( const Vec2f& pos,const RecF& rec ) const;
+	int getTileDim() const;
 private:
 	std::map<Vec2i,Tile*,customless> mTiles;
 };

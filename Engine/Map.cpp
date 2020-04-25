@@ -43,11 +43,20 @@ bool Map::Collision( const Vec2f& pos,const RecF& rec ) const
 	{
 		for ( int x = -1; x <= 1; ++x )
 		{
-			if ( mTiles.contains( pos.getRound() - Vec2i( x,y ) ) )
+			if ( mTiles.contains( pos - Vec2i( x,y ) ) )
 			{
-				return mTiles.find( pos.getRound() - Vec2i( x,y ) )->second->TileHitBox.isOverlappingWith( rec );
+				// change to if
+				if ( mTiles.find( pos - Vec2i( x,y ) )->second->TileHitBox().isOverlappingWith( rec ) )
+				{
+					return true;
+				}
 			}
 		}
 	}
 	return false;
+}
+
+int Map::getTileDim() const
+{
+	return Tile::TileDimantion;
 }

@@ -25,8 +25,8 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-    Pl( { 3,-6 },map ),
-    cam( { 3,-6 },map,Pl )
+    Pl( { 0,0 },map ),
+    cam( { 0,0 },map,Pl )
 {
 }
 
