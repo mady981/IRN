@@ -84,6 +84,10 @@ void Game::UpdateModel()
     Pl.Tick( dt );
     cam.Move( cdir );
     cam.Update( dt );
+    if ( wnd.kbd.KeyIsPressed( 'P' ) )
+    {
+        Pl.debugSetPlayer( { 0,-1 },0.0f );
+    }
 }
 
 void Game::ComposeFrame()

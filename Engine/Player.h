@@ -12,6 +12,11 @@ public:
 	Vec2f PlPos() const;
 	int PlWidth() const;
 	int PlHeight() const;
+	void debugSetPlayer( const Vec2f& debugpos,float fallvel )
+	{
+		pos = debugpos;
+		currfvel = fallvel;
+	}
 private:
 	void Update( const float dt );
 	void Jump( const float dt );

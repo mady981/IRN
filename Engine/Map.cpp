@@ -45,8 +45,7 @@ bool Map::Collision( const Vec2f& pos,const RecF& rec ) const
 		{
 			if ( mTiles.contains( pos - Vec2i( x,y ) ) )
 			{
-				// change to if
-				if ( mTiles.find( pos - Vec2i( x,y ) )->second->TileHitBox().isOverlappingWith( rec ) )
+				if ( mTiles.find( pos - Vec2i( x,y ) )->second->TileHitBox.isOverlappingWith( rec ) )
 				{
 					return true;
 				}

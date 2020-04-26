@@ -37,7 +37,7 @@ void Player::Tick( const float& dt )
 {
 	Update( dt );
 	Jump( dt );
-	//Physiks( dt );
+	Physiks( dt );
 }
 
 RecF Player::PlHitBox() const
