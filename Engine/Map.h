@@ -2,14 +2,6 @@
 #include "Graphics.h"
 #include <map>
 
-struct customless
-{
-	bool operator()( const Vec2i& a,const Vec2i& b ) const
-	{
-		return a.y == b.y ? a.x < b.x : a.y < b.y;
-	}
-};
-
 class Map
 {
 private:
@@ -48,5 +40,5 @@ public:
 	bool Collision( const Vec2f& pos,const RecF& rec ) const;
 	int getTileDim() const;
 private:
-	std::map<Vec2i,Tile*,customless> mTiles;
+	std::map<Vec2i,Tile*> mTiles;
 };

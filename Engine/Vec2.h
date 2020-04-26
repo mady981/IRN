@@ -61,14 +61,7 @@ public:
 	{
 		return *this = *this / rhs;
 	}
-	bool operator==( const Vec2_& rhs ) const
-	{
-		return x == rhs.x && y == rhs.y;
-	}
-	bool operator!=( const Vec2_& rhs ) const
-	{
-		return !( *this == rhs );
-	}
+	auto operator<=>( const Vec2_& ) const = default;
 	Vec2_& Round()
 	{
 		return *this = getRound();
