@@ -7,6 +7,7 @@ Map::~Map()
 	{
 		delete t.second;
 	}
+	delete pSprite;
 }
 
 bool Map::setTile( const Vec2i& pos,const int id )
@@ -21,7 +22,7 @@ bool Map::setTile( const Vec2i& pos,const int id )
 		}
 		else
 		{
-			mTiles.emplace( pos,new Tile( pos,id ) );
+			mTiles.emplace( pos,new Tile( pos,id,*pSprite ) );
 			return true;
 		}
 	}
@@ -45,7 +46,7 @@ bool Map::Collision( const Vec2f& pos,const RecF& rec ) const
 		{
 			if ( mTiles.contains( pos - Vec2i( x,y ) ) )
 			{
-				if ( mTiles.find( pos - Vec2i( x,y ) )->second->TileHitBox.isOverlappingWith( rec ) )
+				if ( mTiles.find( pos - Vec2i( x,y ) )->second->TileHitBox().isOverlappingWith( rec ) )
 				{
 					return true;
 				}
@@ -55,7 +56,7 @@ bool Map::Collision( const Vec2f& pos,const RecF& rec ) const
 	return false;
 }
 
-int Map::getTileDim() const
+Surface* Map::TileSprite() const
 {
-	return Tile::TileDimantion;
+	return pSprite;
 }

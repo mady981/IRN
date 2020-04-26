@@ -7,18 +7,12 @@ class Player
 {
 public:
 	Player( const Vec2f& pos,Map& map );
+	~Player();
 	void setDir( const Vec2f& dir,const bool jump );
 	void Tick( const float& dt );
 	RecF PlHitBox() const;
 	Vec2f PlPos() const;
-	int PlWidth() const;
-	int PlHeight() const;
-	Surface PlSprite() const;
-	void debugSetPlayer( const Vec2f& debugpos,float fallvel )
-	{
-		pos = debugpos;
-		currfvel = fallvel;
-	}
+	Surface* PlSprite() const;
 private:
 	void Update( const float dt );
 	void Jump( const float dt );
@@ -32,9 +26,12 @@ private:
 	static constexpr float jumpspeed = 20.0f;
 	static constexpr float speed = 10.0f;
 private:
-	static constexpr int PlayerWidth = 16;
-	static constexpr int PlayerHeight = 24;
-private:
 	Map& map;
-	Surface sprite = Surface( L"../Engine/Sprite/Player.bmp" );
+	Surface* pSprite = new Surface( L"../Engine/Sprite/Player.bmp" );
+public:
+	void debugSetPlayer( const Vec2f& debugpos,float fallvel )
+	{
+		pos = debugpos;
+		currfvel = fallvel;
+	}
 };

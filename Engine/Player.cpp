@@ -16,6 +16,11 @@ Player::Player( const Vec2f& pos,Map& map )
 {
 }
 
+Player::~Player()
+{
+	delete pSprite;
+}
+
 void Player::setDir( const Vec2f& dir,const bool jump )
 {
 	vel = dir * speed;
@@ -43,10 +48,10 @@ void Player::Tick( const float& dt )
 RecF Player::PlHitBox() const
 {
 	return RecF(
-		pos.x * map.getTileDim() - PlayerWidth / 2,
-		pos.x * map.getTileDim() + PlayerWidth / 2,
-		pos.y * map.getTileDim() - PlayerHeight,
-		pos.y * map.getTileDim()
+		pos.x * map.TileSprite()->getWidht() - pSprite->getWidht() / 2,
+		pos.x * map.TileSprite()->getWidht() + pSprite->getWidht() / 2,
+		pos.y * map.TileSprite()->getHeight() - pSprite->getHeight(),
+		pos.y * map.TileSprite()->getHeight()
 	);
 }
 
@@ -55,19 +60,9 @@ Vec2f Player::PlPos() const
 	return Vec2f( pos );
 }
 
-int Player::PlWidth() const
+Surface* Player::PlSprite() const
 {
-	return PlayerWidth;
-}
-
-int Player::PlHeight() const
-{
-	return PlayerHeight;
-}
-
-Surface Player::PlSprite() const
-{
-	return Surface( sprite );
+	return pSprite;
 }
 
 void Player::Update( const float dt )
