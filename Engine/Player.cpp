@@ -65,6 +65,11 @@ int Player::PlHeight() const
 	return PlayerHeight;
 }
 
+Surface Player::PlSprite() const
+{
+	return Surface( sprite );
+}
+
 void Player::Update( const float dt )
 {
 	pos += vel * dt;

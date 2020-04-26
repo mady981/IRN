@@ -39,13 +39,18 @@ void Camara::Draw( Graphics& gfx ) const
 			}
 		}
 	}
-	gfx.DrawRecDimClip(
-		Vec2f(
-			( ( Pl.PlPos().x - cPos.x ) * 16.0f - Pl.PlWidth() / 2 ) + gfx.ScreenWidth / 2,
-			( ( Pl.PlPos().y - cPos.y ) * 16.0f - Pl.PlHeight() ) + gfx.ScreenHeight / 2
-		),
-		Pl.PlWidth(),
-		Pl.PlHeight(),
-		Colors::Blue
+	gfx.DrawSprite(
+		( int )( ( ( Pl.PlPos().x - cPos.x ) * 16.0f - Pl.PlWidth() / 2 ) + gfx.ScreenWidth / 2 ),
+		( int )( ( ( Pl.PlPos().y - cPos.y ) * 16.0f - Pl.PlHeight() ) + gfx.ScreenHeight / 2 ),
+		Pl.PlSprite()
 	);
+	//gfx.DrawRecDimClip(
+	//	Vec2f(
+	//		( ( Pl.PlPos().x - cPos.x ) * 16.0f - Pl.PlWidth() / 2 ) + gfx.ScreenWidth / 2,
+	//		( ( Pl.PlPos().y - cPos.y ) * 16.0f - Pl.PlHeight() ) + gfx.ScreenHeight / 2
+	//	),
+	//	Pl.PlWidth(),
+	//	Pl.PlHeight(),
+	//	Colors::Blue
+	//);
 }

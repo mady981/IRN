@@ -1,6 +1,7 @@
 #pragma once
 #include "Graphics.h"
 #include "Map.h"
+#include "Surface.h"
 
 class Player
 {
@@ -12,6 +13,7 @@ public:
 	Vec2f PlPos() const;
 	int PlWidth() const;
 	int PlHeight() const;
+	Surface PlSprite() const;
 	void debugSetPlayer( const Vec2f& debugpos,float fallvel )
 	{
 		pos = debugpos;
@@ -21,7 +23,6 @@ private:
 	void Update( const float dt );
 	void Jump( const float dt );
 	void Physiks( const float dt );
-public:
 private:
 	Vec2f pos;
 	Vec2f vel = { 0,0 };
@@ -35,4 +36,5 @@ private:
 	static constexpr int PlayerHeight = 24;
 private:
 	Map& map;
+	Surface sprite = Surface( L"../Engine/Sprite/Player.bmp" );
 };
