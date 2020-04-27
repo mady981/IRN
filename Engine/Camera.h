@@ -8,6 +8,7 @@ class Camara
 {
 public:
 	Camara( const Vec2f& cPos,Map& map,Player& Pl );
+	void BindToPlayer( const Vec2f& PlayerPos );
 	void Move( const Vec2f& dir );
 	void Update( float dt );
 	void Draw( Graphics& gfx ) const;

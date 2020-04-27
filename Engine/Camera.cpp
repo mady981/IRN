@@ -8,6 +8,11 @@ Camara::Camara( const Vec2f& cPos,Map& map,Player& Pl )
 {
 }
 
+void Camara::BindToPlayer( const Vec2f& PlayerPos )
+{
+	cPos = PlayerPos;
+}
+
 void Camara::Move( const Vec2f& dir )
 {
 	cVel = dir * 10.0f;

@@ -47,4 +47,5 @@ private:
     Camara cam;
 private:
     float dt = 0;
+    bool FreeCam = false;
 };

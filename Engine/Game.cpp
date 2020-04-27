@@ -44,50 +44,67 @@ void Game::UpdateModel()
     Vec2f dir = { 0.0f,0.0f };
     Vec2f cdir = { 0.0f,0.0f };
     bool jump = false;
-    if ( wnd.kbd.KeyIsPressed( VK_UP ) )
-    {
-        dir.y -= 1.0;
-    }
-    if ( wnd.kbd.KeyIsPressed( VK_DOWN ) )
-    {
-        dir.y += 1.0f;
-    }
-    if ( wnd.kbd.KeyIsPressed( VK_LEFT ) )
-    {
-        dir.x -= 1.0f;
-    }
-    if ( wnd.kbd.KeyIsPressed( VK_RIGHT ) )
-    {
-        dir.x += 1.0f;
-    }
     if ( wnd.kbd.KeyIsPressed( VK_SPACE ) )
     {
         jump = true;
     }
     if ( wnd.kbd.KeyIsPressed( 'W' ) )
     {
-        cdir.y -= 1.0;
+        dir.y -= 1.0;
     }
     if ( wnd.kbd.KeyIsPressed( 'S' ) )
     {
-        cdir.y += 1.0f;
+        dir.y += 1.0f;
     }
     if ( wnd.kbd.KeyIsPressed( 'A' ) )
     {
-        cdir.x -= 1.0f;
+        dir.x -= 1.0f;
     }
     if ( wnd.kbd.KeyIsPressed( 'D' ) )
     {
-        cdir.x += 1.0f;
+        dir.x += 1.0f;
     }
     Pl.setDir( dir,jump );
     Pl.Tick( dt );
-    cam.Move( cdir );
-    cam.Update( dt );
-    if ( wnd.kbd.KeyIsPressed( 'P' ) )
+    if ( !FreeCam )
+    {
+        if ( wnd.kbd.KeyIsPressed( 'M' ) )
+        {
+            FreeCam = true;
+        }
+        cam.BindToPlayer( Pl.PlPos() );
+    }
+    else
+    {
+        if ( wnd.kbd.KeyIsPressed( 'P' ) )
+        {
+            FreeCam = false;
+        }
+        if ( wnd.kbd.KeyIsPressed( VK_UP ) )
+        {
+            cdir.y -= 1.0;
+        }
+        if ( wnd.kbd.KeyIsPressed( VK_DOWN ) )
+        {
+            cdir.y += 1.0f;
+        }
+        if ( wnd.kbd.KeyIsPressed( VK_LEFT ) )
+        {
+            cdir.x -= 1.0f;
+        }
+        if ( wnd.kbd.KeyIsPressed( VK_RIGHT ) )
+        {
+            cdir.x += 1.0f;
+        }
+        cam.Move( cdir );
+        cam.Update( dt );
+    }
+    /*------Test Code---------------------*/
+    if ( wnd.kbd.KeyIsPressed( 'R' ) )
     {
         Pl.debugSetPlayer( { 0,-1 },0.0f );
     }
+    /*------Test Code---------------------*/
 }
 
 void Game::ComposeFrame()
