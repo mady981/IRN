@@ -21,6 +21,16 @@
 #include "MainWindow.h"
 #include "Game.h"
 
+#include <iostream>
+#include <sstream>
+
+#define DBOUT( s )            \
+{                             \
+   std::wostringstream os_;    \
+   os_ << s;                   \
+   OutputDebugStringW( os_.str().c_str() );  \
+}
+
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
@@ -106,6 +116,16 @@ void Game::UpdateModel()
     {
         Pl.debugSetPlayer( { 0,-1 },0.0f );
     }
+    if ( wnd.kbd.KeyIsPressed( 'J' ) )
+    {
+        Pl.PlDamage( 10.0f );
+    }
+    if ( wnd.kbd.KeyIsPressed( 'H' ) )
+    {
+        Pl.healPlayer( 10.0f );
+    }
+    DBOUT( Pl.getPlHP() );
+    DBOUT( "\n" );
     /*------Test Code---------------------*/
 }
 

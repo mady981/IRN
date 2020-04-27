@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <assert.h>
 #include <iostream>
 #include <sstream>
 
@@ -45,6 +46,17 @@ void Player::Tick( const float& dt )
 	Physiks( dt );
 }
 
+void Player::PlDamage( const float damage )
+{
+	//assert( currhp > 0 );
+	assert( damage >= 0 );
+	currhp -= damage;
+	if ( currhp <= 0.0f )
+	{
+		isAlive = false;
+	}
+}
+
 RecF Player::PlHitBox() const
 {
 	return RecF(
@@ -65,13 +77,18 @@ Surface* Player::PlSprite() const
 	return pSprite;
 }
 
+float Player::getPlHP() const
+{
+	return currhp;
+}
+
 void Player::Update( const float dt )
 {
 	pos += vel * dt;
-	DBOUT( pos.x );
-	DBOUT( "  " );
-	DBOUT( pos.y );
-	DBOUT( "\n" );
+	//DBOUT( pos.x );
+	//DBOUT( "  " );
+	//DBOUT( pos.y );
+	//DBOUT( "\n" );
 	//if ( oldy > pos.y )
 	//{
 	//	DBOUT( pos.y );
