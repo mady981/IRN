@@ -18,9 +18,9 @@ private:
 		{
 			return RecI(
 				pos.x * pSprite.getWidth(),
-				pos.x * ( 2 * pSprite.getWidth() ),
+				pos.x * pSprite.getWidth() + pSprite.getWidth(),
 				pos.y * pSprite.getHeight(),
-				pos.y * ( 2 * pSprite.getHeight() )
+				pos.y * pSprite.getHeight() + pSprite.getHeight()
 			);
 		}
 		const Vec2i pos;
@@ -30,13 +30,17 @@ private:
 public:
 	Map()
 	{
-		//mTiles.emplace( Vec2i( 0,0 ),new Tile( Vec2i( 0,0 ),1 ) );
-		//mTiles.emplace( Vec2i( 1,0 ),new Tile( Vec2i( 1,0 ),1 ) );
-		//mTiles.emplace( Vec2i( 2,1 ),new Tile( Vec2i( 2,1 ),1 ) );
-		//mTiles.emplace( Vec2i( -1,-1 ),new Tile( Vec2i( -1,-1 ),1 ) );
-		for ( int x = 0; x < 100; ++x )
+		for ( int x = -20; x < 10; ++x )
 		{
 			mTiles.emplace( Vec2i( x,0 ),new Tile( Vec2i( x,0 ),1,*pSprite ) );
+		}
+		for ( int p = 10; p < 30; ++p )
+		{
+			mTiles.emplace( Vec2i( p,-p + 10 ),new Tile( Vec2i( p,-p + 10 ),1,*pSprite ) );
+		}
+		for ( int x = -25; x < -15; ++x )
+		{
+			mTiles.emplace( Vec2i( x,-5 ),new Tile( Vec2i( x,-5 ),1,*pSprite ) );
 		}
 	}
 	~Map();

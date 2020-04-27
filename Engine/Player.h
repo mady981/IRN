@@ -34,4 +34,5 @@ public:
 		pos = debugpos;
 		currfvel = fallvel;
 	}
+	float oldy = 0;
 };

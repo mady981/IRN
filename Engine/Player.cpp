@@ -72,6 +72,12 @@ void Player::Update( const float dt )
 	DBOUT( "  " );
 	DBOUT( pos.y );
 	DBOUT( "\n" );
+	//if ( oldy > pos.y )
+	//{
+	//	DBOUT( pos.y );
+	//	DBOUT( "\n" );
+	//	oldy = pos.y;
+	//}
 }
 
 void Player::Jump( const float dt )
