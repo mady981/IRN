@@ -2,7 +2,6 @@
 #include "Graphics.h"
 #include "Map.h"
 #include "Player.h"
-#include "SpriteCodex.h"
 
 class Camara
 {
@@ -17,5 +16,4 @@ private:
 	Vec2f cVel = { 0.0f,0.0f };
 	Map& map;
 	Player& Pl;
-	SpriteCodex sc;
 };

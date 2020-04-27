@@ -104,7 +104,7 @@ Color Surface::GetPixel( int x,int y ) const
 	return pPixel[y * width + x];
 }
 
-int Surface::getWidht() const
+int Surface::getWidth() const
 {
 	return width;
 }

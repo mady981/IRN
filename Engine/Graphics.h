@@ -70,7 +70,7 @@ public:
 
 	void DrawSpriteNoChroma( int x,int y,const Surface& s )
 	{
-		DrawSpriteNoChroma( x,y,{ 0,s.getWidht(),0,s.getHeight() },s );
+		DrawSpriteNoChroma( x,y,{ 0,s.getWidth(),0,s.getHeight() },s );
 	};
 	void DrawSpriteNoChroma( int x,int y,RecI srcRect,const Surface& s )
 	{
@@ -80,7 +80,7 @@ public:
 
 	void DrawSprite( int x,int y,const Surface& s,Color chroma = Colors::Magenta )
 	{
-		DrawSprite( x,y,{ 0,s.getWidht(),0,s.getHeight() },s,chroma );
+		DrawSprite( x,y,{ 0,s.getWidth(),0,s.getHeight() },s,chroma );
 	}
 	void DrawSprite( int x,int y,RecI srcRect,const Surface& s,Color chroma = Colors::Magenta )
 	{

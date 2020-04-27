@@ -158,7 +158,6 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />
-    <ClInclude Include="SpriteCodex.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Vec2.h" />

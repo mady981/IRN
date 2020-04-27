@@ -48,8 +48,8 @@ void Player::Tick( const float& dt )
 RecF Player::PlHitBox() const
 {
 	return RecF(
-		pos.x * map.TileSprite()->getWidht() - pSprite->getWidht() / 2,
-		pos.x * map.TileSprite()->getWidht() + pSprite->getWidht() / 2,
+		pos.x * map.TileSprite()->getWidth() - pSprite->getWidth() / 2,
+		pos.x * map.TileSprite()->getWidth() + pSprite->getWidth() / 2,
 		pos.y * map.TileSprite()->getHeight() - pSprite->getHeight(),
 		pos.y * map.TileSprite()->getHeight()
 	);

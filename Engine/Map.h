@@ -17,8 +17,8 @@ private:
 		RecI TileHitBox() const
 		{
 			return RecI(
-				pos.x * pSprite.getWidht(),
-				pos.x * ( 2 * pSprite.getWidht() ),
+				pos.x * pSprite.getWidth(),
+				pos.x * ( 2 * pSprite.getWidth() ),
 				pos.y * pSprite.getHeight(),
 				pos.y * ( 2 * pSprite.getHeight() )
 			);
@@ -34,9 +34,9 @@ public:
 		//mTiles.emplace( Vec2i( 1,0 ),new Tile( Vec2i( 1,0 ),1 ) );
 		//mTiles.emplace( Vec2i( 2,1 ),new Tile( Vec2i( 2,1 ),1 ) );
 		//mTiles.emplace( Vec2i( -1,-1 ),new Tile( Vec2i( -1,-1 ),1 ) );
-		for ( int p = 0; p < 100; ++p )
+		for ( int x = 0; x < 100; ++x )
 		{
-			mTiles.emplace( Vec2i( p,p ),new Tile( Vec2i( p,p ),1,*pSprite ) );
+			mTiles.emplace( Vec2i( x,0 ),new Tile( Vec2i( x,0 ),1,*pSprite ) );
 		}
 	}
 	~Map();

@@ -4,7 +4,7 @@ Text::Text( const int Rows,const int Collums,Surface& font,Color chroma )
 	:
 	font( font ),
 	chroma( chroma ),
-	CharWidth( font.getWidht() / Rows ),
+	CharWidth( font.getWidth() / Rows ),
 	CharHeight( font.getHeight() / Collums )
 {
 }
@@ -21,7 +21,7 @@ void Text::DrawText( const std::string& text,const Vec2i& pos,Graphics& gfx ) co
 
 RecI Text::CharMaping( char c ) const
 {
-	const char y = c / ( font.getWidht() / CharWidth );
-	const char x = c % ( font.getWidht() / CharWidth );
+	const char y = c / ( font.getWidth() / CharWidth );
+	const char x = c % ( font.getWidth() / CharWidth );
 	return RecI( x * CharWidth,( x + 1 ) * CharWidth,y * CharHeight,( y + 1 ) * CharHeight );
 }
