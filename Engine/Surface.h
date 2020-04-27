@@ -16,7 +16,6 @@ public:
 	int getHeight() const;
 private:
 	Color* pPixel = nullptr;
-	Color* pSPixel = nullptr;
 	int width;
 	int height;
 };
