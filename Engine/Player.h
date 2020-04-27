@@ -42,11 +42,7 @@ public:
 	}
 	void healPlayer( float heal )
 	{
-		if ( currhp < maxhp )
-		{
-			currhp += heal;
-		}
-		else
+		if ( ( currhp += heal ) > maxhp )
 		{
 			currhp = maxhp;
 		}

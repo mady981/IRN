@@ -36,7 +36,8 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
     Pl( { 0,0 },map ),
-    cam( { 0,0 },map,Pl )
+    cam( { 0,0 },map,Pl ),
+    ol( gfx )
 {
 }
 
@@ -116,13 +117,21 @@ void Game::UpdateModel()
     {
         Pl.debugSetPlayer( { 0,-1 },0.0f );
     }
-    if ( wnd.kbd.KeyIsPressed( 'J' ) )
+    if ( wnd.kbd.KeyIsPressed( 'J' ) && !ispresst )
     {
-        Pl.PlDamage( 10.0f );
+        std::uniform_real_distribution<float> rDamage( 0.0f,10.0f );
+        Pl.PlDamage( rDamage( rng ) );
+        ispresst = true;
     }
-    if ( wnd.kbd.KeyIsPressed( 'H' ) )
+    else if ( wnd.kbd.KeyIsPressed( 'H' ) && !ispresst )
     {
-        Pl.healPlayer( 10.0f );
+        Pl.healPlayer( 100.0f );
+        ispresst = true;
+    }
+    const Keyboard::Event e = wnd.kbd.ReadKey();
+    if ( e.IsRelease() )
+    {
+        ispresst = false;
     }
     DBOUT( Pl.getPlHP() );
     DBOUT( "\n" );
@@ -133,5 +142,6 @@ void Game::ComposeFrame()
 {
     gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
     cam.Draw( gfx );
+    ol.DrawHealBar( Pl.getPlHP() );
     text.DrawText( "IRN",gfx.ScreenWidth / 2 - ( text.getGlythWidth() * 3 ) / 2,10,gfx );
 }

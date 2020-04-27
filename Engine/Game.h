@@ -28,6 +28,8 @@
 #include "Camera.h"
 #include "FrameTimer.h"
 #include "Text.h"
+#include "Overlay.h"
+#include <random>
 
 class Game
 {
@@ -42,12 +44,15 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
+    std::mt19937 rng;
     FrameTimer ft;
     Map map;
     Player Pl;
     Camara cam;
+    Overlay ol;
     Text text = Text( 32,4,Surface( L"../Engine/Sprite/FontSheet16x18.bmp" ) );
 private:
     float dt = 0;
     bool FreeCam = false;
+    bool ispresst = false;
 };
