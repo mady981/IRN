@@ -27,6 +27,7 @@
 #include "Player.h"
 #include "Camera.h"
 #include "FrameTimer.h"
+#include "Text.h"
 
 class Game
 {
@@ -45,6 +46,7 @@ private:
     Map map;
     Player Pl;
     Camara cam;
+    Text text = Text( 32,4,Surface( L"../Engine/Sprite/FontSheet16x18.bmp" ) );
 private:
     float dt = 0;
     bool FreeCam = false;

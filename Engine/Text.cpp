@@ -19,6 +19,16 @@ void Text::DrawText( const std::string& text,const Vec2i& pos,Graphics& gfx ) co
 	}
 }
 
+int Text::getGlythWidth() const
+{
+	return ( int )CharWidth;
+}
+
+int Text::getGlythHeight() const
+{
+	return ( int )CharHeight;
+}
+
 RecI Text::CharMaping( char c ) const
 {
 	const char y = c / ( font.getWidth() / CharWidth );

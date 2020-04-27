@@ -74,6 +74,7 @@ void Game::UpdateModel()
         }
         cam.BindToPlayer( Pl.PlPos() );
     }
+    //FreeCam controlls
     else
     {
         if ( wnd.kbd.KeyIsPressed( 'P' ) )
@@ -99,6 +100,7 @@ void Game::UpdateModel()
         cam.Move( cdir );
         cam.Update( dt );
     }
+
     /*------Test Code---------------------*/
     if ( wnd.kbd.KeyIsPressed( 'R' ) )
     {
@@ -111,4 +113,5 @@ void Game::ComposeFrame()
 {
     gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
     cam.Draw( gfx );
+    text.DrawText( "IRN",gfx.ScreenWidth / 2 - ( text.getGlythWidth() * 3 ) / 2,10,gfx );
 }
