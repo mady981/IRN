@@ -38,7 +38,7 @@ int Map::getContens( const Vec2i& pos )
 	return -1;
 }
 
-bool Map::Collision( const Vec2f& pos,const RecF& rec ) const
+bool Map::CollidingWith( const Vec2f& pos,const RecF& rec ) const
 {
 	for ( int y = -1; y <= 1; ++y )
 	{

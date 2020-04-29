@@ -46,7 +46,7 @@ public:
 	~Map();
 	bool setTile( const Vec2i& pos,const int id = 0 );
 	int getContens( const Vec2i& pos );
-	bool Collision( const Vec2f& pos,const RecF& rec ) const;
+	bool CollidingWith( const Vec2f& pos,const RecF& rec ) const;
 	Surface* TileSprite() const;
 private:
 	std::map<Vec2i,Tile*> mTiles;

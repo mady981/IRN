@@ -12,10 +12,10 @@ public:
 	void Tick( const float& dt );
 	void PlDamage( const float damage );
 public:
-	RecF PlHitBox() const;
-	Vec2f PlPos() const;
-	Surface* PlSprite() const;
-	float getPlHP() const;
+	RecF HitBox() const;
+	Vec2f Pos() const;
+	Surface* Sprite() const;
+	float Health() const;
 private:
 	void Update( const float dt );
 	void Jump( const float dt );

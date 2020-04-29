@@ -88,7 +88,7 @@ void Game::UpdateModel()
         {
             FreeCam = true;
         }
-        cam.BindToPlayer( Pl.PlPos() );
+        cam.BindToPlayer( Pl.Pos() );
     }
     //FreeCam controlls
     else
@@ -138,16 +138,15 @@ void Game::UpdateModel()
     {
         ispresst = false;
     }
-    //DBOUT( Pl.getPlHP() );
+    //DBOUT( Pl.Health() );
     //DBOUT( "\n" );
     /*------Test Code---------------------*/
 }
 
 void Game::ComposeFrame()
 {
-    ol.DrawBackground( Pl.PlPos() );
     gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
     cam.Draw( gfx );
-    ol.DrawHealBar( Pl.getPlHP() );
+    ol.DrawHealBar( Pl.Health() );
     text.DrawText( "IRN",gfx.ScreenWidth / 2 - ( text.getGlythWidth() * 3 ) / 2,10,gfx );
 }

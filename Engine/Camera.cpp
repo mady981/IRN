@@ -50,14 +50,14 @@ void Camara::Draw( Graphics& gfx ) const
 		}
 	}
 	gfx.DrawSprite(
-		( int )( ( ( Pl.PlPos().x - cPos.x ) * map.TileSprite()->getWidth()- Pl.PlSprite()->getWidth() / 2 ) + gfx.ScreenWidth / 2 ),
-		( int )( ( ( Pl.PlPos().y - cPos.y ) * map.TileSprite()->getHeight() - Pl.PlSprite()->getHeight() ) + gfx.ScreenHeight / 2 ),
-		*Pl.PlSprite()
+		( int )( ( ( Pl.Pos().x - cPos.x ) * map.TileSprite()->getWidth()- Pl.Sprite()->getWidth() / 2 ) + gfx.ScreenWidth / 2 ),
+		( int )( ( ( Pl.Pos().y - cPos.y ) * map.TileSprite()->getHeight() - Pl.Sprite()->getHeight() ) + gfx.ScreenHeight / 2 ),
+		*Pl.Sprite()
 	);
 	//gfx.DrawRecDimClip(
 	//	Vec2f(
-	//		( ( Pl.PlPos().x - cPos.x ) * 16.0f - Pl.PlWidth() / 2 ) + gfx.ScreenWidth / 2,
-	//		( ( Pl.PlPos().y - cPos.y ) * 16.0f - Pl.PlHeight() ) + gfx.ScreenHeight / 2
+	//		( ( Pl.Pos().x - cPos.x ) * 16.0f - Pl.PlWidth() / 2 ) + gfx.ScreenWidth / 2,
+	//		( ( Pl.Pos().y - cPos.y ) * 16.0f - Pl.PlHeight() ) + gfx.ScreenHeight / 2
 	//	),
 	//	Pl.PlWidth(),
 	//	Pl.PlHeight(),

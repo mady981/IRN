@@ -25,7 +25,7 @@ Player::~Player()
 void Player::setDir( const Vec2f& dir,const bool jump )
 {
 	vel = dir * speed;
-	if ( map.Collision( pos.getRound(),PlHitBox() ) )
+	if ( map.CollidingWith( pos.getRound(),HitBox() ) )
 	{
 		jvel = 0;
 		if ( dir.y > 0 )
@@ -57,7 +57,7 @@ void Player::PlDamage( const float damage )
 	}
 }
 
-RecF Player::PlHitBox() const
+RecF Player::HitBox() const
 {
 	return RecF(
 		pos.x * map.TileSprite()->getWidth() - pSprite->getWidth() / 2,
@@ -67,17 +67,17 @@ RecF Player::PlHitBox() const
 	);
 }
 
-Vec2f Player::PlPos() const
+Vec2f Player::Pos() const
 {
 	return Vec2f( pos );
 }
 
-Surface* Player::PlSprite() const
+Surface* Player::Sprite() const
 {
 	return pSprite;
 }
 
-float Player::getPlHP() const
+float Player::Health() const
 {
 	return currhp;
 }
@@ -104,7 +104,7 @@ void Player::Jump( const float dt )
 
 void Player::Physiks( const float dt )
 {
-	if ( map.Collision( pos.getRound(),PlHitBox() ) )
+	if ( map.CollidingWith( pos.getRound(),HitBox() ) )
 	{
 		currfvel = 0.0f;
 	}
