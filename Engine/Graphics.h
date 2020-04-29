@@ -67,6 +67,11 @@ public:
 		DrawRec( pos.x,pos.y,pos.x + width,pos.y + height,c );
 	}
 	void DrawRecDimClip( Vec2i pos,int width,int height,Color c );
+	void DrawRecOutline( const RecI& src,int thikness,Color c );
+	void DrawOutline( const Vec2i& pos,const int& width,const int& height,const int& thikness,Color c )
+	{
+		DrawRecOutline( RecI( pos.x,pos.x + width,pos.y,pos.y + height ),thikness,c );
+	}
 
 	void DrawSpriteNoChroma( int x,int y,const Surface& s )
 	{

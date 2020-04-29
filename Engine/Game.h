@@ -52,7 +52,6 @@ private:
     Overlay ol;
     Text text = Text( 32,4,Surface( L"../Engine/Sprite/FontSheet16x18.bmp" ) );
 private:
-    float dt = 0;
     bool FreeCam = false;
     bool ispresst = false;
 };

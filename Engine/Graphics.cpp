@@ -374,6 +374,20 @@ void Graphics::DrawRecDimClip( Vec2i pos,int width,int height,Color c )
 	}
 }
 
+void Graphics::DrawRecOutline( const RecI& src,int thikness,Color c )
+{
+	for ( int y = src.top - thikness; y <= src.bottem + thikness; ++y )
+	{
+		for ( int x = src.left - thikness; x <= src.right + thikness; ++x )
+		{
+			if ( !src.isOverlappingWith( Vec2i( x,y ) ) )
+			{
+				PutPixel( x,y,c );
+			}
+		}
+	}
+}
+
 void Graphics::DrawSpriteNoChroma( int x,int y,RecI srcRect,const RecI& clip,const Surface& s )
 {
 	if ( x < clip.left )

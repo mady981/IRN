@@ -255,6 +255,10 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Chili.ico" />
+    <Image Include="Sprite\FontSheet16x18.bmp" />
+    <Image Include="Sprite\GrassTile.bmp" />
+    <Image Include="Sprite\MountainBackground.bmp" />
+    <Image Include="Sprite\Player.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

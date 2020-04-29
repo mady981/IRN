@@ -31,6 +31,7 @@
    OutputDebugStringW( os_.str().c_str() );  \
 }
 
+
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
@@ -51,7 +52,11 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-    dt = ft.Duration();
+#ifdef NDEBUG
+    const auto dt = ft.Duration();
+#else
+    const auto dt = 1.0f / 60.0f;
+#endif // NDEBUG
     Vec2f dir = { 0.0f,0.0f };
     Vec2f cdir = { 0.0f,0.0f };
     bool jump = false;
@@ -133,13 +138,14 @@ void Game::UpdateModel()
     {
         ispresst = false;
     }
-    DBOUT( Pl.getPlHP() );
-    DBOUT( "\n" );
+    //DBOUT( Pl.getPlHP() );
+    //DBOUT( "\n" );
     /*------Test Code---------------------*/
 }
 
 void Game::ComposeFrame()
 {
+    ol.DrawBackground( Pl.PlPos() );
     gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
     cam.Draw( gfx );
     ol.DrawHealBar( Pl.getPlHP() );
