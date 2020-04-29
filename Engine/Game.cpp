@@ -141,6 +141,9 @@ void Game::UpdateModel()
     //DBOUT( Pl.Health() );
     //DBOUT( "\n" );
     /*------Test Code---------------------*/
+    // FPS
+    DBOUT( 1 / dt );
+    DBOUT( "\n" );
 }
 
 void Game::ComposeFrame()
