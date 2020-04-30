@@ -391,7 +391,7 @@ void Graphics::DrawRecOutline( const RecI& src,int thikness,Color c )
 	}
 }
 
-void Graphics::DrawSpriteNoChroma( int x,int y,RecI srcRect,const RecI& clip,const Surface& s )
+void Graphics::DrawSpriteNoChroma( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,bool mirrow )
 {
 	if ( x < clip.left )
 	{
@@ -420,7 +420,7 @@ void Graphics::DrawSpriteNoChroma( int x,int y,RecI srcRect,const RecI& clip,con
 	}
 }
 
-void Graphics::DrawSprite( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,Color chroma )
+void Graphics::DrawSprite( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,bool mirrow,Color chroma )
 {
 	if ( x < clip.left )
 	{
@@ -440,19 +440,36 @@ void Graphics::DrawSprite( int x,int y,RecI srcRect,const RecI& clip,const Surfa
 	{
 		srcRect.bottem -= y + srcRect.getHeight() - clip.bottem;
 	}
-	for ( int sy = srcRect.top; sy < srcRect.bottem; ++sy )
+	if ( !mirrow )
 	{
-		for ( int sx = srcRect.left; sx < srcRect.right; ++sx )
+		for ( int sy = srcRect.top; sy < srcRect.bottem; ++sy )
 		{
-			if ( s.GetPixel( sx,sy ) != chroma )
+			for ( int sx = srcRect.left; sx < srcRect.right; ++sx )
 			{
-				PutPixel( x + sx - srcRect.left,y + sy - srcRect.top,s.GetPixel( sx,sy ) );
+				if ( s.GetPixel( sx,sy ) != chroma )
+				{
+					PutPixel( x + sx - srcRect.left,y + sy - srcRect.top,s.GetPixel( sx,sy ) );
+				}
+			}
+		}
+	}
+	else
+	{
+		const int offset = srcRect.left + srcRect.right - 1;
+		for ( int sy = srcRect.top; sy < srcRect.bottem; ++sy )
+		{
+			for ( int sx = srcRect.left; sx < srcRect.right; ++sx )
+			{
+				if ( s.GetPixel( offset - sx,sy ) != chroma )
+				{
+					PutPixel( x + sx - srcRect.left,y + sy - srcRect.top,s.GetPixel( offset - sx,sy ) );
+				}
 			}
 		}
 	}
 }
 
-void Graphics::DrawSpriteOverColor( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,Color recolor,Color chroma )
+void Graphics::DrawSpriteOverColor( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,Color recolor,bool mirrow,Color chroma )
 {
 	if ( x < clip.left )
 	{
@@ -472,13 +489,30 @@ void Graphics::DrawSpriteOverColor( int x,int y,RecI srcRect,const RecI& clip,co
 	{
 		srcRect.bottem -= y + srcRect.getHeight() - clip.bottem;
 	}
-	for ( int sy = srcRect.top; sy < srcRect.bottem; ++sy )
+	if ( !mirrow )
 	{
-		for ( int sx = srcRect.left; sx < srcRect.right; ++sx )
+		for ( int sy = srcRect.top; sy < srcRect.bottem; ++sy )
 		{
-			if ( s.GetPixel( sx,sy ) != chroma )
+			for ( int sx = srcRect.left; sx < srcRect.right; ++sx )
 			{
-				PutPixel( x + sx - srcRect.left,y + sy - srcRect.top,recolor );
+				if ( s.GetPixel( sx,sy ) != chroma )
+				{
+					PutPixel( x + sx - srcRect.left,y + sy - srcRect.top,recolor );
+				}
+			}
+		}
+	}
+	else
+	{
+		const int offset = srcRect.left + srcRect.right - 1;
+		for ( int sy = srcRect.top; sy < srcRect.bottem; ++sy )
+		{
+			for ( int sx = srcRect.left; sx < srcRect.right; ++sx )
+			{
+				if ( s.GetPixel( offset - sx,sy ) != chroma )
+				{
+					PutPixel( x + sx - srcRect.left,y + sy - srcRect.top,recolor );
+				}
 			}
 		}
 	}

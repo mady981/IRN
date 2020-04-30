@@ -86,6 +86,24 @@ public:
 		}
 		return *this;
 	}
+	Vec2_& SetOne()
+	{
+		return *this = getSetOne();
+	}
+	Vec2_ getSetOne() const
+	{
+		T x1 = x;
+		T y1 = y;
+		if ( x != 0 )
+		{
+			x1 /= std::abs( x );
+		}
+		if ( y != 0 )
+		{
+			y1 /= std::abs( y );
+		}
+		return { x1,y1 };
+	}
 public:
 	T x;
 	T y;

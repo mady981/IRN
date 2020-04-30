@@ -73,35 +73,35 @@ public:
 		DrawRecOutline( RecI( pos.x,pos.x + width,pos.y,pos.y + height ),thikness,c );
 	}
 
-	void DrawSpriteNoChroma( int x,int y,const Surface& s )
+	void DrawSpriteNoChroma( int x,int y,const Surface& s,bool mirrow = false )
 	{
-		DrawSpriteNoChroma( x,y,{ 0,s.getWidth(),0,s.getHeight() },s );
+		DrawSpriteNoChroma( x,y,{ 0,s.getWidth(),0,s.getHeight() },s,mirrow );
 	};
-	void DrawSpriteNoChroma( int x,int y,RecI srcRect,const Surface& s )
+	void DrawSpriteNoChroma( int x,int y,RecI srcRect,const Surface& s,bool mirrow = false )
 	{
-		DrawSpriteNoChroma( x,y,srcRect,Screen,s );
+		DrawSpriteNoChroma( x,y,srcRect,Screen,s,mirrow );
 	};
-	void DrawSpriteNoChroma( int x,int y,RecI srcRect,const RecI& clip,const Surface& s );
+	void DrawSpriteNoChroma( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,bool mirrow = false );
 
-	void DrawSprite( int x,int y,const Surface& s,Color chroma = Colors::Magenta )
+	void DrawSprite( int x,int y,const Surface& s,bool mirrow = false,Color chroma = Colors::Magenta )
 	{
-		DrawSprite( x,y,{ 0,s.getWidth(),0,s.getHeight() },s,chroma );
+		DrawSprite( x,y,{ 0,s.getWidth(),0,s.getHeight() },s,mirrow,chroma );
 	}
-	void DrawSprite( int x,int y,RecI srcRect,const Surface& s,Color chroma = Colors::Magenta )
+	void DrawSprite( int x,int y,RecI srcRect,const Surface& s,bool mirrow = false,Color chroma = Colors::Magenta )
 	{
-		DrawSprite( x,y,srcRect,Screen,s,chroma );
+		DrawSprite( x,y,srcRect,Screen,s,mirrow,chroma );
 	}
-	void DrawSprite( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,Color chroma = Colors::Magenta );
+	void DrawSprite( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,bool mirrow = false,Color chroma = Colors::Magenta );
 
-	void DrawSpriteOverColor( int x,int y,const Surface& s,Color recolor,Color chroma = Colors::Magenta )
+	void DrawSpriteOverColor( int x,int y,const Surface& s,Color recolor,bool mirrow = false,Color chroma = Colors::Magenta )
 	{
-		DrawSpriteOverColor( x,y,{ 0,s.getWidth(),0,s.getHeight() },s,recolor,chroma );
+		DrawSpriteOverColor( x,y,{ 0,s.getWidth(),0,s.getHeight() },s,recolor,mirrow,chroma );
 	}
-	void DrawSpriteOverColor( int x,int y,RecI srcRect,const Surface& s,Color recolor,Color chroma = Colors::Magenta )
+	void DrawSpriteOverColor( int x,int y,RecI srcRect,const Surface& s,Color recolor,bool mirrow = false,Color chroma = Colors::Magenta )
 	{
-		DrawSpriteOverColor( x,y,srcRect,Screen,s,recolor,chroma );
+		DrawSpriteOverColor( x,y,srcRect,Screen,s,recolor,mirrow,chroma );
 	}
-	void DrawSpriteOverColor( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,Color recolor,Color chroma = Colors::Magenta );
+	void DrawSpriteOverColor( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,Color recolor,bool mirrow = false,Color chroma = Colors::Magenta );
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

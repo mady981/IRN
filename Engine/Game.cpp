@@ -37,7 +37,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
     Pl( { 0,0 },map ),
-    eny( { 5,-2 },100,10,20,20,map ),
+    eny( { 5,-2 },16,1,20,20,map ),
     cam( { 0,0 },map,Pl,eny ),
     ol( gfx )
 {

@@ -17,7 +17,8 @@ Entity::Entity( const Vec2f& pos,const Vec2f& vel,const float& maxHitPoints,cons
 	pSprite( pSprite ),
 	map( map ),
 	width( pSprite->getWidth() ),
-	height( pSprite-> getHeight() )
+	height( pSprite-> getHeight() ),
+	facing( { 0,0 } )
 {
 }
 
@@ -29,6 +30,10 @@ Entity::~Entity()
 void Entity::setDir( const Vec2f& dir,const bool& jump )
 {
 	vel = dir * Speed;
+	if ( dir != Vec2f{ 0,0 } )
+	{
+		facing = dir;
+	}
 	if ( map.CollidingWith( pos.getRound(),HitBox() ) )
 	{
 		currJumpSpeed = 0;
@@ -94,6 +99,11 @@ bool Entity::isAlive() const
 		return false;
 	}
 	return true;
+}
+
+Vec2f Entity::Facing() const
+{
+	return Vec2f( facing );
 }
 
 void Entity::Update( const float& dt )

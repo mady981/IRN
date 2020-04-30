@@ -14,7 +14,7 @@ void Text::DrawText( const std::string& text,const Vec2i& pos,Graphics& gfx ) co
 	int currletter = 0;
 	for ( auto c : text )
 	{
-		gfx.DrawSprite( pos.x + currletter * CharWidth,pos.y,CharMaping( c ),font,chroma );
+		gfx.DrawSprite( pos.x + currletter * CharWidth,pos.y,CharMaping( c ),font,false,chroma );
 		++currletter;
 	}
 }

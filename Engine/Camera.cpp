@@ -56,13 +56,15 @@ void Camara::Draw( Graphics& gfx ) const
 		( int )( ( ( eny.Pos().x - cPos.x ) * map.TileSprite()->getWidth() - eny.Sprite()->getWidth() / 2 ) + gfx.ScreenWidth / 2 ),
 		( int )( ( ( eny.Pos().y - cPos.y ) * map.TileSprite()->getHeight() - eny.Sprite()->getHeight() ) + gfx.ScreenHeight / 2 ),
 		*eny.Sprite(),
-		Colors::Red
+		Colors::Red,
+		eny.Facing().x < 0
 	);
 	// Player
 	gfx.DrawSprite(
 		( int )( ( ( Pl.Pos().x - cPos.x ) * map.TileSprite()->getWidth() - Pl.Sprite()->getWidth() / 2 ) + gfx.ScreenWidth / 2 ),
 		( int )( ( ( Pl.Pos().y - cPos.y ) * map.TileSprite()->getHeight() - Pl.Sprite()->getHeight() ) + gfx.ScreenHeight / 2 ),
-		*Pl.Sprite()
+		*Pl.Sprite(),
+		Pl.Facing().x < 0
 	);
 	//gfx.DrawRecDimClip(
 	//	Vec2f(

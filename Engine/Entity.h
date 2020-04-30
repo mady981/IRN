@@ -20,6 +20,7 @@ public:
 	Surface* Sprite() const;
 	float HitPoints() const;
 	bool isAlive() const;
+	virtual Vec2f Facing() const;
 protected:
 	void Update( const float& dt );
 	void Jump( const float& dt );
@@ -27,6 +28,7 @@ protected:
 protected:
 	Vec2f pos;
 	Vec2f vel;
+	Vec2f facing;
 	float maxHitPoints;
 	const float Speed;
 	const float JumpSpeed;

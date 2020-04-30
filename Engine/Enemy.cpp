@@ -3,7 +3,7 @@
 
 Enemy::Enemy( const Vec2f& pos,const float& TrackDist,const float& inRange,const int& AttackWidth,const int& AttackHeight,Map& map )
 	:
-	Entity( pos,{ 0,0 },100,10.0f,20.0f,45.0f,10,new Surface( L"../Engine/Sprite/Player.bmp" ),map ),
+	Entity( pos,{ 0,0 },100,4.0f,20.0f,45.0f,10,new Surface( L"../Engine/Sprite/Player.bmp" ),map ),
 	TrackDistSq( TrackDist * TrackDist ),
 	inRangeSq( inRange * inRange ),
 	AttackWidth( AttackWidth ),
@@ -17,12 +17,11 @@ void Enemy::AI( Entity& target )
 	assert( &target != this );
 	Vec2f dir = Vec2f( target.Pos() - pos );
 	facing.x = dir.x;
-	facing.x *= 1 / std::abs( facing.x );
-	facing.Round();
+	facing.SetOne();
 	float distsq = dir.getLengthSq();
 	if ( distsq < TrackDistSq && distsq > inRangeSq )
 	{
-		setDir( dir,false );
+		setDir( dir.getSetOne(),false );
 	}
 	else
 	{
@@ -32,6 +31,11 @@ void Enemy::AI( Entity& target )
 	{
 		target.TakeDamage( Damage );
 	}
+}
+
+Vec2f Enemy::Facing() const
+{
+	return Vec2f( facing );
 }
 
 RecF Enemy::AttackHB() const
