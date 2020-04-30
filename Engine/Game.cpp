@@ -117,7 +117,7 @@ void Game::UpdateModel()
         cam.Update( dt );
     }
 
-    /*------Test Code---------------------*/
+    /*------Test Code Begin---------------------*/
     if ( wnd.kbd.KeyIsPressed( 'R' ) )
     {
         Pl.debugSetPlayer( { 0,-1 },0.0f );
@@ -125,12 +125,22 @@ void Game::UpdateModel()
     if ( wnd.kbd.KeyIsPressed( 'J' ) && !ispresst )
     {
         std::uniform_real_distribution<float> rDamage( 0.0f,10.0f );
-        Pl.PlDamage( rDamage( rng ) );
+        Pl.TakeDamage( rDamage( rng ) );
         ispresst = true;
     }
     else if ( wnd.kbd.KeyIsPressed( 'H' ) && !ispresst )
     {
         Pl.healPlayer( 100.0f );
+        ispresst = true;
+    }
+    if ( wnd.kbd.KeyIsPressed( 'O' ) && !ispresst )
+    {
+        Pl.incMaxHP( 20 );
+        ispresst = true;
+    }
+    if ( wnd.kbd.KeyIsPressed( 'L' ) && !ispresst )
+    {
+        Pl.decMaxHP( 20 );
         ispresst = true;
     }
     const Keyboard::Event e = wnd.kbd.ReadKey();
@@ -140,16 +150,16 @@ void Game::UpdateModel()
     }
     //DBOUT( Pl.Health() );
     //DBOUT( "\n" );
-    /*------Test Code---------------------*/
+    /*------Test Code End---------------------*/
     // FPS
-    DBOUT( 1 / dt );
-    DBOUT( "\n" );
+    //DBOUT( 1 / dt );
+    //DBOUT( "\n" );
 }
 
 void Game::ComposeFrame()
 {
     gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
     cam.Draw( gfx );
-    ol.DrawHealBar( Pl.Health() );
+    ol.DrawHealBar( Pl.HitPoints(),( int )Pl.MaxHitPoints() );
     text.DrawText( "IRN",gfx.ScreenWidth / 2 - ( text.getGlythWidth() * 3 ) / 2,10,gfx );
 }

@@ -1,51 +1,35 @@
 #pragma once
-#include "Graphics.h"
-#include "Map.h"
+#include "Entity.h"
 #include "Surface.h"
+#include "Map.h"
 
-class Player
+class Player : public Entity
 {
 public:
 	Player( const Vec2f& pos,Map& map );
-	~Player();
-	void setDir( const Vec2f& dir,const bool jump );
-	void Tick( const float& dt );
-	void PlDamage( const float damage );
-public:
-	RecF HitBox() const;
-	Vec2f Pos() const;
-	Surface* Sprite() const;
-	float Health() const;
-private:
-	void Update( const float dt );
-	void Jump( const float dt );
-	void Physiks( const float dt );
-private:
-	Vec2f pos;
-	Vec2f vel = { 0,0 };
-	float currfvel = 0;
-	float jvel = 0;
-	static constexpr float fvelinc = 45.0f;
-	static constexpr float jumpspeed = 20.0f;
-	static constexpr float speed = 10.0f;
-	static constexpr float maxhp = 100.0f;
-	float currhp = maxhp;
-	bool isAlive = true;
-private:
-	Map& map;
-	Surface* pSprite = new Surface( L"../Engine/Sprite/Player.bmp" );
+	float MaxHitPoints() const;
+	/*********************TestFunctions Begin****************************/
 public:
 	void debugSetPlayer( const Vec2f& debugpos,float fallvel )
 	{
 		pos = debugpos;
-		currfvel = fallvel;
+		currFallSpeed = fallvel;
 	}
 	void healPlayer( float heal )
 	{
-		if ( ( currhp += heal ) > maxhp )
+		if ( ( hitpoints += heal ) > maxHitPoints )
 		{
-			currhp = maxhp;
+			hitpoints = maxHitPoints;
 		}
 	}
+	void incMaxHP( float inc )
+	{
+		maxHitPoints += inc;
+	}
+	void decMaxHP( float dec )
+	{
+		maxHitPoints -= dec;
+	}
 	float oldy = 0;
+	/*********************TestFunctions End****************************/
 };

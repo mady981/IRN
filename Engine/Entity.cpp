@@ -2,7 +2,7 @@
 #include <assert.h>
 
 Entity::Entity( const Vec2f& pos,const Vec2f& vel,const float& maxHitPoints,const float& Speed,const float& JumpSpeed,
-	const float& FallSpeedInc,const float& Damage,const int& width,const int& height,Map& map )
+	const float& FallSpeedInc,const float& Damage,Surface* pSprite,Map& map )
 	:
 	pos( pos ),
 	vel( vel ),
@@ -11,13 +11,19 @@ Entity::Entity( const Vec2f& pos,const Vec2f& vel,const float& maxHitPoints,cons
 	JumpSpeed( JumpSpeed ),
 	FallSpeedInc( FallSpeedInc ),
 	Damage( Damage ),
-	width( width ),
-	height( height ),
 	currFallSpeed( 0.0f ),
 	currJumpSpeed( 0.0f ),
-	HitPoints( maxHitPoints ),
-	map( map )
+	hitpoints( maxHitPoints ),
+	pSprite( pSprite ),
+	map( map ),
+	width( pSprite->getWidth() ),
+	height( pSprite-> getHeight() )
 {
+}
+
+Entity::~Entity()
+{
+	delete pSprite;
 }
 
 void Entity::setDir( const Vec2f& dir,const bool& jump )
@@ -47,7 +53,7 @@ void Entity::Tick( const float& dt )
 void Entity::TakeDamage( const float& damagetaken )
 {
 	assert( damagetaken >= 0.0f );
-	HitPoints > 0 ? HitPoints -= damagetaken : HitPoints = 0;
+	hitpoints > 0 ? hitpoints -= damagetaken : hitpoints = 0;
 }
 
 void Entity::DealDamage( Entity& target ) const
@@ -64,16 +70,26 @@ Vec2f Entity::Pos() const
 RecF Entity::HitBox() const
 {
 	return RecF(
-		pos.x - width / 2,
-		pos.x + width / 2,
-		pos.y - height,
-		pos.y
+		pos.x * ( float )map.TileSprite()->getWidth() - width / 2.0f,
+		pos.x * ( float )map.TileSprite()->getWidth() + width / 2.0f,
+		pos.y * ( float )map.TileSprite()->getHeight() - height,
+		pos.y * ( float )map.TileSprite()->getHeight()
 	);
+}
+
+Surface* Entity::Sprite() const
+{
+	return pSprite;
+}
+
+float Entity::HitPoints() const
+{
+	return hitpoints;
 }
 
 bool Entity::isAlive() const
 {
-	if ( HitPoints <= 0 )
+	if ( hitpoints <= 0 )
 	{
 		return false;
 	}
@@ -87,7 +103,7 @@ void Entity::Update( const float& dt )
 
 void Entity::Jump( const float& dt )
 {
-	pos.y -= JumpSpeed * dt;
+	pos.y -= currJumpSpeed * dt;
 }
 
 void Entity::Physik( const float& dt )

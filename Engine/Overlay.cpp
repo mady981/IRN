@@ -6,8 +6,8 @@ Overlay::Overlay( Graphics& gfx )
 {
 }
 
-void Overlay::DrawHealBar( const float& hp ) const
+void Overlay::DrawHealBar( const float& hp,const int& maxhp ) const
 {
-	gfx.DrawRecDim( HPBarPos, int( hp * 1.5f ),HPBarHeight,HPColor );
-	gfx.DrawOutline( HPBarPos,HPBarWidht,HPBarHeight,2,Colors::LightGray );
+	gfx.DrawRecDim( HPBarPos, int( hp ),HPBarHeight,HPColor );
+	gfx.DrawOutline( HPBarPos,maxhp,HPBarHeight,2,Colors::LightGray );
 }
