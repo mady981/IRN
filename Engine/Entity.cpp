@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include <assert.h>
 
 Entity::Entity( const Vec2f& pos,const Vec2f& vel,const float& maxHitPoints,const float& Speed,const float& JumpSpeed,
 	const float& FallSpeedInc,const float& Damage,const int& width,const int& height,Map& map )
@@ -13,14 +14,27 @@ Entity::Entity( const Vec2f& pos,const Vec2f& vel,const float& maxHitPoints,cons
 	width( width ),
 	height( height ),
 	currFallSpeed( 0.0f ),
+	currJumpSpeed( 0.0f ),
 	HitPoints( maxHitPoints ),
 	map( map )
 {
 }
 
-void Entity::setDir( const Vec2f& dir )
+void Entity::setDir( const Vec2f& dir,const bool& jump )
 {
 	vel = dir * Speed;
+	if ( map.CollidingWith( pos.getRound(),HitBox() ) )
+	{
+		currJumpSpeed = 0;
+		if ( dir.y > 0 )
+		{
+			vel.y = 0;
+		}
+		if ( jump )
+		{
+			currJumpSpeed = JumpSpeed;
+		}
+	}
 }
 
 void Entity::Tick( const float& dt )
@@ -32,11 +46,13 @@ void Entity::Tick( const float& dt )
 
 void Entity::TakeDamage( const float& damagetaken )
 {
-	HitPoints -= damagetaken;
+	assert( damagetaken >= 0.0f );
+	HitPoints > 0 ? HitPoints -= damagetaken : HitPoints = 0;
 }
 
 void Entity::DealDamage( Entity& target ) const
 {
+	assert( &target != this );
 	target.TakeDamage( Damage );
 }
 
@@ -53,6 +69,15 @@ RecF Entity::HitBox() const
 		pos.y - height,
 		pos.y
 	);
+}
+
+bool Entity::isAlive() const
+{
+	if ( HitPoints <= 0 )
+	{
+		return false;
+	}
+	return true;
 }
 
 void Entity::Update( const float& dt )
