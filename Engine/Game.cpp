@@ -37,7 +37,8 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
     Pl( { 0,0 },map ),
-    cam( { 0,0 },map,Pl ),
+    eny( { 5,-2 },100,10,20,20,map ),
+    cam( { 0,0 },map,Pl,eny ),
     ol( gfx )
 {
 }
@@ -57,6 +58,8 @@ void Game::UpdateModel()
 #else
     const auto dt = 1.0f / 60.0f;
 #endif // NDEBUG
+
+    //Player
     Vec2f dir = { 0.0f,0.0f };
     Vec2f cdir = { 0.0f,0.0f };
     bool jump = false;
@@ -82,6 +85,8 @@ void Game::UpdateModel()
     }
     Pl.setDir( dir,jump );
     Pl.Tick( dt );
+
+    //Camera
     if ( !FreeCam )
     {
         if ( wnd.kbd.KeyIsPressed( 'M' ) )
@@ -117,6 +122,10 @@ void Game::UpdateModel()
         cam.Update( dt );
     }
 
+    //Enemy
+    eny.AI( Pl );
+    eny.Tick( dt );
+
     /*------Test Code Begin---------------------*/
     if ( wnd.kbd.KeyIsPressed( 'R' ) )
     {
@@ -150,10 +159,10 @@ void Game::UpdateModel()
     }
     //DBOUT( Pl.Health() );
     //DBOUT( "\n" );
-    /*------Test Code End---------------------*/
     // FPS
     //DBOUT( 1 / dt );
     //DBOUT( "\n" );
+    /*------Test Code End---------------------*/
 }
 
 void Game::ComposeFrame()

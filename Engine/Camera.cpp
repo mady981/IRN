@@ -1,10 +1,11 @@
 #include "Camera.h"
 
-Camara::Camara( const Vec2f& cPos,Map& map,Player& Pl )
+Camara::Camara( const Vec2f& cPos,Map& map,Player& Pl,Enemy& eny )
 	:
 	cPos( cPos ),
 	map( map ),
-	Pl( Pl )
+	Pl( Pl ),
+	eny( eny )
 {
 }
 
@@ -25,6 +26,7 @@ void Camara::Update( float dt )
 
 void Camara::Draw( Graphics& gfx ) const
 {
+	// Tiles
 	for ( int my = ( int )cPos.y - 19; my <= cPos.y + 19; ++my )
 	{
 		for ( int mx = ( int )cPos.x - 25 ; mx <= cPos.x + 25; ++mx )
@@ -49,8 +51,16 @@ void Camara::Draw( Graphics& gfx ) const
 			}
 		}
 	}
+	// Enemys
+	gfx.DrawSpriteOverColor(
+		( int )( ( ( eny.Pos().x - cPos.x ) * map.TileSprite()->getWidth() - eny.Sprite()->getWidth() / 2 ) + gfx.ScreenWidth / 2 ),
+		( int )( ( ( eny.Pos().y - cPos.y ) * map.TileSprite()->getHeight() - eny.Sprite()->getHeight() ) + gfx.ScreenHeight / 2 ),
+		*eny.Sprite(),
+		Colors::Red
+	);
+	// Player
 	gfx.DrawSprite(
-		( int )( ( ( Pl.Pos().x - cPos.x ) * map.TileSprite()->getWidth()- Pl.Sprite()->getWidth() / 2 ) + gfx.ScreenWidth / 2 ),
+		( int )( ( ( Pl.Pos().x - cPos.x ) * map.TileSprite()->getWidth() - Pl.Sprite()->getWidth() / 2 ) + gfx.ScreenWidth / 2 ),
 		( int )( ( ( Pl.Pos().y - cPos.y ) * map.TileSprite()->getHeight() - Pl.Sprite()->getHeight() ) + gfx.ScreenHeight / 2 ),
 		*Pl.Sprite()
 	);

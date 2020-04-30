@@ -10,8 +10,8 @@ public:
 	Entity( const Vec2f& pos,const Vec2f& vel,const float& maxHitPoints,const float& Speed,const float& JumpSpeed,
 		const float& FallSpeedInc,const float& Damage,Surface* pSprite,Map& map );
 	virtual ~Entity();
-	void setDir( const Vec2f& dir,const bool& jump );
-	void Tick( const float& dt );
+	virtual void setDir( const Vec2f& dir,const bool& jump );
+	virtual void Tick( const float& dt );
 	void TakeDamage( const float& damage );
 	void DealDamage( Entity& target ) const;
 public:
@@ -37,7 +37,7 @@ protected:
 	float hitpoints;
 	const int width;
 	const int height;
-private:
+protected:
 	Surface* pSprite;
 	Map& map;
 };

@@ -380,9 +380,12 @@ void Graphics::DrawRecOutline( const RecI& src,int thikness,Color c )
 	{
 		for ( int x = src.left - thikness; x <= src.right + thikness; ++x )
 		{
-			if ( !src.isOverlappingWith( Vec2i( x,y ) ) )
+			if ( Screen.isOverlappingWith( Vec2i( x,y ) ) )
 			{
-				PutPixel( x,y,c );
+				if ( !src.isCollidingWith( Vec2i( x,y ) ) )
+				{
+					PutPixel( x,y,c );
+				}
 			}
 		}
 	}
@@ -448,6 +451,39 @@ void Graphics::DrawSprite( int x,int y,RecI srcRect,const RecI& clip,const Surfa
 		}
 	}
 }
+
+void Graphics::DrawSpriteOverColor( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,Color recolor,Color chroma )
+{
+	if ( x < clip.left )
+	{
+		srcRect.left += clip.left - x;
+		x = clip.left;
+	}
+	else if ( x + srcRect.getWidth() >= clip.right )
+	{
+		srcRect.right -= x + srcRect.getWidth() - clip.right;
+	}
+	if ( y < clip.top )
+	{
+		srcRect.top -= y - clip.top;
+		y = clip.top;
+	}
+	else if ( y + srcRect.getHeight() >= clip.bottem )
+	{
+		srcRect.bottem -= y + srcRect.getHeight() - clip.bottem;
+	}
+	for ( int sy = srcRect.top; sy < srcRect.bottem; ++sy )
+	{
+		for ( int sx = srcRect.left; sx < srcRect.right; ++sx )
+		{
+			if ( s.GetPixel( sx,sy ) != chroma )
+			{
+				PutPixel( x + sx - srcRect.left,y + sy - srcRect.top,recolor );
+			}
+		}
+	}
+}
+
 
 //////////////////////////////////////////////////
 //           Graphics Exception

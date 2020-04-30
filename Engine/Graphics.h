@@ -92,6 +92,16 @@ public:
 		DrawSprite( x,y,srcRect,Screen,s,chroma );
 	}
 	void DrawSprite( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,Color chroma = Colors::Magenta );
+
+	void DrawSpriteOverColor( int x,int y,const Surface& s,Color recolor,Color chroma = Colors::Magenta )
+	{
+		DrawSpriteOverColor( x,y,{ 0,s.getWidth(),0,s.getHeight() },s,recolor,chroma );
+	}
+	void DrawSpriteOverColor( int x,int y,RecI srcRect,const Surface& s,Color recolor,Color chroma = Colors::Magenta )
+	{
+		DrawSpriteOverColor( x,y,srcRect,Screen,s,recolor,chroma );
+	}
+	void DrawSpriteOverColor( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,Color recolor,Color chroma = Colors::Magenta );
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
