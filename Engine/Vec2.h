@@ -1,4 +1,5 @@
 #pragma once
+#include <compare>
 
 template<typename T>
 class Vec2_
@@ -21,12 +22,6 @@ public:
 		:
 		x( ( T )src.x ),
 		y( ( T )src.y )
-	{
-	}
-	Vec2_( const std::pair<T,T>& src )
-		:
-		x( src.first ),
-		y( src.second )
 	{
 	}
 	Vec2_ operator+( const Vec2_& rhs ) const
