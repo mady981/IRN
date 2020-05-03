@@ -16,7 +16,7 @@ void Camara::BindToPlayer( const Vec2f& PlayerPos )
 
 void Camara::Move( const Vec2f& dir )
 {
-	cVel = dir * 10.0f;
+	cVel = dir * FreeCamMoveSpeed;
 }
 
 void Camara::Update( float dt )
@@ -27,16 +27,18 @@ void Camara::Update( float dt )
 void Camara::Draw( Graphics& gfx ) const
 {
 	// Tiles
-	for ( int my = ( int )cPos.y - 19; my <= cPos.y + 19; ++my )
+	const int HalfRenderHeight = gfx.ScreenHeight / map.TileSprite()->getHeight() / 2 + 1;
+	const int HalfRenderWidth = gfx.ScreenWidth / map.TileSprite()->getWidth() / 2 + 1;
+	for ( int my = ( int )cPos.y - HalfRenderHeight; my <= cPos.y + HalfRenderHeight; ++my )
 	{
-		for ( int mx = ( int )cPos.x - 25 ; mx <= cPos.x + 25; ++mx )
+		for ( int mx = ( int )cPos.x - HalfRenderWidth; mx <= cPos.x + HalfRenderWidth; ++mx )
 		{
 			auto contens = map.getContens( { mx,my } );
 			if ( contens != -1 )
 			{
 				gfx.DrawSprite(
-					( int )( ( ( ( float )mx - cPos.x ) * 16.0f ) + gfx.ScreenWidth / 2 ),
-					( int )( ( ( ( float )my - cPos.y ) * 16.0f ) + gfx.ScreenHeight / 2 ),
+					( int )( ( ( ( float )mx - cPos.x ) * map.TileSprite()->getWidth() ) + gfx.ScreenWidth / 2 ),
+					( int )( ( ( ( float )my - cPos.y ) * map.TileSprite()->getHeight() ) + gfx.ScreenHeight / 2 ),
 					*map.TileSprite()
 				);
 				//gfx.DrawRecDimClip(

@@ -15,6 +15,8 @@ public:
 private:
 	Vec2f cPos;
 	Vec2f cVel = { 0.0f,0.0f };
+	const float FreeCamMoveSpeed = 10;
+private:
 	Map& map;
 	Player& Pl;
 	Enemy& eny;
