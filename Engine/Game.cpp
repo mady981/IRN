@@ -37,8 +37,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
     Pl( { 0,0 },map ),
-    eny( { 5,-2 },16,1,20,20,map ),
-    cam( { 0,0 },map,Pl,eny ),
+    cam( { 0,0 },map,Pl,eh ),
     ol( gfx )
 {
 }
@@ -123,8 +122,11 @@ void Game::UpdateModel()
     }
 
     //Enemy
-    eny.AI( Pl );
-    eny.Tick( dt );
+    for ( auto e : eh.Enemys() )
+    {
+        e->AI( Pl );
+        e->Tick( dt );
+    }
 
     /*------Test Code Begin---------------------*/
     if ( wnd.kbd.KeyIsPressed( 'R' ) )
@@ -152,16 +154,16 @@ void Game::UpdateModel()
         Pl.decMaxHP( 20 );
         ispresst = true;
     }
+    if ( wnd.kbd.KeyIsPressed( 'I' ) && !ispresst )
+    {
+        eh.SpawnEnemy( { 0,0 },map );
+        ispresst = true;
+    }
     const Keyboard::Event e = wnd.kbd.ReadKey();
     if ( e.IsRelease() )
     {
         ispresst = false;
     }
-    //DBOUT( Pl.Health() );
-    //DBOUT( "\n" );
-    // FPS
-    //DBOUT( 1 / dt );
-    //DBOUT( "\n" );
     /*------Test Code End---------------------*/
 }
 

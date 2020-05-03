@@ -4,7 +4,7 @@
 class Enemy : public Entity
 {
 public:
-	Enemy( const Vec2f& pos,const float& TrackDist,const float& inRange,const int& AttackWidth,const int& AttackHeight,Map& map );
+	Enemy( const Vec2f& pos,Map& map,const float& TrackDist = 16.0f,const float& inRange = 1.0f,const int& AttackWidth = 20,const int& AttackHeight = 20 );
 	void AI( Entity& target );
 private:
 	RecF AttackHB() const;

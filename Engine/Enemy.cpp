@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include <assert.h>
 
-Enemy::Enemy( const Vec2f& pos,const float& TrackDist,const float& inRange,const int& AttackWidth,const int& AttackHeight,Map& map )
+Enemy::Enemy( const Vec2f& pos,Map& map,const float& TrackDist,const float& inRange,const int& AttackWidth,const int& AttackHeight )
 	:
 	Entity( pos,{ 0,0 },100,4.0f,20.0f,45.0f,10,1.0f,new Surface( L"../Engine/Sprite/Player.bmp" ),map ),
 	TrackDistSq( TrackDist * TrackDist ),

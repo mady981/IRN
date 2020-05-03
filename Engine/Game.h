@@ -29,7 +29,7 @@
 #include "FrameTimer.h"
 #include "Text.h"
 #include "Overlay.h"
-#include "Enemy.h"
+#include "EntityHandle.h"
 #include <random>
 
 class Game
@@ -49,7 +49,7 @@ private:
     FrameTimer ft;
     Map map;
     Player Pl;
-    Enemy eny;
+    EntityHandle eh;
     Camara cam;
     Overlay ol;
     Text text = Text( 32,4,Surface( L"../Engine/Sprite/FontSheet16x18.bmp" ) );

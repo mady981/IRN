@@ -30,9 +30,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Framework\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ChiliException.h">
       <Filter>Framework\Header Files</Filter>
     </ClInclude>
@@ -72,9 +69,6 @@
     <ClInclude Include="Camera.h">
       <Filter>IRN</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>IRN</Filter>
-    </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>IRN</Filter>
     </ClInclude>
@@ -102,11 +96,17 @@
     <ClInclude Include="Surface.h">
       <Filter>Framework\Adition</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>IRN</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>IRN</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityHandle.h">
+      <Filter>IRN</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp">
-      <Filter>Framework\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="COMInitializer.cpp">
       <Filter>Framework\Source Files</Filter>
     </ClCompile>
@@ -157,6 +157,12 @@
     </ClCompile>
     <ClCompile Include="Surface.cpp">
       <Filter>Framework\Adition</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>IRN</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityHandle.cpp">
+      <Filter>IRN</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

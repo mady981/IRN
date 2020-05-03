@@ -1,11 +1,11 @@
 #include "Camera.h"
 
-Camara::Camara( const Vec2f& cPos,Map& map,Player& Pl,Enemy& eny )
+Camara::Camara( const Vec2f& cPos,Map& map,Player& Pl,EntityHandle& eh )
 	:
 	cPos( cPos ),
 	map( map ),
 	Pl( Pl ),
-	eny( eny )
+	eh( eh )
 {
 }
 
@@ -41,26 +41,20 @@ void Camara::Draw( Graphics& gfx ) const
 					( int )( ( ( ( float )my - cPos.y ) * map.TileSprite()->getHeight() ) + gfx.ScreenHeight / 2 ),
 					*map.TileSprite()
 				);
-				//gfx.DrawRecDimClip(
-				//	Vec2f(
-				//		( ( ( float )mx - cPos.x ) * 16.0f ) + gfx.ScreenWidth / 2,
-				//		( ( ( float )my - cPos.y ) * 16.0f ) + gfx.ScreenHeight / 2
-				//	),
-				//	15,
-				//	15,
-				//	Colors::Green
-				//);
 			}
 		}
 	}
 	// Enemys
-	gfx.DrawSpriteOverColor(
-		( int )( ( ( eny.Pos().x - cPos.x ) * map.TileSprite()->getWidth() - eny.Sprite()->getWidth() / 2 ) + gfx.ScreenWidth / 2 ),
-		( int )( ( ( eny.Pos().y - cPos.y ) * map.TileSprite()->getHeight() - eny.Sprite()->getHeight() ) + gfx.ScreenHeight / 2 ),
-		*eny.Sprite(),
-		Colors::Red,
-		eny.Facing().x < 0
-	);
+	for ( auto e : eh.Enemys() )
+	{
+		gfx.DrawSpriteOverColor(
+			( int )( ( ( e->Pos().x - cPos.x ) * map.TileSprite()->getWidth() - e->Sprite()->getWidth() / 2 ) + gfx.ScreenWidth / 2 ),
+			( int )( ( ( e->Pos().y - cPos.y ) * map.TileSprite()->getHeight() - e->Sprite()->getHeight() ) + gfx.ScreenHeight / 2 ),
+			*e->Sprite(),
+			Colors::Red,
+			e->Facing().x < 0
+		);
+	}
 	// Player
 	gfx.DrawSprite(
 		( int )( ( ( Pl.Pos().x - cPos.x ) * map.TileSprite()->getWidth() - Pl.Sprite()->getWidth() / 2 ) + gfx.ScreenWidth / 2 ),
@@ -68,13 +62,4 @@ void Camara::Draw( Graphics& gfx ) const
 		*Pl.Sprite(),
 		Pl.Facing().x < 0
 	);
-	//gfx.DrawRecDimClip(
-	//	Vec2f(
-	//		( ( Pl.Pos().x - cPos.x ) * 16.0f - Pl.PlWidth() / 2 ) + gfx.ScreenWidth / 2,
-	//		( ( Pl.Pos().y - cPos.y ) * 16.0f - Pl.PlHeight() ) + gfx.ScreenHeight / 2
-	//	),
-	//	Pl.PlWidth(),
-	//	Pl.PlHeight(),
-	//	Colors::Blue
-	//);
 }
