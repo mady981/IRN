@@ -2,7 +2,7 @@
 #include <assert.h>
 
 Entity::Entity( const Vec2f& pos,const Vec2f& vel,const float& maxHitPoints,const float& Speed,const float& JumpSpeed,
-	const float& FallSpeedInc,const float& Damage,Surface* pSprite,Map& map )
+	const float& FallSpeedInc,const float& Damage,const float& InvincibleTime,Surface* pSprite,Map& map )
 	:
 	pos( pos ),
 	vel( vel ),
@@ -11,14 +11,17 @@ Entity::Entity( const Vec2f& pos,const Vec2f& vel,const float& maxHitPoints,cons
 	JumpSpeed( JumpSpeed ),
 	FallSpeedInc( FallSpeedInc ),
 	Damage( Damage ),
-	currFallSpeed( 0.0f ),
-	currJumpSpeed( 0.0f ),
 	hitpoints( maxHitPoints ),
 	pSprite( pSprite ),
 	map( map ),
 	width( pSprite->getWidth() ),
 	height( pSprite-> getHeight() ),
-	facing( { 0,0 } )
+	InvincibleTime( InvincibleTime ),
+	currFallSpeed( 0.0f ),
+	currJumpSpeed( 0.0f ),
+	facing( { 0,0 } ),
+	curriTime( 0.0f ),
+	isInvincible( false )
 {
 }
 
@@ -53,12 +56,17 @@ void Entity::Tick( const float& dt )
 	Update( dt );
 	Jump( dt );
 	Physik( dt );
+	Invincible( dt );
 }
 
 void Entity::TakeDamage( const float& damagetaken )
 {
 	assert( damagetaken >= 0.0f );
-	hitpoints > 0 ? hitpoints -= damagetaken : hitpoints = 0;
+	if ( !isInvincible )
+	{
+		hitpoints > 0 ? hitpoints -= damagetaken : hitpoints = 0;
+		isInvincible = true;
+	}
 }
 
 void Entity::DealDamage( Entity& target ) const
@@ -126,5 +134,18 @@ void Entity::Physik( const float& dt )
 	else
 	{
 		currFallSpeed = 0.0f;
+	}
+}
+
+void Entity::Invincible( const float& dt )
+{
+	if ( isInvincible )
+	{
+		curriTime += dt;
+		while ( curriTime >= InvincibleTime )
+		{
+			curriTime -= InvincibleTime;
+			isInvincible = false;
+		}
 	}
 }

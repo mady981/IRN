@@ -8,7 +8,7 @@ class Entity
 {
 public:
 	Entity( const Vec2f& pos,const Vec2f& vel,const float& maxHitPoints,const float& Speed,const float& JumpSpeed,
-		const float& FallSpeedInc,const float& Damage,Surface* pSprite,Map& map );
+		const float& FallSpeedInc,const float& Damage,const float& InvincibleTime,Surface* pSprite,Map& map );
 	virtual ~Entity();
 	virtual void setDir( const Vec2f& dir,const bool& jump );
 	virtual void Tick( const float& dt );
@@ -25,6 +25,7 @@ protected:
 	void Update( const float& dt );
 	void Jump( const float& dt );
 	void Physik( const float& dt );
+	void Invincible( const float& dt );
 protected:
 	Vec2f pos;
 	Vec2f vel;
@@ -39,6 +40,9 @@ protected:
 	float hitpoints;
 	const int width;
 	const int height;
+	const float InvincibleTime;
+	float curriTime;
+	bool isInvincible;
 protected:
 	Surface* pSprite;
 	Map& map;

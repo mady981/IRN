@@ -6,7 +6,6 @@ class Enemy : public Entity
 public:
 	Enemy( const Vec2f& pos,const float& TrackDist,const float& inRange,const int& AttackWidth,const int& AttackHeight,Map& map );
 	void AI( Entity& target );
-	Vec2f Facing() const override;
 private:
 	RecF AttackHB() const;
 private:
