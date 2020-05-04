@@ -1,4 +1,5 @@
 #pragma once
+#include "Keyboard.h"
 #include "Entity.h"
 #include "Surface.h"
 #include "Map.h"
@@ -7,6 +8,7 @@ class Player : public Entity
 {
 public:
 	Player( const Vec2f& pos,Map& map );
+	void HandleImtputs( Keyboard& kbd );
 	float MaxHitPoints() const;
 	/*********************TestFunctions Begin****************************/
 public:

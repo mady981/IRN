@@ -29,20 +29,20 @@ protected:
 protected:
 	Vec2f pos;
 	Vec2f vel;
-	Vec2f facing;
+	Vec2f facing = { 0.0f,0.0f };
 	float maxHitPoints;
 	const float Speed;
 	const float JumpSpeed;
 	const float FallSpeedInc;
 	const float Damage;
-	float currFallSpeed;
-	float currJumpSpeed;
+	float currFallSpeed = 0.0f;
+	float currJumpSpeed = 0.0f;
 	float hitpoints;
 	const int width;
 	const int height;
 	const float InvincibleTime;
-	float curriTime;
-	bool isInvincible;
+	float curriTime = 0.0f;
+	bool isInvincible = false;
 protected:
 	Surface* pSprite;
 	Map& map;

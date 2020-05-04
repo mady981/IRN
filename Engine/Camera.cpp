@@ -14,6 +14,43 @@ void Camara::BindToPlayer( const Vec2f& PlayerPos )
 	cPos = PlayerPos;
 }
 
+void Camara::HandelImputs( Keyboard& kbd )
+{
+	if ( !FreeCam )
+	{
+		if ( kbd.KeyIsPressed( 'M' ) )
+		{
+			FreeCam = true;
+		}
+		BindToPlayer( Pl.Pos() );
+	}
+	else
+	{
+		Vec2f cdir = { 0.0f,0.0f };
+		if ( kbd.KeyIsPressed( 'P' ) )
+		{
+			FreeCam = false;
+		}
+		if ( kbd.KeyIsPressed( VK_UP ) )
+		{
+			cdir.y -= 1.0;
+		}
+		if ( kbd.KeyIsPressed( VK_DOWN ) )
+		{
+			cdir.y += 1.0f;
+		}
+		if ( kbd.KeyIsPressed( VK_LEFT ) )
+		{
+			cdir.x -= 1.0f;
+		}
+		if ( kbd.KeyIsPressed( VK_RIGHT ) )
+		{
+			cdir.x += 1.0f;
+		}
+		Move( cdir );
+	}
+}
+
 void Camara::Move( const Vec2f& dir )
 {
 	cVel = dir * FreeCamMoveSpeed;
@@ -21,7 +58,10 @@ void Camara::Move( const Vec2f& dir )
 
 void Camara::Update( float dt )
 {
-	cPos += cVel * dt;
+	if ( FreeCam )
+	{
+		cPos += cVel * dt;
+	}
 }
 
 void Camara::Draw( Graphics& gfx ) const

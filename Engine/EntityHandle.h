@@ -9,7 +9,7 @@ public:
 	EntityHandle();
 	~EntityHandle();
 	void SpawnEnemy( const Vec2f& spawnPos,Map& map );
-	void TickEntitys( const float& dt );
+	void HandleEntitys( const float& dt,Entity& target );
 public:
 	std::vector<Enemy*> Enemys() const;
 private:

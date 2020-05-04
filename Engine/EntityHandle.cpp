@@ -22,11 +22,12 @@ void EntityHandle::SpawnEnemy( const Vec2f& spawnPos,Map& map )
 	}
 }
 
-void EntityHandle::TickEntitys( const float& dt )
+void EntityHandle::HandleEntitys( const float& dt,Entity& target )
 {
 	for ( auto e : vEnemys )
 	{
 		e->Tick( dt );
+		e->AI( target );
 	}
 }
 

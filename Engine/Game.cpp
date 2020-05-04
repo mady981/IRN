@@ -59,74 +59,16 @@ void Game::UpdateModel()
 #endif // NDEBUG
 
     //Player
-    Vec2f dir = { 0.0f,0.0f };
-    Vec2f cdir = { 0.0f,0.0f };
-    bool jump = false;
-    if ( wnd.kbd.KeyIsPressed( VK_SPACE ) )
-    {
-        jump = true;
-    }
-    if ( wnd.kbd.KeyIsPressed( 'W' ) )
-    {
-        dir.y -= 1.0;
-    }
-    if ( wnd.kbd.KeyIsPressed( 'S' ) )
-    {
-        dir.y += 1.0f;
-    }
-    if ( wnd.kbd.KeyIsPressed( 'A' ) )
-    {
-        dir.x -= 1.0f;
-    }
-    if ( wnd.kbd.KeyIsPressed( 'D' ) )
-    {
-        dir.x += 1.0f;
-    }
-    Pl.setDir( dir,jump );
+    Pl.HandleImtputs( wnd.kbd );
     Pl.Tick( dt );
 
     //Camera
-    if ( !FreeCam )
-    {
-        if ( wnd.kbd.KeyIsPressed( 'M' ) )
-        {
-            FreeCam = true;
-        }
-        cam.BindToPlayer( Pl.Pos() );
-    }
+    cam.HandelImputs( wnd.kbd );
     //FreeCam controlls
-    else
-    {
-        if ( wnd.kbd.KeyIsPressed( 'P' ) )
-        {
-            FreeCam = false;
-        }
-        if ( wnd.kbd.KeyIsPressed( VK_UP ) )
-        {
-            cdir.y -= 1.0;
-        }
-        if ( wnd.kbd.KeyIsPressed( VK_DOWN ) )
-        {
-            cdir.y += 1.0f;
-        }
-        if ( wnd.kbd.KeyIsPressed( VK_LEFT ) )
-        {
-            cdir.x -= 1.0f;
-        }
-        if ( wnd.kbd.KeyIsPressed( VK_RIGHT ) )
-        {
-            cdir.x += 1.0f;
-        }
-        cam.Move( cdir );
-        cam.Update( dt );
-    }
+    cam.Update( dt );
 
     //Enemy
-    for ( auto e : eh.Enemys() )
-    {
-        e->AI( Pl );
-        e->Tick( dt );
-    }
+    eh.HandleEntitys( dt,Pl );
 
     /*------Test Code Begin---------------------*/
     if ( wnd.kbd.KeyIsPressed( 'R' ) )

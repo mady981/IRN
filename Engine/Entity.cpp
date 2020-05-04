@@ -16,12 +16,7 @@ Entity::Entity( const Vec2f& pos,const Vec2f& vel,const float& maxHitPoints,cons
 	map( map ),
 	width( pSprite->getWidth() ),
 	height( pSprite-> getHeight() ),
-	InvincibleTime( InvincibleTime ),
-	currFallSpeed( 0.0f ),
-	currJumpSpeed( 0.0f ),
-	facing( { 0,0 } ),
-	curriTime( 0.0f ),
-	isInvincible( false )
+	InvincibleTime( InvincibleTime )
 {
 }
 
