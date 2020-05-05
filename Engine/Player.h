@@ -1,7 +1,7 @@
 #pragma once
 #include "Keyboard.h"
 #include "Entity.h"
-#include "Surface.h"
+#include "SurfaceCodex.h"
 #include "Map.h"
 
 class Player : public Entity
