@@ -22,7 +22,7 @@ public:
 	{
 		return get()._Retrieve( key );
 	}
-	static Surface* Purge()
+	static void* Purge()
 	{
 		get()._Purge();
 	}
@@ -63,6 +63,7 @@ private:
 		}
 		entrys.clear();
 	}
+public:
 	static SurfaceCodex& get()
 	{
 		static SurfaceCodex codex;

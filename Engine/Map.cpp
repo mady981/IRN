@@ -1,15 +1,6 @@
 #include "Map.h"
 #include <assert.h>
 
-Map::~Map()
-{
-	for ( auto t : mTiles )
-	{
-		delete t.second;
-	}
-	delete pSprite;
-}
-
 bool Map::setTile( const Vec2i& pos,const int id )
 {
 	if ( !mTiles.contains( pos ) )
@@ -22,7 +13,7 @@ bool Map::setTile( const Vec2i& pos,const int id )
 		}
 		else
 		{
-			mTiles.emplace( pos,new Tile( pos,id,*pSprite ) );
+			mTiles.emplace( pos,new Tile( pos,id ) );
 			return true;
 		}
 	}
@@ -56,7 +47,12 @@ bool Map::CollidingWith( const Vec2f& pos,const RecF& rec ) const
 	return false;
 }
 
-Surface* Map::TileSprite() const
+const Surface* Map::TileSprite() const
 {
-	return pSprite;
+	return mTiles.begin()->second->pSprite;
+}
+
+std::map<Vec2i,Map::Tile*> Map::Tiles() const
+{
+	return mTiles;
 }

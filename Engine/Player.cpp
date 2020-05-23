@@ -33,6 +33,17 @@ void Player::HandleImtputs( Keyboard& kbd )
     setDir( dir,jump );
 }
 
+void Player::Draw( const Vec2f& cPos,Graphics& gfx ) const
+{
+    const Vec2f offset = pos - cPos;
+    gfx.DrawSprite(
+        int( offset.x * map.TileSprite()->getWidth() - pSprite->getWidth() / 2 + gfx.ScreenWidth / 2 ),
+        int( offset.y * map.TileSprite()->getHeight() - pSprite->getHeight() + gfx.ScreenHeight / 2 ),
+        *pSprite,
+        facing.x < 0
+    );
+}
+
 float Player::MaxHitPoints() const
 {
 	return maxHitPoints;

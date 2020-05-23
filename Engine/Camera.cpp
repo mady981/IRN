@@ -76,30 +76,15 @@ void Camara::Draw( Graphics& gfx ) const
 			auto contens = map.getContens( { mx,my } );
 			if ( contens != -1 )
 			{
-				gfx.DrawSprite(
-					( int )( ( ( ( float )mx - cPos.x ) * map.TileSprite()->getWidth() ) + gfx.ScreenWidth / 2 ),
-					( int )( ( ( ( float )my - cPos.y ) * map.TileSprite()->getHeight() ) + gfx.ScreenHeight / 2 ),
-					*map.TileSprite()
-				);
+				map.Tiles().find( { mx,my } )->second->Draw( cPos,gfx );
 			}
 		}
 	}
 	// Enemys
-	for ( auto e : eh.Enemys() )
+	for ( const auto& e : eh.Enemys() )
 	{
-		gfx.DrawSpriteOverColor(
-			( int )( ( ( e->Pos().x - cPos.x ) * map.TileSprite()->getWidth() - e->Sprite()->getWidth() / 2 ) + gfx.ScreenWidth / 2 ),
-			( int )( ( ( e->Pos().y - cPos.y ) * map.TileSprite()->getHeight() - e->Sprite()->getHeight() ) + gfx.ScreenHeight / 2 ),
-			*e->Sprite(),
-			Colors::Red,
-			e->Facing().x < 0
-		);
+		e->Draw( cPos,gfx );
 	}
 	// Player
-	gfx.DrawSprite(
-		( int )( ( ( Pl.Pos().x - cPos.x ) * map.TileSprite()->getWidth() - Pl.Sprite()->getWidth() / 2 ) + gfx.ScreenWidth / 2 ),
-		( int )( ( ( Pl.Pos().y - cPos.y ) * map.TileSprite()->getHeight() - Pl.Sprite()->getHeight() ) + gfx.ScreenHeight / 2 ),
-		*Pl.Sprite(),
-		Pl.Facing().x < 0
-	);
+	Pl.Draw( cPos,gfx );
 }

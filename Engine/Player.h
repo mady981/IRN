@@ -9,6 +9,8 @@ class Player : public Entity
 public:
 	Player( const Vec2f& pos,Map& map );
 	void HandleImtputs( Keyboard& kbd );
+	void Draw( const Vec2f& cPos,Graphics& gfx ) const override;
+public:
 	float MaxHitPoints() const;
 	/*********************TestFunctions Begin****************************/
 public:

@@ -3,7 +3,7 @@
 
 Enemy::Enemy( const Vec2f& pos,Map& map,const float& TrackDist,const float& inRange,const int& AttackWidth,const int& AttackHeight )
 	:
-	Entity( pos,{ 0,0 },100,4.0f,20.0f,45.0f,10,1.0f,new Surface( L"../Engine/Sprite/Player.bmp" ),map ),
+	Entity( pos,{ 0,0 },100,4.0f,20.0f,45.0f,10,1.0f,SurfaceCodex::Retrieve( L"Player.bmp" ),map ),
 	TrackDistSq( TrackDist * TrackDist ),
 	inRangeSq( inRange * inRange ),
 	AttackWidth( AttackWidth ),
@@ -31,6 +31,18 @@ void Enemy::AI( Entity& target )
 	{
 		target.TakeDamage( Damage );
 	}
+}
+
+void Enemy::Draw( const Vec2f& cPos,Graphics& gfx ) const
+{
+	const Vec2f offset = pos - cPos;
+	gfx.DrawSpriteOverColor(
+		int( offset.x * map.TileSprite()->getWidth() - pSprite->getWidth() / 2 + gfx.ScreenWidth / 2 ),
+		int( offset.y * map.TileSprite()->getHeight() - pSprite->getHeight() + gfx.ScreenHeight / 2 ),
+		*pSprite,
+		Colors::Red,
+		facing.y < 0
+	);
 }
 
 RecF Enemy::AttackHB() const

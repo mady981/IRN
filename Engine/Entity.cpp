@@ -25,6 +25,24 @@ Entity::~Entity()
 	delete pSprite;
 }
 
+void Entity::Tick( const float& dt )
+{
+	Update( dt );
+	Jump( dt );
+	Physik( dt );
+	Invincible( dt );
+}
+
+void Entity::TakeDamage( const float& damagetaken )
+{
+	assert( damagetaken >= 0.0f );
+	if ( !isInvincible )
+	{
+		hitpoints > 0 ? hitpoints -= damagetaken : hitpoints = 0;
+		isInvincible = true;
+	}
+}
+
 void Entity::setDir( const Vec2f& dir,const bool& jump )
 {
 	vel = dir * Speed;
@@ -43,24 +61,6 @@ void Entity::setDir( const Vec2f& dir,const bool& jump )
 		{
 			currJumpSpeed = JumpSpeed;
 		}
-	}
-}
-
-void Entity::Tick( const float& dt )
-{
-	Update( dt );
-	Jump( dt );
-	Physik( dt );
-	Invincible( dt );
-}
-
-void Entity::TakeDamage( const float& damagetaken )
-{
-	assert( damagetaken >= 0.0f );
-	if ( !isInvincible )
-	{
-		hitpoints > 0 ? hitpoints -= damagetaken : hitpoints = 0;
-		isInvincible = true;
 	}
 }
 

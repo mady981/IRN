@@ -1,10 +1,6 @@
 #include "EntityHandle.h"
 #include <assert.h>
 
-EntityHandle::EntityHandle()
-{
-}
-
 EntityHandle::~EntityHandle()
 {
 	for ( auto e : vEnemys )

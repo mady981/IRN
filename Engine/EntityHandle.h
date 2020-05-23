@@ -6,7 +6,7 @@
 class EntityHandle
 {
 public:
-	EntityHandle();
+	EntityHandle() = default;
 	~EntityHandle();
 	void SpawnEnemy( const Vec2f& spawnPos,Map& map );
 	void HandleEntitys( const float& dt,Entity& target );

@@ -21,9 +21,11 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include "ChiliException.h"
+#include "SurfaceCodex.h"
 
 int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR pArgs,INT )
 {
+	SurfaceCodex::get();
 	try
 	{
 		MainWindow wnd( hInst,pArgs );		
