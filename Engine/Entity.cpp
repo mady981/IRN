@@ -20,11 +20,6 @@ Entity::Entity( const Vec2f& pos,const Vec2f& vel,const float& maxHitPoints,cons
 {
 }
 
-Entity::~Entity()
-{
-	delete pSprite;
-}
-
 void Entity::Tick( const float& dt )
 {
 	Update( dt );
@@ -85,7 +80,7 @@ RecF Entity::HitBox() const
 	);
 }
 
-Surface* Entity::Sprite() const
+const Surface* Entity::Sprite() const
 {
 	return pSprite;
 }
