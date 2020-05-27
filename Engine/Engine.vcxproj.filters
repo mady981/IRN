@@ -28,6 +28,9 @@
     <Filter Include="Framework\Adition">
       <UniqueIdentifier>{72bcaea7-527a-4de1-a42d-8ed2ddb6ce00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IRN\World">
+      <UniqueIdentifier>{5535bdc7-c59b-4662-90e2-736513f0d27e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliException.h">
@@ -66,19 +69,7 @@
     <ClInclude Include="SoundEffect.h">
       <Filter>Framework\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>IRN</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>IRN</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>IRN</Filter>
-    </ClInclude>
     <ClInclude Include="Overlay.h">
-      <Filter>IRN</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
       <Filter>IRN</Filter>
     </ClInclude>
     <ClInclude Include="FrameTimer.h">
@@ -96,13 +87,25 @@
     <ClInclude Include="Surface.h">
       <Filter>Framework\Adition</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>IRN</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>IRN</Filter>
     </ClInclude>
     <ClInclude Include="SurfaceCodex.h">
+      <Filter>Framework\Adition</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>IRN\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>IRN\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>IRN\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>IRN\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
       <Filter>IRN</Filter>
     </ClInclude>
   </ItemGroup>
@@ -131,22 +134,7 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Framework\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>IRN</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>IRN</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>IRN</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>IRN</Filter>
-    </ClCompile>
     <ClCompile Include="Overlay.cpp">
-      <Filter>IRN</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
       <Filter>IRN</Filter>
     </ClCompile>
     <ClCompile Include="FrameTimer.cpp">
@@ -159,6 +147,21 @@
       <Filter>Framework\Adition</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
+      <Filter>IRN</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>IRN\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>IRN\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>IRN\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>IRN\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
       <Filter>IRN</Filter>
     </ClCompile>
   </ItemGroup>
