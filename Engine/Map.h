@@ -54,7 +54,8 @@ public:
 		}
 	}
 	bool setTile( const Vec2i& pos,const int id = 0 );
-	int getContens( const Vec2i& pos );
+	int getContens( const Vec2i& pos ) const;
+	void Draw( const Vec2f& pos_c,Graphics& gfx ) const;
 	bool CollidingWith( const Vec2f& pos,const RecF& rec ) const;
 	const Surface* TileSprite() const;
 	std::map<Vec2i,Tile*> Tiles() const;

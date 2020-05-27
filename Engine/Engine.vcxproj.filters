@@ -102,9 +102,6 @@
     <ClInclude Include="Game.h">
       <Filter>IRN</Filter>
     </ClInclude>
-    <ClInclude Include="EntityHandle.h">
-      <Filter>IRN</Filter>
-    </ClInclude>
     <ClInclude Include="SurfaceCodex.h">
       <Filter>IRN</Filter>
     </ClInclude>
@@ -162,9 +159,6 @@
       <Filter>Framework\Adition</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>IRN</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityHandle.cpp">
       <Filter>IRN</Filter>
     </ClCompile>
   </ItemGroup>

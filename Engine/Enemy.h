@@ -7,7 +7,7 @@ class Enemy : public Entity
 public:
 	Enemy( const Vec2f& pos,Map& map,const float& TrackDist = 16.0f,const float& inRange = 1.0f,const int& AttackWidth = 20,const int& AttackHeight = 20 );
 	void AI( Entity& target );
-	void Draw( const Vec2f& cPos,Graphics& gfx ) const override;
+	void Draw( const Vec2f& pos_c,Graphics& gfx ) const override;
 private:
 	RecF AttackHB() const;
 private:

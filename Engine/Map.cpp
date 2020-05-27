@@ -20,13 +20,30 @@ bool Map::setTile( const Vec2i& pos,const int id )
 	return false;
 }
 
-int Map::getContens( const Vec2i& pos )
+int Map::getContens( const Vec2i& pos ) const
 {
 	if ( mTiles.contains( pos ) )
 	{
 		return mTiles.find( pos )->second->id;
 	}
 	return -1;
+}
+
+void Map::Draw( const Vec2f& pos_c,Graphics& gfx ) const
+{
+	const int HalfRenderHeight = gfx.ScreenHeight / TileSprite()->getHeight() / 2 + 1;
+	const int HalfRenderWidth = gfx.ScreenWidth / TileSprite()->getWidth() / 2 + 1;
+	for ( int my = ( int )pos_c.y - HalfRenderHeight; my <= pos_c.y + HalfRenderHeight; ++my )
+	{
+		for ( int mx = ( int )pos_c.x - HalfRenderWidth; mx <= pos_c.x + HalfRenderWidth; ++mx )
+		{
+			auto contens = getContens( { mx,my } );
+			if ( contens != -1 )
+			{
+				Tiles().find( { mx,my } )->second->Draw( pos_c,gfx );
+			}
+		}
+	}
 }
 
 bool Map::CollidingWith( const Vec2f& pos,const RecF& rec ) const

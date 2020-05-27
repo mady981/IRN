@@ -25,11 +25,12 @@
 #include "Graphics.h"
 #include "Map.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Camera.h"
 #include "FrameTimer.h"
 #include "Text.h"
 #include "Overlay.h"
-#include "EntityHandle.h"
+#include <vector>
 #include <random>
 
 class Game
@@ -48,8 +49,8 @@ private:
     std::mt19937 rng;
     FrameTimer ft;
     Map map;
-    Player Pl;
-    EntityHandle eh;
+    Player pl;
+    std::vector<Enemy> vEny;
     Camara cam;
     Overlay ol;
     Text text = Text( 32,4,Surface( L"../Engine/Sprite/FontSheet16x18.bmp" ) );

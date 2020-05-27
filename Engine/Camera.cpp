@@ -1,11 +1,9 @@
 #include "Camera.h"
 
-Camara::Camara( const Vec2f& cPos,Map& map,Player& Pl,EntityHandle& eh )
+Camara::Camara( const Vec2f& cPos,Player& pl )
 	:
 	cPos( cPos ),
-	map( map ),
-	Pl( Pl ),
-	eh( eh )
+	pl( pl )
 {
 }
 
@@ -22,7 +20,7 @@ void Camara::HandelImputs( Keyboard& kbd )
 		{
 			FreeCam = true;
 		}
-		BindToPlayer( Pl.Pos() );
+		BindToPlayer( pl.Pos() );
 	}
 	else
 	{
@@ -64,27 +62,7 @@ void Camara::Update( float dt )
 	}
 }
 
-void Camara::Draw( Graphics& gfx ) const
+Vec2f Camara::cPos_get() const
 {
-	// Tiles
-	const int HalfRenderHeight = gfx.ScreenHeight / map.TileSprite()->getHeight() / 2 + 1;
-	const int HalfRenderWidth = gfx.ScreenWidth / map.TileSprite()->getWidth() / 2 + 1;
-	for ( int my = ( int )cPos.y - HalfRenderHeight; my <= cPos.y + HalfRenderHeight; ++my )
-	{
-		for ( int mx = ( int )cPos.x - HalfRenderWidth; mx <= cPos.x + HalfRenderWidth; ++mx )
-		{
-			auto contens = map.getContens( { mx,my } );
-			if ( contens != -1 )
-			{
-				map.Tiles().find( { mx,my } )->second->Draw( cPos,gfx );
-			}
-		}
-	}
-	// Enemys
-	for ( const auto& e : eh.Enemys() )
-	{
-		e->Draw( cPos,gfx );
-	}
-	// Player
-	Pl.Draw( cPos,gfx );
+	return Vec2f( cPos );
 }

@@ -1,7 +1,7 @@
 /****************************************************************************************** 
  *	Chili DirectX Framework Version 16.07.20											  *	
  *	Game.cpp																			  *
- *	Copyright 2016 PlanetChili.net <http://www.planetchili.net>							  *
+ *	Copyright 2016 planetChili.net <http://www.planetchili.net>							  *
  *																						  *
  *	This file is part of The Chili DirectX Framework.									  *
  *																						  *
@@ -36,8 +36,8 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-    Pl( { 0,0 },map ),
-    cam( { 0,0 },map,Pl,eh ),
+    pl( { 0,0 },map ),
+    cam( { 0,0 },pl ),
     ol( gfx )
 {
 }
@@ -58,9 +58,9 @@ void Game::UpdateModel()
     const auto dt = 1.0f / 60.0f;
 #endif // NDEBUG
 
-    //Player
-    Pl.HandleImtputs( wnd.kbd );
-    Pl.Tick( dt );
+    //player
+    pl.HandleImtputs( wnd.kbd );
+    pl.Tick( dt );
 
     //Camera
     cam.HandelImputs( wnd.kbd );
@@ -68,37 +68,16 @@ void Game::UpdateModel()
     cam.Update( dt );
 
     //Enemy
-    eh.HandleEntitys( dt,Pl );
+    for ( auto& e : vEny )
+    {
+        e.AI( pl );
+        e.Tick( dt );
+    }
 
     /*------Test Code Begin---------------------*/
-    if ( wnd.kbd.KeyIsPressed( 'R' ) )
-    {
-        Pl.debugSetPlayer( { 0,-1 },0.0f );
-    }
-    if ( wnd.kbd.KeyIsPressed( 'J' ) && !ispresst )
-    {
-        std::uniform_real_distribution<float> rDamage( 0.0f,10.0f );
-        Pl.TakeDamage( rDamage( rng ) );
-        ispresst = true;
-    }
-    else if ( wnd.kbd.KeyIsPressed( 'H' ) && !ispresst )
-    {
-        Pl.healPlayer( 100.0f );
-        ispresst = true;
-    }
-    if ( wnd.kbd.KeyIsPressed( 'O' ) && !ispresst )
-    {
-        Pl.incMaxHP( 20 );
-        ispresst = true;
-    }
-    if ( wnd.kbd.KeyIsPressed( 'L' ) && !ispresst )
-    {
-        Pl.decMaxHP( 20 );
-        ispresst = true;
-    }
     if ( wnd.kbd.KeyIsPressed( 'I' ) && !ispresst )
     {
-        eh.SpawnEnemy( { 0,0 },map );
+        vEny.emplace_back( Enemy( { 0,0 },map ) );
         ispresst = true;
     }
     const Keyboard::Event e = wnd.kbd.ReadKey();
@@ -112,7 +91,12 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
     gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
-    cam.Draw( gfx );
-    ol.DrawHealBar( Pl.HitPoints(),( int )Pl.MaxHitPoints() );
+    map.Draw( cam.cPos_get(),gfx );
+    pl.Draw( cam.cPos_get(),gfx );
+    for ( const auto& e : vEny )
+    {
+        e.Draw( cam.cPos_get(),gfx );
+    }
+    ol.DrawHealBar( pl.HitPoints(),( int )pl.MaxHitPoints() );
     text.DrawText( "IRN",gfx.ScreenWidth / 2 - ( text.getGlythWidth() * 3 ) / 2,10,gfx );
 }

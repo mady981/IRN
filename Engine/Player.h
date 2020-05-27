@@ -9,7 +9,7 @@ class Player : public Entity
 public:
 	Player( const Vec2f& pos,Map& map );
 	void HandleImtputs( Keyboard& kbd );
-	void Draw( const Vec2f& cPos,Graphics& gfx ) const override;
+	void Draw( const Vec2f& pos_c,Graphics& gfx ) const override;
 public:
 	float MaxHitPoints() const;
 	/*********************TestFunctions Begin****************************/
@@ -35,5 +35,6 @@ public:
 		maxHitPoints -= dec;
 	}
 	float oldy = 0;
+	bool ispresst = false;
 	/*********************TestFunctions End****************************/
 };

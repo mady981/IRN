@@ -33,9 +33,9 @@ void Enemy::AI( Entity& target )
 	}
 }
 
-void Enemy::Draw( const Vec2f& cPos,Graphics& gfx ) const
+void Enemy::Draw( const Vec2f& pos_c,Graphics& gfx ) const
 {
-	const Vec2f offset = pos - cPos;
+	const Vec2f offset = pos - pos_c;
 	gfx.DrawSpriteOverColor(
 		int( offset.x * map.TileSprite()->getWidth() - pSprite->getWidth() / 2 + gfx.ScreenWidth / 2 ),
 		int( offset.y * map.TileSprite()->getHeight() - pSprite->getHeight() + gfx.ScreenHeight / 2 ),
