@@ -72,7 +72,12 @@ Vec2f Entity::Pos() const
 
 RecF Entity::HitBox() const
 {
-	return pSprite->getRect<float>();
+	return RecF(
+		pos.x * ( float )map.TileSprite()->getWidth() - width / 2.0f,
+		pos.x * ( float )map.TileSprite()->getWidth() + width / 2.0f,
+		pos.y * ( float )map.TileSprite()->getHeight() - height,
+		pos.y * ( float )map.TileSprite()->getHeight()
+	);
 }
 
 const Surface* Entity::Sprite() const

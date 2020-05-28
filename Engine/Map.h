@@ -16,7 +16,12 @@ private:
 		{}
 		RecI TileHitBox() const
 		{
-			return pSprite->getRect<int>();
+			return RecI(
+				pos.x * pSprite->getWidth(),
+				pos.x * pSprite->getWidth() + pSprite->getWidth(),
+				pos.y * pSprite->getHeight(),
+				pos.y * pSprite->getHeight() + pSprite->getHeight()
+			);
 		}
 		void Draw( const Vec2f& cPos,Graphics& gfx )
 		{
