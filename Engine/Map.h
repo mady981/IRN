@@ -17,18 +17,15 @@ private:
 		RecI TileHitBox() const
 		{
 			return RecI(
-				pos.x * pSprite->getWidth(),
-				pos.x * pSprite->getWidth() + pSprite->getWidth(),
-				pos.y * pSprite->getHeight(),
-				pos.y * pSprite->getHeight() + pSprite->getHeight()
+				pSprite->getRect<int>().WithPosition( pos * Dimantion() )
 			);
 		}
 		void Draw( const Vec2f& cPos,Graphics& gfx )
 		{
 			const Vec2f offset = Vec2f( pos ) - cPos;
 			gfx.DrawSprite(
-				int( offset.x * pSprite->getWidth() + gfx.ScreenWidth / 2 ),
-				int( offset.y * pSprite->getHeight() + gfx.ScreenHeight / 2 ),
+				int( offset.x * Dimantion() + gfx.ScreenWidth / 2 ),
+				int( offset.y * Dimantion() + gfx.ScreenHeight / 2 ),
 				*pSprite,
 				false
 			);
@@ -57,8 +54,9 @@ public:
 	int getContens( const Vec2i& pos ) const;
 	void Draw( const Vec2f& pos_c,Graphics& gfx ) const;
 	bool CollidingWith( const Vec2f& pos,const RecF& rec ) const;
-	const Surface* TileSprite() const;
-	std::map<Vec2i,Tile*> Tiles() const;
+	static int Dimantion();
 private:
 	std::map<Vec2i,Tile*> mTiles;
+	const int HalfRenderHeight = Graphics::ScreenHeight / SurfaceCodex::Retrieve( L"GrassTile.bmp" )->getHeight() / 2 + 1;
+	const int HalfRenderWidth = Graphics::ScreenWidth / SurfaceCodex::Retrieve( L"GrassTile.bmp" )->getWidth() / 2 + 1;
 };

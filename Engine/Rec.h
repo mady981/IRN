@@ -38,6 +38,11 @@ public:
 		Rec_( topleft,topleft + Vec2f( width,height ) )
 	{
 	}
+	Rec_ fromCenter( const Vec2_<T>& center,T width,T height )
+	{
+		const Vec2f half( width / 2.0f,height / 2.0f );
+		return Rec_( center - half,center + half );
+	}
 	bool isOverlappingWith( const Rec_<float>& other ) const
 	{
 		return right > other.left && left < other.right
@@ -58,11 +63,6 @@ public:
 		return right >= other.x && left <= other.x
 			&& bottem >= other.y && top <= other.y;
 	}
-	Rec_ fromCenter( const Vec2_<T>& center,T width,T height )
-	{
-		const Vec2f half( width / 2.0f,height / 2.0f );
-		return Rec_( center - half,center + half );
-	}
 	T getWidth() const
 	{
 		return right - left;
@@ -70,6 +70,16 @@ public:
 	T getHeight() const
 	{
 		return bottem - top;
+	}
+	template<typename I>
+	Rec_ WithPosition( const Vec2_<I>& pos )
+	{
+		return Rec_{
+			( I )left + pos.x,
+			( I )right + pos.x,
+			( I )top + pos.y,
+			( I )bottem + pos.y
+		};
 	}
 public:
 	T left;

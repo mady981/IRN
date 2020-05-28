@@ -31,8 +31,6 @@ int Map::getContens( const Vec2i& pos ) const
 
 void Map::Draw( const Vec2f& pos_c,Graphics& gfx ) const
 {
-	const int HalfRenderHeight = gfx.ScreenHeight / TileSprite()->getHeight() / 2 + 1;
-	const int HalfRenderWidth = gfx.ScreenWidth / TileSprite()->getWidth() / 2 + 1;
 	for ( int my = ( int )pos_c.y - HalfRenderHeight; my <= pos_c.y + HalfRenderHeight; ++my )
 	{
 		for ( int mx = ( int )pos_c.x - HalfRenderWidth; mx <= pos_c.x + HalfRenderWidth; ++mx )
@@ -40,7 +38,7 @@ void Map::Draw( const Vec2f& pos_c,Graphics& gfx ) const
 			auto contens = getContens( { mx,my } );
 			if ( contens != -1 )
 			{
-				Tiles().find( { mx,my } )->second->Draw( pos_c,gfx );
+				mTiles.find( { mx,my } )->second->Draw( pos_c,gfx );
 			}
 		}
 	}
@@ -64,12 +62,7 @@ bool Map::CollidingWith( const Vec2f& pos,const RecF& rec ) const
 	return false;
 }
 
-const Surface* Map::TileSprite() const
+int Map::Dimantion()
 {
-	return mTiles.begin()->second->pSprite;
-}
-
-std::map<Vec2i,Map::Tile*> Map::Tiles() const
-{
-	return mTiles;
+	return SurfaceCodex::Retrieve( L"GrassTile.bmp" )->getWidth(); 
 }
