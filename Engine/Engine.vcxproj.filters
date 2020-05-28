@@ -106,7 +106,7 @@
       <Filter>IRN\World</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>IRN</Filter>
+      <Filter>IRN\World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -137,9 +137,6 @@
     <ClCompile Include="Overlay.cpp">
       <Filter>IRN</Filter>
     </ClCompile>
-    <ClCompile Include="FrameTimer.cpp">
-      <Filter>Framework\Adition</Filter>
-    </ClCompile>
     <ClCompile Include="Text.cpp">
       <Filter>Framework\Adition</Filter>
     </ClCompile>
@@ -162,7 +159,7 @@
       <Filter>IRN\World</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>IRN</Filter>
+      <Filter>IRN\World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

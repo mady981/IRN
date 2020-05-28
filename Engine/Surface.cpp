@@ -31,7 +31,7 @@ Surface::Surface( const std::wstring& filename )
 		yEnd = -1;
 		dy = -1;
 	}
-	pPixel = new Color[width * height];
+	vPixel.resize( width * height );
 	file.seekg( bmfileheader.bfOffBits );
 	const int padding = ( 4 - ( width * 3 ) % 4 ) % 4;
 	for ( int y = yStart; y != yEnd; y += dy )
@@ -55,39 +55,8 @@ Surface::Surface( int width,int height )
 	:
 	width( width ),
 	height( height ),
-	pPixel( new Color[width * height] )
+	vPixel( width * height )
 {
-}
-
-Surface::Surface( const Surface& rhs )
-	:
-	Surface( rhs.width,rhs.height )
-{
-	const int nPixel = width * height;
-	for ( int i = 0; i < nPixel; ++i )
-	{
-		pPixel[i] = rhs.pPixel[i];
-	}
-}
-
-Surface::~Surface()
-{
-	delete[] pPixel;
-	pPixel = nullptr;
-}
-
-Surface& Surface::operator=( const Surface& rhs )
-{
-	width = rhs.width;
-	height = rhs.height;
-	delete[] pPixel;
-	pPixel = new Color[width * height];
-	const int nPixel = width * height;
-	for ( int i = 0; i < nPixel; ++i )
-	{
-		pPixel[i] = rhs.pPixel[i];
-	}
-	return *this;
 }
 
 void Surface::PutPixel( int x,int y,Color c )
@@ -96,12 +65,16 @@ void Surface::PutPixel( int x,int y,Color c )
 	assert( x < width );
 	assert( y >= 0 );
 	assert( y < height );
-	pPixel[y * width + x] = c;
+	vPixel[y * width + x] = c;
 }
 
 Color Surface::GetPixel( int x,int y ) const
 {
-	return pPixel[y * width + x];
+	assert( x >= 0 );
+	assert( x < width );
+	assert( y >= 0 );
+	assert( y < height );
+	return vPixel[y * width + x];
 }
 
 int Surface::getWidth() const

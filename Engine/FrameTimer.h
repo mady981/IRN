@@ -4,8 +4,17 @@
 class FrameTimer
 {
 public:
-	FrameTimer();
-	float Duration();
+	FrameTimer()
+	{
+		last = std::chrono::steady_clock::now();
+	}
+	float Duration()
+	{
+		const auto old = last;
+		last = std::chrono::steady_clock::now();
+		const std::chrono::duration<float> dur = last - old;
+		return dur.count();
+	}
 private:
 	std::chrono::steady_clock::time_point last;
 };
