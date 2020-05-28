@@ -2,12 +2,12 @@
 #include "Graphics.h"
 #include "Player.h"
 
-class Camara
+class Camera
 {
 public:
-	Camara( const Vec2f& cPos,Player& pl );
+	Camera( const Vec2f& cPos,Player& pl );
 	void BindToPlayer( const Vec2f& PlayerPos );
-	void HandelImputs( Keyboard& kbd );
+	void HandleImputs( Keyboard& kbd );
 	void Move( const Vec2f& dir );
 	void Update( float dt );
 	Vec2f cPos_get() const;

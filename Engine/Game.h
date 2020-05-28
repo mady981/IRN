@@ -23,10 +23,7 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include "Map.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "Camera.h"
+#include "WorldObject.h"
 #include "FrameTimer.h"
 #include "Text.h"
 #include "Overlay.h"
@@ -47,11 +44,8 @@ private:
 	MainWindow& wnd;
 	Graphics gfx;
     std::mt19937 rng;
+    WorldObject world;
     FrameTimer ft;
-    Map map;
-    Player pl;
-    std::vector<Enemy> vEny;
-    Camara cam;
     Overlay ol;
     Text text = Text( 32,4,Surface( L"../Engine/Sprite/FontSheet16x18.bmp" ) );
 private:

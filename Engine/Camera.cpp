@@ -1,18 +1,18 @@
 #include "Camera.h"
 
-Camara::Camara( const Vec2f& cPos,Player& pl )
+Camera::Camera( const Vec2f& cPos,Player& pl )
 	:
 	cPos( cPos ),
 	pl( pl )
 {
 }
 
-void Camara::BindToPlayer( const Vec2f& PlayerPos )
+void Camera::BindToPlayer( const Vec2f& PlayerPos )
 {
 	cPos = PlayerPos;
 }
 
-void Camara::HandelImputs( Keyboard& kbd )
+void Camera::HandleImputs( Keyboard& kbd )
 {
 	if ( !FreeCam )
 	{
@@ -49,12 +49,12 @@ void Camara::HandelImputs( Keyboard& kbd )
 	}
 }
 
-void Camara::Move( const Vec2f& dir )
+void Camera::Move( const Vec2f& dir )
 {
 	cVel = dir * FreeCamMoveSpeed;
 }
 
-void Camara::Update( float dt )
+void Camera::Update( float dt )
 {
 	if ( FreeCam )
 	{
@@ -62,7 +62,7 @@ void Camara::Update( float dt )
 	}
 }
 
-Vec2f Camara::cPos_get() const
+Vec2f Camera::cPos_get() const
 {
 	return Vec2f( cPos );
 }

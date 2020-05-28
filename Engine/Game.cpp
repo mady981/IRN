@@ -36,8 +36,6 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-    pl( { 0,0 },map ),
-    cam( { 0,0 },pl ),
     ol( gfx )
 {
 }
@@ -57,46 +55,15 @@ void Game::UpdateModel()
 #else
     const auto dt = 1.0f / 60.0f;
 #endif // NDEBUG
+    world.Tick( dt );
 
-    //player
-    pl.HandleImtputs( wnd.kbd );
-    pl.Tick( dt );
-
-    //Camera
-    cam.HandelImputs( wnd.kbd );
-    //FreeCam controlls
-    cam.Update( dt );
-
-    //Enemy
-    for ( auto& e : vEny )
-    {
-        e.AI( pl );
-        e.Tick( dt );
-    }
-
-    /*------Test Code Begin---------------------*/
-    if ( wnd.kbd.KeyIsPressed( 'I' ) && !ispresst )
-    {
-        vEny.emplace_back( Enemy( { 0,0 },map ) );
-        ispresst = true;
-    }
-    const Keyboard::Event e = wnd.kbd.ReadKey();
-    if ( e.IsRelease() )
-    {
-        ispresst = false;
-    }
-    /*------Test Code End---------------------*/
+    world.HandleImputs( wnd.kbd );
 }
 
 void Game::ComposeFrame()
 {
     gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
-    map.Draw( cam.cPos_get(),gfx );
-    pl.Draw( cam.cPos_get(),gfx );
-    for ( const auto& e : vEny )
-    {
-        e.Draw( cam.cPos_get(),gfx );
-    }
-    ol.DrawHealBar( pl.HitPoints(),( int )pl.MaxHitPoints() );
+    world.Draw( gfx );
+    //ol.DrawHealBar( pl.HitPoints(),( int )pl.MaxHitPoints() );
     text.DrawText( "IRN",gfx.ScreenWidth / 2 - ( text.getGlythWidth() * 3 ) / 2,10,gfx );
 }

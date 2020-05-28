@@ -108,6 +108,9 @@
     <ClInclude Include="Camera.h">
       <Filter>IRN\World</Filter>
     </ClInclude>
+    <ClInclude Include="WorldObject.h">
+      <Filter>IRN\World</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="COMInitializer.cpp">
@@ -159,6 +162,9 @@
       <Filter>IRN\World</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
+      <Filter>IRN\World</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldObject.cpp">
       <Filter>IRN\World</Filter>
     </ClCompile>
   </ItemGroup>

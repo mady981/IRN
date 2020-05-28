@@ -6,7 +6,7 @@ Player::Player( const Vec2f& pos,Map& map )
 {
 }
 
-void Player::HandleImtputs( Keyboard& kbd )
+void Player::HandleImputs( Keyboard& kbd )
 {
     Vec2f dir = { 0.0f,0.0f };
     bool jump = false;
