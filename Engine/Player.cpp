@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "SpriteEffect.h"
 
 Player::Player( const Vec2f& pos,Map& map )
 	:
@@ -56,6 +57,11 @@ void Player::HandleImputs( Keyboard& kbd )
         decMaxHP( 20.0f );
         ispresst = true;
     }
+    const Keyboard::Event e = kbd.ReadKey();
+    if ( e.IsRelease() )
+    {
+        ispresst = false;
+    }
     /*------Test Code End----------------------*/
 }
 
@@ -66,7 +72,8 @@ void Player::Draw( const Vec2f& pos_c,Graphics& gfx ) const
         int( offset.x * Map::Dimantion() - pSprite->getWidth() / 2 + gfx.ScreenWidth / 2 ),
         int( offset.y * Map::Dimantion() - pSprite->getHeight() + gfx.ScreenHeight / 2 ),
         *pSprite,
-        facing.x < 0
+        facing.x < 0,
+        SpriteEffect::Chroma( Colors::Magenta )
     );
 }
 

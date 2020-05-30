@@ -111,6 +111,9 @@
     <ClInclude Include="WorldObject.h">
       <Filter>IRN\World</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteEffect.h">
+      <Filter>Framework\Adition</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="COMInitializer.cpp">

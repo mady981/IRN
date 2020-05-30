@@ -72,36 +72,69 @@ public:
 	{
 		DrawRecOutline( RecI( pos.x,pos.x + width,pos.y,pos.y + height ),thikness,c );
 	}
-
-	void DrawSpriteNoChroma( int x,int y,const Surface& s,bool mirrow = false )
+	template<typename E>
+	void DrawSprite( int x,int y,const Surface& s,bool mirrow,E effect )
 	{
-		DrawSpriteNoChroma( x,y,{ 0,s.getWidth(),0,s.getHeight() },s,mirrow );
-	};
-	void DrawSpriteNoChroma( int x,int y,RecI srcRect,const Surface& s,bool mirrow = false )
-	{
-		DrawSpriteNoChroma( x,y,srcRect,Screen,s,mirrow );
-	};
-	void DrawSpriteNoChroma( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,bool mirrow = false );
-
-	void DrawSprite( int x,int y,const Surface& s,bool mirrow = false,Color chroma = Colors::Magenta )
-	{
-		DrawSprite( x,y,{ 0,s.getWidth(),0,s.getHeight() },s,mirrow,chroma );
+		DrawSprite( x,y,{ 0,s.getWidth(),0,s.getHeight() },s,mirrow,effect );
 	}
-	void DrawSprite( int x,int y,RecI srcRect,const Surface& s,bool mirrow = false,Color chroma = Colors::Magenta )
+	template<typename E>
+	void DrawSprite( int x,int y,RecI srcRect,const Surface& s,bool mirrow,E effect )
 	{
-		DrawSprite( x,y,srcRect,Screen,s,mirrow,chroma );
+		DrawSprite( x,y,srcRect,Screen,s,mirrow,effect );
 	}
-	void DrawSprite( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,bool mirrow = false,Color chroma = Colors::Magenta );
-
-	void DrawSpriteOverColor( int x,int y,const Surface& s,Color recolor,bool mirrow = false,Color chroma = Colors::Magenta )
+	template<typename E>
+	void DrawSprite( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,bool mirrow,E effect )
 	{
-		DrawSpriteOverColor( x,y,{ 0,s.getWidth(),0,s.getHeight() },s,recolor,mirrow,chroma );
+		if ( x < clip.left )
+		{
+			srcRect.left += clip.left - x;
+			x = clip.left;
+		}
+		else if ( x + srcRect.getWidth() >= clip.right )
+		{
+			srcRect.right -= x + srcRect.getWidth() - clip.right;
+		}
+		if ( y < clip.top )
+		{
+			srcRect.top -= y - clip.top;
+			y = clip.top;
+		}
+		else if ( y + srcRect.getHeight() >= clip.bottem )
+		{
+			srcRect.bottem -= y + srcRect.getHeight() - clip.bottem;
+		}
+		if ( !mirrow )
+		{
+			for ( int sy = srcRect.top; sy < srcRect.bottem; ++sy )
+			{
+				for ( int sx = srcRect.left; sx < srcRect.right; ++sx )
+				{
+					effect(
+						s.GetPixel( sx,sy ),
+						x + sx - srcRect.left,
+						y + sy - srcRect.top,
+						*this
+					);
+				}
+			}
+		}
+		else
+		{
+			const int offset = srcRect.left + srcRect.right - 1;
+			for ( int sy = srcRect.top; sy < srcRect.bottem; ++sy )
+			{
+				for ( int sx = srcRect.left; sx < srcRect.right; ++sx )
+				{
+					effect(
+						s.GetPixel( offset - sx,sy ),
+						x + sx - srcRect.left,
+						y + sy - srcRect.top,
+						*this
+					);
+				}
+			}
+		}
 	}
-	void DrawSpriteOverColor( int x,int y,RecI srcRect,const Surface& s,Color recolor,bool mirrow = false,Color chroma = Colors::Magenta )
-	{
-		DrawSpriteOverColor( x,y,srcRect,Screen,s,recolor,mirrow,chroma );
-	}
-	void DrawSpriteOverColor( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,Color recolor,bool mirrow = false,Color chroma = Colors::Magenta );
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

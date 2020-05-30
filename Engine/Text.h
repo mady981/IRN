@@ -4,6 +4,7 @@
 #include "Vec2.h"
 #include "Surface.h"
 #include <string>
+#include "SpriteEffect.h"
 
 class Text
 {
@@ -20,7 +21,7 @@ public:
 		int currletter = 0;
 		for ( auto c : text )
 		{
-			gfx.DrawSprite( pos.x + currletter * CharWidth,pos.y,CharMaping( c ),*font,false,chroma );
+			gfx.DrawSprite( pos.x + currletter * CharWidth,pos.y,CharMaping( c ),*font,false,SpriteEffect::Chroma( chroma ) );
 			++currletter;
 		}
 	}

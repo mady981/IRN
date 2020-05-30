@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include <assert.h>
+#include "SpriteEffect.h"
 
 Enemy::Enemy( const Vec2f& pos,Map& map,const float& TrackDist,const float& inRange,const int& AttackWidth,const int& AttackHeight )
 	:
@@ -36,12 +37,12 @@ void Enemy::AI( Entity& target )
 void Enemy::Draw( const Vec2f& pos_c,Graphics& gfx ) const
 {
 	const Vec2f offset = pos - pos_c;
-	gfx.DrawSpriteOverColor(
+	gfx.DrawSprite(
 		int( offset.x * Map::Dimantion() - pSprite->getWidth() / 2 + gfx.ScreenWidth / 2 ),
 		int( offset.y * Map::Dimantion() - pSprite->getHeight() + gfx.ScreenHeight / 2 ),
 		*pSprite,
-		Colors::Red,
-		facing.y < 0
+		facing.y < 0,
+		SpriteEffect::Substitution( Colors::Red )
 	);
 }
 

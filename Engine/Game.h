@@ -27,6 +27,7 @@
 #include "FrameTimer.h"
 #include "Text.h"
 #include "Overlay.h"
+#include "SurfaceCodex.h"
 #include <vector>
 #include <random>
 
@@ -47,7 +48,7 @@ private:
     WorldObject world;
     FrameTimer ft;
     Overlay ol;
-    Text text = Text( 32,4,Surface( L"../Engine/Sprite/FontSheet16x18.bmp" ) );
+    Text text = Text( 32,4,SurfaceCodex::Retrieve( L"../Engine/Sprite/FontSheet16x18.bmp" ) );
 private:
     bool FreeCam = false;
     bool ispresst = false;

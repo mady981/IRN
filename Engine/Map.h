@@ -1,5 +1,6 @@
 #pragma once
 #include "Graphics.h"
+#include "SpriteEffect.h"
 #include "SurfaceCodex.h"
 #include <map>
 
@@ -27,7 +28,8 @@ private:
 				int( offset.x * Dimantion() + gfx.ScreenWidth / 2 ),
 				int( offset.y * Dimantion() + gfx.ScreenHeight / 2 ),
 				*pSprite,
-				false
+				false,
+				SpriteEffect::Chroma{ Colors::Magenta }
 			);
 		}
 		const Vec2i pos;
