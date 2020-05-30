@@ -140,9 +140,6 @@
     <ClCompile Include="Overlay.cpp">
       <Filter>IRN</Filter>
     </ClCompile>
-    <ClCompile Include="Text.cpp">
-      <Filter>Framework\Adition</Filter>
-    </ClCompile>
     <ClCompile Include="Surface.cpp">
       <Filter>Framework\Adition</Filter>
     </ClCompile>

@@ -2,6 +2,7 @@
 #include "Surface.h"
 #include <string>
 #include <vector>
+#include <cassert>
 
 class SurfaceCodex
 {
@@ -46,7 +47,16 @@ private:
 		// not exist
 		if ( i == entrys.end() )
 		{
-			auto p = new Surface( L"../Engine/Sprite/" + key );
+			Surface* p = nullptr;
+			assert( key.ends_with( L".bmp" ) );
+			if ( key.starts_with( L".." ) )
+			{
+				p = new Surface( key );
+			}
+			else
+			{
+				p = new Surface( L"../Engine/Sprite/" + key );
+			}
 			entrys.emplace_back( key,p );
 			return p;
 		}
