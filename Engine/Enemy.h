@@ -5,8 +5,8 @@
 class Enemy : public Entity
 {
 public:
-	Enemy( const Vec2f& pos,Map& map );
-	void AI( Entity& target );
+	Enemy( const Vec2f& pos );
+	void AI( Entity* target,class WorldObject& world );
 	void Draw( const Vec2f& pos_c,Graphics& gfx ) const override;
 private:
 	RecF AttackHB() const;

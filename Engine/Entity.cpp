@@ -1,8 +1,9 @@
 #include "Entity.h"
 #include <assert.h>
+#include "WorldObject.h"
 
 Entity::Entity( const Vec2f& pos,const Vec2f& vel,int maxHitPoints,float Speed,float JumpSpeed,
-	float FallSpeedInc,int Damage,float InvincibleTime,Surface* pSprite,Map& map )
+	float FallSpeedInc,int Damage,float InvincibleTime,Surface* pSprite )
 	:
 	pos( pos ),
 	vel( vel ),
@@ -13,7 +14,6 @@ Entity::Entity( const Vec2f& pos,const Vec2f& vel,int maxHitPoints,float Speed,f
 	Damage( Damage ),
 	hitpoints( maxHitPoints ),
 	pSprite( pSprite ),
-	map( map ),
 	width( pSprite->getWidth() ),
 	height( pSprite-> getHeight() ),
 	InvincibleTime( InvincibleTime )
@@ -21,11 +21,11 @@ Entity::Entity( const Vec2f& pos,const Vec2f& vel,int maxHitPoints,float Speed,f
 	
 }
 
-void Entity::Tick( float dt )
+void Entity::Tick( float dt,WorldObject& world )
 {
 	Update( dt );
 	Jump( dt );
-	Physik( dt );
+	Physik( dt,world );
 	Invincible( dt );
 }
 
@@ -39,14 +39,14 @@ void Entity::TakeDamage( int damagetaken )
 	}
 }
 
-void Entity::setDir( const Vec2f& dir,bool jump )
+void Entity::setDir( const Vec2f& dir,bool jump,WorldObject& world )
 {
 	vel = dir * Speed;
 	if ( dir != Vec2f{ 0,0 } )
 	{
 		facing = (int)dir.x;
 	}
-	if ( map.CollidingWith( pos.getRound(),HitBox() ) )
+	if ( world.getMap()->CollidingWith( pos.getRound(),HitBox() ) )
 	{
 		currJumpSpeed = 0;
 		if ( dir.y > 0 )
@@ -66,7 +66,7 @@ void Entity::DealDamage( Entity& target ) const
 	target.TakeDamage( Damage );
 }
 
-Vec2f Entity::Pos() const
+Vec2f Entity::getPos() const
 {
 	return pos;
 }
@@ -115,9 +115,9 @@ void Entity::Jump( float dt )
 	pos.y -= currJumpSpeed * dt;
 }
 
-void Entity::Physik( float dt )
+void Entity::Physik( float dt,WorldObject& world )
 {
-	if ( !map.CollidingWith( pos.getRound(),HitBox() ) )
+	if ( !world.getMap()->CollidingWith( pos.getRound(),HitBox() ) )
 	{
 		pos.y += currFallSpeed * dt;
 		currFallSpeed += FallSpeedInc * dt;

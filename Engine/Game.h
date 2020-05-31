@@ -32,22 +32,33 @@
 
 class Game
 {
+private:
+    enum class GameState
+    {
+        InMenue,
+        InGame1,
+        InGame2
+    };
 public:
 	Game( class MainWindow& wnd );
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
+    ~Game();
 	void Go();
 private:
+    void HandleWorldObject();
 	void ComposeFrame();
 	void UpdateModel();
 private:
 	MainWindow& wnd;
 	Graphics gfx;
     std::mt19937 rng;
-    WorldObject world;
+    WorldObject* pWorld = nullptr;
     FrameTimer ft;
     Text text = Text( 32,4,SurfaceCodex::Retrieve( L"../Engine/Sprite/FontSheet16x18.bmp" ) );
 private:
-    bool FreeCam = false;
+    GameState g_state = GameState::InMenue;
     bool ispresst = false;
+    std::vector<Vec2i> layout1;
+    std::vector<Vec2i> layout2;
 };

@@ -37,14 +37,75 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd )
 {
+    for ( int x = -20; x < 10; ++x )
+    {
+        layout1.emplace_back( Vec2i{ x,0 } );
+    }
+    for ( int p = 10; p < 30; ++p )
+    {
+        layout1.emplace_back( Vec2i{ p,-p + 10 } );
+    }
+    for ( int x = -25; x < -15; ++x )
+    {
+        layout1.emplace_back( Vec2i{ x,-5 } );
+    }
+    for ( int p = -20; p < 20; ++p )
+    {
+        layout2.emplace_back( Vec2i{ p,p } );
+    }
+}
+
+Game::~Game()
+{
+    delete pWorld;
 }
 
 void Game::Go()
 {
 	gfx.BeginFrame();	
+    HandleWorldObject();
 	UpdateModel();
 	ComposeFrame();
 	gfx.EndFrame();
+}
+
+void Game::HandleWorldObject()
+{
+    if ( wnd.kbd.KeyIsPressed( '0' ) && g_state != GameState::InMenue )
+    {
+        g_state = GameState::InMenue;
+        pWorld->DeletePlayer();
+        delete pWorld;
+        pWorld = nullptr;
+    }
+    if ( wnd.kbd.KeyIsPressed( '1' ) && g_state != GameState::InGame1 )
+    {
+        g_state = GameState::InGame1;
+        if ( pWorld )
+        {
+            Player* pPlayerCopy = pWorld->getPl();
+            delete pWorld;
+            pWorld = new WorldObject( layout1,pPlayerCopy );
+        }
+        else
+        {
+            pWorld = new WorldObject( layout1,{} );
+        }
+    }
+    if ( wnd.kbd.KeyIsPressed( '2' ) && g_state != GameState::InGame2 )
+    {
+        g_state = GameState::InGame2;
+        if ( pWorld )
+        {
+            Player* pPlayerCopy = pWorld->getPl();
+            delete pWorld;
+            pWorld = new WorldObject( layout2,pPlayerCopy );
+        }
+        else
+        {
+            pWorld = new WorldObject( layout2,{} );
+        }
+    }
 }
 
 void Game::UpdateModel()
@@ -54,14 +115,24 @@ void Game::UpdateModel()
 #else
     const auto dt = 1.0f / 60.0f;
 #endif // NDEBUG
-    world.Tick( dt );
+    if ( g_state != GameState::InMenue )
+    {
+        pWorld->Tick( dt );
 
-    world.HandleImputs( wnd.kbd );
+        pWorld->HandleImputs( wnd.kbd );
+    }
 }
 
 void Game::ComposeFrame()
 {
-    gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
-    world.Draw( gfx );
-    text.DrawText( "IRN",gfx.ScreenWidth / 2 - ( text.getGlythWidth() * 3 ) / 2,10,gfx );
+    if ( g_state != GameState::InMenue )
+    {
+        gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
+        pWorld->Draw( gfx );
+        text.DrawText( "IRN",gfx.ScreenWidth / 2 - ( text.getGlythWidth() * 3 ) / 2,10,gfx );
+    }
+    else
+    {
+        text.DrawText( "In Menue",{ 100,100 },gfx );
+    }
 }

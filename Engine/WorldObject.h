@@ -5,16 +5,22 @@
 #include "Map.h"
 #include "Camera.h"
 #include <vector>
+#include <string>
+#include <optional>
 
 class WorldObject
 {
 public:
-	WorldObject();
+	WorldObject( std::vector<Vec2i>& layout,std::optional<Player*> player );
+	~WorldObject();
 	void Tick( float dt );
 	void HandleImputs( Keyboard& kbd );
 	void Draw( Graphics& gfx ) const;
+	void DeletePlayer();
+	Player* getPl();
+	Map* getMap();
 private:
-	Player pl;
+	Player* pl;
 	std::vector<Enemy> vEny;
 	Map map;
 	Camera cam;

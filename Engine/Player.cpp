@@ -1,13 +1,15 @@
 #include "Player.h"
 #include "SpriteEffect.h"
+#include "WorldObject.h"
 
-Player::Player( const Vec2f& pos,Map& map )
+Player::Player( const Vec2f& pos )
 	:
-	Entity( pos,{ 0,0 },150,10.0f,20.0f,45.0f,10,1.0f,SurfaceCodex::Retrieve( L"Player.bmp" ),map )
+	Entity( pos,{ 0,0 },150,10.0f,20.0f,45.0f,10,1.0f,SurfaceCodex::Retrieve( L"Player.bmp" ) )
 {
+    OutputDebugStringW( L"Player Constructed\n" );
 }
 
-void Player::HandleImputs( Keyboard& kbd )
+void Player::HandleImputs( Keyboard& kbd,WorldObject& world )
 {
     Vec2f dir = { 0.0f,0.0f };
     bool jump = false;
@@ -31,7 +33,7 @@ void Player::HandleImputs( Keyboard& kbd )
     {
         dir.x += 1.0f;
     }
-    setDir( dir,jump );
+    setDir( dir,jump,world );
     /*------Test Code Begin---------------------*/
     if ( kbd.KeyIsPressed( 'R' ) )
     {

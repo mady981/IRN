@@ -1,9 +1,9 @@
 #include "Camera.h"
+#include "WorldObject.h"
 
-Camera::Camera( const Vec2f& cPos,Player& pl )
+Camera::Camera( const Vec2f& cPos )
 	:
-	cPos( cPos ),
-	pl( pl )
+	cPos( cPos )
 {
 }
 
@@ -12,7 +12,7 @@ void Camera::BindToPlayer( const Vec2f& PlayerPos )
 	cPos = PlayerPos;
 }
 
-void Camera::HandleImputs( Keyboard& kbd )
+void Camera::HandleImputs( Keyboard& kbd,WorldObject& world )
 {
 	if ( !FreeCam )
 	{
@@ -20,7 +20,7 @@ void Camera::HandleImputs( Keyboard& kbd )
 		{
 			FreeCam = true;
 		}
-		BindToPlayer( pl.Pos() );
+		BindToPlayer( world.getPl()->getPos() );
 	}
 	else
 	{

@@ -37,21 +37,15 @@ private:
 		const Surface* pSprite = SurfaceCodex::Retrieve( L"GrassTile.bmp" );
 	};
 public:
-	Map()
+	Map( std::vector<Vec2i>& layout )
 	{
-		for ( int x = -20; x < 10; ++x )
+		for ( auto l : layout )
 		{
-			mTiles.emplace( Vec2i( x,0 ),new Tile( Vec2i( x,0 ),1 ) );
+			mTiles.emplace( l,new Tile( l,1 ) );
 		}
-		for ( int p = 10; p < 30; ++p )
-		{
-			mTiles.emplace( Vec2i( p,-p + 10 ),new Tile( Vec2i( p,-p + 10 ),1 ) );
-		}
-		for ( int x = -25; x < -15; ++x )
-		{
-			mTiles.emplace( Vec2i( x,-5 ),new Tile( Vec2i( x,-5 ),1 ) );
-		}
+		OutputDebugStringW( L"Map Constructed\n" );
 	}
+	~Map();
 	bool setTile( const Vec2i& pos,const int id = 0 );
 	int getContens( const Vec2i& pos ) const;
 	void Draw( const Vec2f& pos_c,Graphics& gfx ) const;

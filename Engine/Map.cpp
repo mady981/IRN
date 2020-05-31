@@ -1,6 +1,15 @@
 #include "Map.h"
 #include <assert.h>
 
+Map::~Map()
+{
+	for ( auto& m : mTiles )
+	{
+		delete m.second;
+	}
+	OutputDebugStringW( L"Map Destroied\n" );
+}
+
 bool Map::setTile( const Vec2i& pos,const int id )
 {
 	if ( !mTiles.contains( pos ) )
