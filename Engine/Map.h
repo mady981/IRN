@@ -43,7 +43,6 @@ public:
 		{
 			mTiles.emplace( l,new Tile( l,1 ) );
 		}
-		OutputDebugStringW( L"Map Constructed\n" );
 	}
 	~Map();
 	bool setTile( const Vec2i& pos,const int id = 0 );

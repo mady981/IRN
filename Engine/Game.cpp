@@ -71,14 +71,14 @@ void Game::Go()
 
 void Game::HandleWorldObject()
 {
-    if ( wnd.kbd.KeyIsPressed( '0' ) && g_state != GameState::InMenue )
+    if ( wnd.kbd.KeyIsPressed( VK_ESCAPE ) && g_state != GameState::InMenue )
     {
         g_state = GameState::InMenue;
         pWorld->DeletePlayer();
         delete pWorld;
         pWorld = nullptr;
     }
-    if ( wnd.kbd.KeyIsPressed( '1' ) && g_state != GameState::InGame1 )
+    if ( World1SelectionHitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) && wnd.mouse.LeftIsPressed() && g_state == GameState::InMenue )
     {
         g_state = GameState::InGame1;
         if ( pWorld )
@@ -92,7 +92,7 @@ void Game::HandleWorldObject()
             pWorld = new WorldObject( layout1,{} );
         }
     }
-    if ( wnd.kbd.KeyIsPressed( '2' ) && g_state != GameState::InGame2 )
+    if ( World2SelectionHitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) && wnd.mouse.LeftIsPressed() && g_state == GameState::InMenue )
     {
         g_state = GameState::InGame2;
         if ( pWorld )
@@ -134,5 +134,15 @@ void Game::ComposeFrame()
     else
     {
         text.DrawText( "In Menue",{ 100,100 },gfx );
+        text.DrawText( "World 1",{ 100,200 },gfx );
+        text.DrawText( "World 2",{ 100,300 },gfx );
+        if ( World1SelectionHitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) )
+        {
+            gfx.DrawRecOutline( World1SelectionHitBox,1,Colors::LightGray );
+        }
+        if ( World2SelectionHitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) )
+        {
+            gfx.DrawRecOutline( World2SelectionHitBox,1,Colors::LightGray );
+        }
     }
 }

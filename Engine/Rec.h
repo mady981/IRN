@@ -35,7 +35,7 @@ public:
 	}
 	Rec_( const Vec2_<T>& topleft,T width,T height )
 		:
-		Rec_( topleft,topleft + Vec2f( width,height ) )
+		Rec_( topleft,topleft + Vec2_<T>( width,height ) )
 	{
 	}
 	Rec_ fromCenter( const Vec2_<T>& center,T width,T height )

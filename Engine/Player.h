@@ -8,10 +8,6 @@ class Player : public Entity
 {
 public:
 	Player( const Vec2f& pos );
-	~Player()
-	{
-		OutputDebugStringW( L"Player Destroyed\n" );
-	}
 	void HandleImputs( Keyboard& kbd,class WorldObject& world );
 	void Draw( const Vec2f& pos_c,Graphics& gfx ) const override;
 private:

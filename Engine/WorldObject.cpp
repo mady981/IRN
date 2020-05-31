@@ -8,19 +8,15 @@ WorldObject::WorldObject( std::vector<Vec2i>& layout,std::optional<Player*> play
 	if ( player )
 	{
 		pl = *player;
-		OutputDebugStringW( L"Player Copied WorldObject\n" );
 	}
 	else
 	{
 		pl = new Player( { 0,0 } );
-		OutputDebugStringW( L"Player Constructed WorldObject\n" );
 	}
-	OutputDebugStringW( L"WorldObject Constructed\n" );
 }
 
 WorldObject::~WorldObject()
 {
-	OutputDebugStringW( L"WorldObject Destroied\n" );
 }
 
 void WorldObject::Tick( float dt )
@@ -38,6 +34,10 @@ void WorldObject::HandleImputs( Keyboard& kbd )
 {
 	pl->HandleImputs( kbd,*this );
 	cam.HandleImputs( kbd,*this );
+	if ( kbd.KeyIsPressed( 'I' ) )
+	{
+		vEny.emplace_back( Enemy( { 0,0 } ) );
+	}
 }
 
 void WorldObject::Draw( Graphics& gfx ) const

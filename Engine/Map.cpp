@@ -7,7 +7,6 @@ Map::~Map()
 	{
 		delete m.second;
 	}
-	OutputDebugStringW( L"Map Destroied\n" );
 }
 
 bool Map::setTile( const Vec2i& pos,const int id )

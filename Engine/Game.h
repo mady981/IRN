@@ -61,4 +61,6 @@ private:
     bool ispresst = false;
     std::vector<Vec2i> layout1;
     std::vector<Vec2i> layout2;
+    RecI World1SelectionHitBox = RecI( { 100 - 2,200 - 2 },text.getGlythWidth() * 7,text.getGlythHeight() );
+    RecI World2SelectionHitBox = RecI( { 100 - 2,300 - 2 },text.getGlythWidth() * 7,text.getGlythHeight() );
 };

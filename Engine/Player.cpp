@@ -6,7 +6,6 @@ Player::Player( const Vec2f& pos )
 	:
 	Entity( pos,{ 0,0 },150,10.0f,20.0f,45.0f,10,1.0f,SurfaceCodex::Retrieve( L"Player.bmp" ) )
 {
-    OutputDebugStringW( L"Player Constructed\n" );
 }
 
 void Player::HandleImputs( Keyboard& kbd,WorldObject& world )
