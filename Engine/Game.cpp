@@ -35,8 +35,7 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd ),
-    ol( gfx )
+	gfx( wnd )
 {
 }
 
@@ -64,6 +63,5 @@ void Game::ComposeFrame()
 {
     gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
     world.Draw( gfx );
-    //ol.DrawHealBar( pl.HitPoints(),( int )pl.MaxHitPoints() );
     text.DrawText( "IRN",gfx.ScreenWidth / 2 - ( text.getGlythWidth() * 3 ) / 2,10,gfx );
 }

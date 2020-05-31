@@ -3,7 +3,7 @@
 
 Player::Player( const Vec2f& pos,Map& map )
 	:
-	Entity( pos,{ 0,0 },150,10.0f,20.0f,45.0f,10.0f,1.0f,SurfaceCodex::Retrieve( L"Player.bmp" ),map )
+	Entity( pos,{ 0,0 },150,10.0f,20.0f,45.0f,10,1.0f,SurfaceCodex::Retrieve( L"Player.bmp" ),map )
 {
 }
 
@@ -39,22 +39,22 @@ void Player::HandleImputs( Keyboard& kbd )
     }
     if ( kbd.KeyIsPressed( 'J' ) && !ispresst )
     {
-        TakeDamage( 10.0f );
+        TakeDamage( 10 );
         ispresst = true;
     }
     else if ( kbd.KeyIsPressed( 'H' ) && !ispresst )
     {
-        healPlayer( 1000.0f );
+        healPlayer( 1000 );
         ispresst = true;
     }
     if ( kbd.KeyIsPressed( 'O' ) && !ispresst )
     {
-        incMaxHP( 20.0f );
+        incMaxHP( 20 );
         ispresst = true;
     }
     if ( kbd.KeyIsPressed( 'L' ) && !ispresst )
     {
-        decMaxHP( 20.0f );
+        decMaxHP( 20 );
         ispresst = true;
     }
     const Keyboard::Event e = kbd.ReadKey();
@@ -72,12 +72,10 @@ void Player::Draw( const Vec2f& pos_c,Graphics& gfx ) const
         int( offset.x * Map::Dimantion() - pSprite->getWidth() / 2 + gfx.ScreenWidth / 2 ),
         int( offset.y * Map::Dimantion() - pSprite->getHeight() + gfx.ScreenHeight / 2 ),
         *pSprite,
-        facing.x < 0,
+        facing < 0,
         SpriteEffect::Chroma( Colors::Magenta )
     );
+    gfx.DrawRecDim( { 10,10 },hitpoints / maxHitPoints * maxHitPoints,HPBarHeight,Colors::Red );
+    gfx.DrawOutline( { 10,10 },HpBarWidth,HPBarHeight,1,Colors::Gray );
 }
 
-float Player::MaxHitPoints() const
-{
-	return maxHitPoints;
-}

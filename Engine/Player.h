@@ -10,8 +10,9 @@ public:
 	Player( const Vec2f& pos,Map& map );
 	void HandleImputs( Keyboard& kbd );
 	void Draw( const Vec2f& pos_c,Graphics& gfx ) const override;
-public:
-	float MaxHitPoints() const;
+private:
+	static constexpr int HPBarHeight = 10;
+	static constexpr int HpBarWidth = 150;
 	/*********************TestFunctions Begin****************************/
 public:
 	void debugSetPlayer( const Vec2f& debugpos,float fallvel )
@@ -19,18 +20,18 @@ public:
 		pos = debugpos;
 		currFallSpeed = fallvel;
 	}
-	void healPlayer( float heal )
+	void healPlayer( int heal )
 	{
 		if ( ( hitpoints += heal ) > maxHitPoints )
 		{
 			hitpoints = maxHitPoints;
 		}
 	}
-	void incMaxHP( float inc )
+	void incMaxHP( int inc )
 	{
 		maxHitPoints += inc;
 	}
-	void decMaxHP( float dec )
+	void decMaxHP( int dec )
 	{
 		maxHitPoints -= dec;
 	}

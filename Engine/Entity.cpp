@@ -1,8 +1,8 @@
 #include "Entity.h"
 #include <assert.h>
 
-Entity::Entity( const Vec2f& pos,const Vec2f& vel,const float& maxHitPoints,const float& Speed,const float& JumpSpeed,
-	const float& FallSpeedInc,const float& Damage,const float& InvincibleTime,Surface* pSprite,Map& map )
+Entity::Entity( const Vec2f& pos,const Vec2f& vel,int maxHitPoints,float Speed,float JumpSpeed,
+	float FallSpeedInc,int Damage,float InvincibleTime,Surface* pSprite,Map& map )
 	:
 	pos( pos ),
 	vel( vel ),
@@ -18,9 +18,10 @@ Entity::Entity( const Vec2f& pos,const Vec2f& vel,const float& maxHitPoints,cons
 	height( pSprite-> getHeight() ),
 	InvincibleTime( InvincibleTime )
 {
+	
 }
 
-void Entity::Tick( const float& dt )
+void Entity::Tick( float dt )
 {
 	Update( dt );
 	Jump( dt );
@@ -28,7 +29,7 @@ void Entity::Tick( const float& dt )
 	Invincible( dt );
 }
 
-void Entity::TakeDamage( const float& damagetaken )
+void Entity::TakeDamage( int damagetaken )
 {
 	assert( damagetaken >= 0.0f );
 	if ( !isInvincible )
@@ -38,12 +39,12 @@ void Entity::TakeDamage( const float& damagetaken )
 	}
 }
 
-void Entity::setDir( const Vec2f& dir,const bool& jump )
+void Entity::setDir( const Vec2f& dir,bool jump )
 {
 	vel = dir * Speed;
 	if ( dir != Vec2f{ 0,0 } )
 	{
-		facing = dir;
+		facing = (int)dir.x;
 	}
 	if ( map.CollidingWith( pos.getRound(),HitBox() ) )
 	{
@@ -85,7 +86,7 @@ const Surface* Entity::Sprite() const
 	return pSprite;
 }
 
-float Entity::HitPoints() const
+int Entity::HitPoints() const
 {
 	return hitpoints;
 }
@@ -99,22 +100,22 @@ bool Entity::isAlive() const
 	return true;
 }
 
-Vec2f Entity::Facing() const
+int Entity::Facing() const
 {
-	return Vec2f( facing );
+	return facing;
 }
 
-void Entity::Update( const float& dt )
+void Entity::Update( float dt )
 {
 	pos += vel * dt;
 }
 
-void Entity::Jump( const float& dt )
+void Entity::Jump( float dt )
 {
 	pos.y -= currJumpSpeed * dt;
 }
 
-void Entity::Physik( const float& dt )
+void Entity::Physik( float dt )
 {
 	if ( !map.CollidingWith( pos.getRound(),HitBox() ) )
 	{
@@ -127,7 +128,7 @@ void Entity::Physik( const float& dt )
 	}
 }
 
-void Entity::Invincible( const float& dt )
+void Entity::Invincible( float dt )
 {
 	if ( isInvincible )
 	{

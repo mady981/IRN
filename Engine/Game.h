@@ -26,7 +26,6 @@
 #include "WorldObject.h"
 #include "FrameTimer.h"
 #include "Text.h"
-#include "Overlay.h"
 #include "SurfaceCodex.h"
 #include <vector>
 #include <random>
@@ -47,7 +46,6 @@ private:
     std::mt19937 rng;
     WorldObject world;
     FrameTimer ft;
-    Overlay ol;
     Text text = Text( 32,4,SurfaceCodex::Retrieve( L"../Engine/Sprite/FontSheet16x18.bmp" ) );
 private:
     bool FreeCam = false;

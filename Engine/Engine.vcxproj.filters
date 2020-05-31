@@ -69,9 +69,6 @@
     <ClInclude Include="SoundEffect.h">
       <Filter>Framework\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Overlay.h">
-      <Filter>IRN</Filter>
-    </ClInclude>
     <ClInclude Include="FrameTimer.h">
       <Filter>Framework\Adition</Filter>
     </ClInclude>
@@ -114,6 +111,9 @@
     <ClInclude Include="SpriteEffect.h">
       <Filter>Framework\Adition</Filter>
     </ClInclude>
+    <ClInclude Include="MorMath.h">
+      <Filter>Framework\Adition</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="COMInitializer.cpp">
@@ -139,9 +139,6 @@
     </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>Framework\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Overlay.cpp">
-      <Filter>IRN</Filter>
     </ClCompile>
     <ClCompile Include="Surface.cpp">
       <Filter>Framework\Adition</Filter>

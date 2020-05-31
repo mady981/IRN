@@ -382,7 +382,7 @@ void Graphics::DrawRecOutline( const RecI& src,int thikness,Color c )
 		{
 			if ( Screen.isOverlappingWith( Vec2i( x,y ) ) )
 			{
-				if ( !src.isCollidingWith( Vec2i( x,y ) ) )
+				if ( !src.isOverlappingWith( Vec2i( x,y ) ) )
 				{
 					PutPixel( x,y,c );
 				}
