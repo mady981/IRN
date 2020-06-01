@@ -20,7 +20,7 @@ public:
 	Vec2f getPos() const;
 	RecF HitBox() const;
 	const Surface* Sprite() const;
-	int HitPoints() const;
+	int getHitPoits() const;
 	bool isAlive() const;
 	virtual int Facing() const;
 protected:
@@ -39,7 +39,7 @@ protected:
 	const int Damage;
 	float currFallSpeed = 0.0f;
 	float currJumpSpeed = 0.0f;
-	int hitpoints;
+	int HitPoints;
 	const int width;
 	const int height;
 	const float InvincibleTime;

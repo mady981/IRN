@@ -12,7 +12,7 @@ Entity::Entity( const Vec2f& pos,const Vec2f& vel,int maxHitPoints,float Speed,f
 	JumpSpeed( JumpSpeed ),
 	FallSpeedInc( FallSpeedInc ),
 	Damage( Damage ),
-	hitpoints( maxHitPoints ),
+	HitPoints( maxHitPoints ),
 	pSprite( pSprite ),
 	width( pSprite->getWidth() ),
 	height( pSprite-> getHeight() ),
@@ -34,7 +34,7 @@ void Entity::TakeDamage( int damagetaken )
 	assert( damagetaken >= 0.0f );
 	if ( !isInvincible )
 	{
-		hitpoints > 0 ? hitpoints -= damagetaken : hitpoints = 0;
+		HitPoints > 0 ? HitPoints -= damagetaken : HitPoints = 0;
 		isInvincible = true;
 	}
 }
@@ -86,14 +86,14 @@ const Surface* Entity::Sprite() const
 	return pSprite;
 }
 
-int Entity::HitPoints() const
+int Entity::getHitPoits() const
 {
-	return hitpoints;
+	return HitPoints;
 }
 
 bool Entity::isAlive() const
 {
-	if ( hitpoints <= 0 )
+	if ( HitPoints <= 0 )
 	{
 		return false;
 	}

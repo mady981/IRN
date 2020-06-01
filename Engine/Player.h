@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "SurfaceCodex.h"
 #include "Map.h"
+#include "Text.h"
 
 class Player : public Entity
 {
@@ -13,6 +14,7 @@ public:
 private:
 	static constexpr int HPBarHeight = 10;
 	static constexpr int HpBarWidth = 150;
+	Text text = Text( 32,4,SurfaceCodex::Retrieve( L"FontSheet16x18.bmp" ) );
 	/*********************TestFunctions Begin****************************/
 public:
 	void debugSetPlayer( const Vec2f& debugpos,float fallvel )
@@ -22,9 +24,9 @@ public:
 	}
 	void healPlayer( int heal )
 	{
-		if ( ( hitpoints += heal ) > maxHitPoints )
+		if ( ( HitPoints += heal ) > maxHitPoints )
 		{
-			hitpoints = maxHitPoints;
+			HitPoints = maxHitPoints;
 		}
 	}
 	void incMaxHP( int inc )
