@@ -14,6 +14,7 @@ public:
 private:
 	static constexpr int HPBarHeight = 10;
 	static constexpr int HpBarWidth = 150;
+	Vec2i HpBarPos = { 10,10 };
 	Text text = Text( 32,4,SurfaceCodex::Retrieve( L"FontSheet16x18.bmp" ) );
 	/*********************TestFunctions Begin****************************/
 public:

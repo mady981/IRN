@@ -76,11 +76,12 @@ void Player::Draw( const Vec2f& pos_c,Graphics& gfx ) const
         facing < 0,
         SpriteEffect::Chroma( Colors::Magenta )
     );
-    gfx.DrawRecDim( { 10,10 },int( (float)HitPoints / (float)maxHitPoints * (float)HpBarWidth ) ,HPBarHeight,Colors::Red );
-    gfx.DrawOutline( { 10,10 },HpBarWidth,HPBarHeight,1,Colors::Gray );
+    gfx.DrawRecDim( HpBarPos,int( (float)HitPoints / (float)maxHitPoints * (float)HpBarWidth ) ,HPBarHeight,Colors::Red );
+    gfx.DrawOutline( HpBarPos,HpBarWidth,HPBarHeight,1,Colors::Gray );
     if ( isInvincible )
     {
         text.DrawText( "Invincible",10,10,gfx );
     }
+    text.DrawNumber( HitPoints,HpBarPos + Vec2i( HpBarWidth + 5,0 ),gfx );
 }
 

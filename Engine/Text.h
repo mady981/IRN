@@ -6,6 +6,7 @@
 #include "Surface.h"
 #include <string>
 #include "SpriteEffect.h"
+#include <sstream>
 
 class Text
 {
@@ -51,30 +52,9 @@ private:
 	}
 	std::string ToStr( int num_in ) const
 	{
-		int num = num_in;
-		std::string dec_str;
-		int count = 0;
-		for ( ; num > 9; ++count )
-		{
-			num /= 10;
-		}
-		dec_str.push_back( num + '0' );
-		num *= ( MorMath::exp( 10,count ) );
-		num_in -= num;
-		num = num_in;
-		--count;
-		for ( ; count >= 0; --count )
-		{
-			for ( ; num > 9; )
-			{
-				num /= 10;
-			}
-			dec_str.push_back( num + '0' );
-			num *= ( MorMath::exp( 10,count ) );
-			num_in -= num;
-			num = num_in;
-		}
-		return dec_str;
+		std::stringstream dec_str;
+		dec_str << num_in;
+		return dec_str.str();
 	}
 private:
 	const Surface* font;

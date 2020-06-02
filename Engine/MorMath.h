@@ -17,14 +17,4 @@ namespace MorMath
 	{
 		return num_in / abs( num_in );
 	}
-	template<typename T>
-	T exp( T base_in,T expo_in )
-	{
-		auto base = 1;
-		for ( auto n = 0; n < expo_in; ++n )
-		{
-			base *= base_in;
-		}
-		return base;
-	}
 }
