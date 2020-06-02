@@ -3,18 +3,28 @@
 namespace MorMath
 {
 	template<typename T>
-	T sqr( T num )
+	T sqr( T num_in )
 	{
-		return num * num;
+		return num_in * num_in;
 	}
 	template<typename T>
-	T abs( T num )
+	T abs( T num_in )
 	{
-		return num < 0 ? -num : num;
+		return num_in < 0 ? -num_in : num_in;
 	}
 	template<typename T>
-	T one( T num )
+	T one( T num_in )
 	{
-		return num / abs( num );
+		return num_in / abs( num_in );
+	}
+	template<typename T>
+	T exp( T base_in,T expo_in )
+	{
+		auto base = 1;
+		for ( auto n = 0; n < expo_in; ++n )
+		{
+			base *= base_in;
+		}
+		return base;
 	}
 }

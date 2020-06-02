@@ -130,6 +130,7 @@ void Game::ComposeFrame()
         gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
         pWorld->Draw( gfx );
         text.DrawText( "IRN",gfx.ScreenWidth / 2 - ( text.getGlythWidth() * 3 ) / 2,10,gfx );
+        text.DrawNumber( pWorld->getPl()->getHitPoits(),{ 300,200 },gfx );
     }
     else
     {

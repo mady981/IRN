@@ -1,4 +1,5 @@
 #pragma once
+#include "MorMath.h"
 #include "Graphics.h"
 #include "Rec.h"
 #include "Vec2.h"
@@ -29,6 +30,10 @@ public:
 	{
 		DrawText( text,Vec2i( x,y ),gfx );
 	}
+	void DrawNumber( int num,const Vec2i& pos,Graphics& gfx ) const
+	{
+		DrawText( ToStr( num ),pos,gfx );
+	}
 	int getGlythWidth() const
 	{
 		return ( int )CharWidth;
@@ -43,6 +48,33 @@ private:
 		const char y = c / ( font->getWidth() / CharWidth );
 		const char x = c % ( font->getWidth() / CharWidth );
 		return RecI( x * CharWidth,( x + 1 ) * CharWidth,y * CharHeight,( y + 1 ) * CharHeight );
+	}
+	std::string ToStr( int num_in ) const
+	{
+		int num = num_in;
+		std::string dec_str;
+		int count = 0;
+		for ( ; num > 9; ++count )
+		{
+			num /= 10;
+		}
+		dec_str.push_back( num + '0' );
+		num *= ( MorMath::exp( 10,count ) );
+		num_in -= num;
+		num = num_in;
+		--count;
+		for ( ; count >= 0; --count )
+		{
+			for ( ; num > 9; )
+			{
+				num /= 10;
+			}
+			dec_str.push_back( num + '0' );
+			num *= ( MorMath::exp( 10,count ) );
+			num_in -= num;
+			num = num_in;
+		}
+		return dec_str;
 	}
 private:
 	const Surface* font;
