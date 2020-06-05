@@ -42,7 +42,7 @@ void Entity::TakeDamage( int damagetaken )
 void Entity::setDir( const Vec2f& dir,bool jump,WorldObject& world )
 {
 	vel = dir * Speed;
-	if ( dir != Vec2f{ 0,0 } )
+	if ( dir.x != 0 )
 	{
 		facing = (int)dir.x;
 	}

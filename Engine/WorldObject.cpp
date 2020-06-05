@@ -1,17 +1,17 @@
 #include "WorldObject.h"
 
-WorldObject::WorldObject( std::vector<Vec2i>& layout,std::optional<Player*> player )
+WorldObject::WorldObject( std::vector<Vec2i>& layout,Player* player )
 	:
 	cam( { 0,0 } ),
 	map( layout )
 {
 	if ( player )
 	{
-		pl = *player;
+		pl = player;
 	}
 	else
 	{
-		pl = new Player( { 0,0 } );
+		pl = new Player( { 0.5f,0.0f } );
 	}
 }
 
@@ -36,7 +36,7 @@ void WorldObject::HandleImputs( Keyboard& kbd )
 	cam.HandleImputs( kbd,*this );
 	if ( kbd.KeyIsPressed( 'I' ) )
 	{
-		vEny.emplace_back( Enemy( { 0,0 } ) );
+		vEny.emplace_back( Enemy( { 0.5f,0.0f } ) );
 	}
 }
 

@@ -6,12 +6,11 @@
 #include "Camera.h"
 #include <vector>
 #include <string>
-#include <optional>
 
 class WorldObject
 {
 public:
-	WorldObject( std::vector<Vec2i>& layout,std::optional<Player*> player );
+	WorldObject( std::vector<Vec2i>& layout,Player* player );
 	~WorldObject();
 	void Tick( float dt );
 	void HandleImputs( Keyboard& kbd );
