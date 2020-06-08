@@ -21,17 +21,6 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-#include <iostream>
-#include <sstream>
-
-#define DBOUT( s )            \
-{                             \
-   std::wostringstream os_;    \
-   os_ << s;                   \
-   OutputDebugStringW( os_.str().c_str() );  \
-}
-
-
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
@@ -64,9 +53,14 @@ Game::~Game()
 void Game::Go()
 {
 	gfx.BeginFrame();	
+    bench.Start();
     HandleWorldObject();
 	UpdateModel();
 	ComposeFrame();
+    if ( bench.End() )
+    {
+        OutputDebugString( ( std::wstring( bench ) + L"\n" ).c_str() );
+    }
 	gfx.EndFrame();
 }
 
@@ -112,7 +106,7 @@ void Game::HandleWorldObject()
 void Game::UpdateModel()
 {
 #ifdef NDEBUG
-    const auto dt = ft.Duration();
+    const auto dt = ft.Mark();
 #else
     const auto dt = 1.0f / 60.0f;
 #endif // NDEBUG

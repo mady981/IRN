@@ -114,6 +114,9 @@
     <ClInclude Include="MorMath.h">
       <Filter>Framework\Adition</Filter>
     </ClInclude>
+    <ClInclude Include="Bencher.h">
+      <Filter>Framework\Adition</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="COMInitializer.cpp">
@@ -163,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="WorldObject.cpp">
       <Filter>IRN\World</Filter>
+    </ClCompile>
+    <ClCompile Include="SurfaceOD.cpp">
+      <Filter>Framework\Adition</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

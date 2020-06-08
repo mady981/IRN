@@ -8,7 +8,7 @@ public:
 	{
 		last = std::chrono::steady_clock::now();
 	}
-	float Duration()
+	float Mark()
 	{
 		const auto old = last;
 		last = std::chrono::steady_clock::now();

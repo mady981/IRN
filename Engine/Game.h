@@ -29,6 +29,7 @@
 #include "SurfaceCodex.h"
 #include <vector>
 #include <random>
+#include "Bencher.h"
 
 class Game
 {
@@ -56,6 +57,7 @@ private:
     WorldObject* pWorld = nullptr;
     FrameTimer ft;
     Text text = Text( 32,4,SurfaceCodex::Retrieve( L"../Engine/Sprite/FontSheet16x18.bmp" ) );
+    Bencher bench;
 private:
     GameState g_state = GameState::InMenue;
     bool ispresst = false;

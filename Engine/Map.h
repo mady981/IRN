@@ -29,7 +29,7 @@ private:
 				int( offset.y * Dimantion() + gfx.ScreenHeight / 2 ),
 				*pSprite,
 				false,
-				SpriteEffect::Chroma{ Colors::Magenta }
+				SpriteEffect::Copy{}
 			);
 		}
 		const Vec2i pos;
