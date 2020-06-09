@@ -1,6 +1,5 @@
 #include "Surface.h"
 #include "ChiliWin.h"
-#include <assert.h>
 #include <fstream>
 
 Surface::Surface( const std::wstring& filename )
@@ -31,7 +30,7 @@ Surface::Surface( const std::wstring& filename )
 		yEnd = -1;
 		dy = -1;
 	}
-	vPixel.resize( width * height );
+	pixel.resize( (size_t)width * (size_t)height );
 	file.seekg( bmfileheader.bfOffBits );
 	const int padding = ( 4 - ( width * 3 ) % 4 ) % 4;
 	for ( int y = yStart; y != yEnd; y += dy )
@@ -55,26 +54,8 @@ Surface::Surface( int width,int height )
 	:
 	width( width ),
 	height( height ),
-	vPixel( width * height )
+	pixel( (size_t)width * (size_t)height )
 {
-}
-
-void Surface::PutPixel( int x,int y,Color c )
-{
-	assert( x >= 0 );
-	assert( x < width );
-	assert( y >= 0 );
-	assert( y < height );
-	vPixel[y * width + x] = c;
-}
-
-Color Surface::GetPixel( int x,int y ) const
-{
-	assert( x >= 0 );
-	assert( x < width );
-	assert( y >= 0 );
-	assert( y < height );
-	return vPixel[y * width + x];
 }
 
 int Surface::getWidth() const
@@ -85,4 +66,14 @@ int Surface::getWidth() const
 int Surface::getHeight() const
 {
 	return height;
+}
+
+Rec_<int> Surface::getRect() const
+{
+	return Rec_<int>( 0,width,0,height );
+}
+
+const Color* Surface::Date()
+{
+	return pixel.data();
 }

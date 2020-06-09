@@ -170,6 +170,9 @@
     <ClCompile Include="SurfaceOD.cpp">
       <Filter>Framework\Adition</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicsOD.cpp">
+      <Filter>Framework\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

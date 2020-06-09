@@ -23,7 +23,7 @@ public:
 		int currletter = 0;
 		for ( auto c : text )
 		{
-			gfx.DrawSprite( pos.x + currletter * CharWidth,pos.y,CharMaping( c ),*font,false,SpriteEffect::Chroma( chroma ) );
+			gfx.DrawSprite( Vec2_{ pos.x + currletter * CharWidth,pos.y },CharMaping( c ),*font,false,SpriteEffect::Chroma( chroma ) );
 			++currletter;
 		}
 	}

@@ -18,15 +18,16 @@ private:
 		RecI TileHitBox() const
 		{
 			return RecI(
-				pSprite->getRect<int>().WithPosition( pos * Dimantion() )
+				pSprite->getRect().WithPosition( pos * Dimantion() )
 			);
 		}
 		void Draw( const Vec2f& cPos,Graphics& gfx )
 		{
 			const Vec2f offset = Vec2f( pos ) - cPos;
 			gfx.DrawSprite(
-				int( offset.x * Dimantion() + gfx.ScreenWidth / 2 ),
-				int( offset.y * Dimantion() + gfx.ScreenHeight / 2 ),
+				Vec2_{
+					int( offset.x * Dimantion() + gfx.ScreenWidth / 2 ),
+					int( offset.y * Dimantion() + gfx.ScreenHeight / 2 ) },
 				*pSprite,
 				false,
 				SpriteEffect::Copy{}

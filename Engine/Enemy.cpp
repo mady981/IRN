@@ -35,8 +35,8 @@ void Enemy::Draw( const Vec2f& pos_c,Graphics& gfx ) const
 {
 	const Vec2f offset = pos - pos_c;
 	gfx.DrawSprite(
-		int( offset.x * Map::Dimantion() - pSprite->getWidth() / 2 + gfx.ScreenWidth / 2 ),
-		int( offset.y * Map::Dimantion() - pSprite->getHeight() + gfx.ScreenHeight / 2 ),
+		Vec2_{ int( offset.x * Map::Dimantion() - pSprite->getWidth() / 2 + gfx.ScreenWidth / 2 ),
+		int( offset.y * Map::Dimantion() - pSprite->getHeight() + gfx.ScreenHeight / 2 ) },
 		*pSprite,
 		facing < 0,
 		SpriteEffect::Substitution( Colors::Red )

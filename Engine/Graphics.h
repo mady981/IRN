@@ -73,35 +73,35 @@ public:
 		DrawRecOutline( RecI( pos.x,pos.x + width,pos.y,pos.y + height ),thikness,c );
 	}
 	template<typename E>
-	void DrawSprite( int x,int y,const Surface& s,bool mirrow,E effect )
+	void DrawSprite( Vec2i pos,const Surface& s,bool mirrow,E effect )
 	{
-		DrawSprite( x,y,{ 0,s.getWidth(),0,s.getHeight() },s,mirrow,effect );
+		DrawSprite( pos,{ 0,s.getWidth(),0,s.getHeight() },s,mirrow,effect );
 	}
 	template<typename E>
-	void DrawSprite( int x,int y,RecI srcRect,const Surface& s,bool mirrow,E effect )
+	void DrawSprite( Vec2i pos,RecI srcRect,const Surface& s,bool mirrow,E effect )
 	{
-		DrawSprite( x,y,srcRect,Screen,s,mirrow,effect );
+		DrawSprite( pos,srcRect,Screen,s,mirrow,effect );
 	}
 	template<typename E>
-	void DrawSprite( int x,int y,RecI srcRect,const RecI& clip,const Surface& s,bool mirrow,E effect )
+	void DrawSprite( Vec2i pos,RecI srcRect,const RecI& clip,const Surface& s,bool mirrow,E effect )
 	{
-		if ( x < clip.left )
+		if ( pos.x < clip.left )
 		{
-			srcRect.left += clip.left - x;
-			x = clip.left;
+			srcRect.left += clip.left - pos.x;
+			pos.x = clip.left;
 		}
-		else if ( x + srcRect.getWidth() >= clip.right )
+		else if ( pos.x + srcRect.getWidth() >= clip.right )
 		{
-			srcRect.right -= x + srcRect.getWidth() - clip.right;
+			srcRect.right -= pos.x + srcRect.getWidth() - clip.right;
 		}
-		if ( y < clip.top )
+		if ( pos.y < clip.top )
 		{
-			srcRect.top -= y - clip.top;
-			y = clip.top;
+			srcRect.top -= pos.y - clip.top;
+			pos.y = clip.top;
 		}
-		else if ( y + srcRect.getHeight() >= clip.bottem )
+		else if ( pos.y + srcRect.getHeight() >= clip.bottem )
 		{
-			srcRect.bottem -= y + srcRect.getHeight() - clip.bottem;
+			srcRect.bottem -= pos.y + srcRect.getHeight() - clip.bottem;
 		}
 		if ( !mirrow )
 		{
@@ -111,8 +111,8 @@ public:
 				{
 					effect(
 						s.GetPixel( sx,sy ),
-						x + sx - srcRect.left,
-						y + sy - srcRect.top,
+						pos.x + sx - srcRect.left,
+						pos.y + sy - srcRect.top,
 						*this
 					);
 				}
@@ -127,8 +127,8 @@ public:
 				{
 					effect(
 						s.GetPixel( offset - sx,sy ),
-						x + sx - srcRect.left,
-						y + sy - srcRect.top,
+						pos.x + sx - srcRect.left,
+						pos.y + sy - srcRect.top,
 						*this
 					);
 				}
@@ -155,3 +155,14 @@ public:
 	static constexpr int ScreenHeight = 600;
 	Rec_<int> Screen = { 0,ScreenWidth,0,ScreenHeight };
 };
+
+#include "SpriteEffect.h"
+
+#ifndef GOD_GRAPHICS
+extern template
+void Graphics::DrawSprite<SpriteEffect::Copy>( Vec2i pos,RecI srcRect,const RecI& clip,const Surface& s,bool mirrow,SpriteEffect::Copy );
+extern template
+void Graphics::DrawSprite<SpriteEffect::Chroma>( Vec2i pos,RecI srcRect,const RecI& clip,const Surface& s,bool mirrow,SpriteEffect::Chroma );
+extern template
+void Graphics::DrawSprite<SpriteEffect::Substitution>( Vec2i pos,RecI srcRect,const RecI& clip,const Surface& s,bool mirrow,SpriteEffect::Substitution );
+#endif // !GOD_GRAPHICS 

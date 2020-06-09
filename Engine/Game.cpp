@@ -42,6 +42,13 @@ Game::Game( MainWindow& wnd )
     {
         layout2.emplace_back( Vec2i{ p,p } );
     }
+    for ( int y = 0; y < 1000; ++y )
+    {
+        for ( int x = 0; x < 1000; ++x )
+        {
+            layout3.emplace_back( Vec2_{ x,y } );
+        }
+    }
 }
 
 Game::~Game()
@@ -80,11 +87,11 @@ void Game::HandleWorldObject()
         {
             Player* pPlayerCopy = pWorld->getPl();
             delete pWorld;
-            pWorld = new WorldObject( layout1,pPlayerCopy );
+            pWorld = new WorldObject( layout3,pPlayerCopy );
         }
         else
         {
-            pWorld = new WorldObject( layout1,nullptr );
+            pWorld = new WorldObject( layout3,nullptr );
         }
     }
     if ( World2SelectionHitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) && wnd.mouse.LeftIsPressed() && g_state == GameState::InMenue )
