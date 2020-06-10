@@ -53,8 +53,11 @@ Game::Game( MainWindow& wnd )
 
 Game::~Game()
 {
-    pWorld->DeletePlayer();
-    delete pWorld;
+    if ( pWorld )
+    {
+        pWorld->DeletePlayer();
+        delete pWorld;
+    }
 }
 
 void Game::Go()
@@ -80,21 +83,21 @@ void Game::HandleWorldObject()
         //delete pWorld;
         //pWorld = nullptr;
     }
-    if ( World1SelectionHitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) && wnd.mouse.LeftIsPressed() && g_state == GameState::InMenue )
+    if ( g_state == GameState::InMenue && wnd.mouse.LeftIsPressed() && World1SelectionHitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) )
     {
         g_state = GameState::InGame1;
         if ( pWorld )
         {
             Player* pPlayerCopy = pWorld->getPl();
             delete pWorld;
-            pWorld = new WorldObject( layout3,pPlayerCopy );
+            pWorld = new WorldObject( layout1,pPlayerCopy );
         }
         else
         {
-            pWorld = new WorldObject( layout3,nullptr );
+            pWorld = new WorldObject( layout1,nullptr );
         }
     }
-    if ( World2SelectionHitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) && wnd.mouse.LeftIsPressed() && g_state == GameState::InMenue )
+    if ( g_state == GameState::InMenue && wnd.mouse.LeftIsPressed() && World2SelectionHitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) )
     {
         g_state = GameState::InGame2;
         if ( pWorld )
