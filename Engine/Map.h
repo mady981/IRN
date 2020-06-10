@@ -21,7 +21,7 @@ private:
 				pSprite->getRect().WithPosition( pos * Dimantion() )
 			);
 		}
-		void Draw( const Vec2f& cPos,Graphics& gfx )
+		void Draw( const Vec2f& cPos,Graphics& gfx ) const
 		{
 			const Vec2f offset = Vec2f( pos ) - cPos;
 			gfx.DrawSprite(
@@ -42,7 +42,7 @@ public:
 	{
 		for ( auto l : layout )
 		{
-			mTiles.emplace( l,new Tile( l,1 ) );
+			mTiles.emplace( l,Tile( l,1 ) );
 		}
 	}
 	~Map();
@@ -52,7 +52,7 @@ public:
 	bool CollidingWith( const Vec2f& pos,const RecF& rec ) const;
 	static int Dimantion();
 private:
-	std::map<Vec2i,Tile*> mTiles;
+	std::map<Vec2i,Tile> mTiles;
 	const int HalfRenderHeight = Graphics::ScreenHeight / SurfaceCodex::Retrieve( L"GrassTile.bmp" )->getHeight() / 2 + 1;
 	const int HalfRenderWidth = Graphics::ScreenWidth / SurfaceCodex::Retrieve( L"GrassTile.bmp" )->getWidth() / 2 + 1;
 };

@@ -3,10 +3,10 @@
 
 Map::~Map()
 {
-	for ( auto& m : mTiles )
-	{
-		delete m.second;
-	}
+	//for ( auto& m : mTiles )
+	//{
+	//	delete m.second;
+	//}
 }
 
 bool Map::setTile( const Vec2i& pos,const int id )
@@ -15,13 +15,13 @@ bool Map::setTile( const Vec2i& pos,const int id )
 	{
 		if ( id == -1 )
 		{
-			delete mTiles.find( pos )->second;
+			//delete mTiles.find( pos )->second;
 			mTiles.erase( pos );
 			return true;
 		}
 		else
 		{
-			mTiles.emplace( pos,new Tile( pos,id ) );
+			mTiles.emplace( pos,Tile( pos,id ) );
 			return true;
 		}
 	}
@@ -32,7 +32,7 @@ int Map::getContens( const Vec2i& pos ) const
 {
 	if ( mTiles.contains( pos ) )
 	{
-		return mTiles.find( pos )->second->id;
+		return mTiles.find( pos )->second.id;
 	}
 	return -1;
 }
@@ -46,7 +46,7 @@ void Map::Draw( const Vec2f& pos_c,Graphics& gfx ) const
 			auto contens = getContens( { mx,my } );
 			if ( contens != -1 )
 			{
-				mTiles.find( { mx,my } )->second->Draw( pos_c,gfx );
+				mTiles.find( Vec2_{ mx,my } )->second.Draw( pos_c,gfx );
 			}
 		}
 	}
@@ -60,7 +60,7 @@ bool Map::CollidingWith( const Vec2f& pos,const RecF& rec ) const
 		{
 			if ( mTiles.contains( pos - Vec2i( x,y ) ) )
 			{
-				if ( mTiles.find( pos - Vec2i( x,y ) )->second->TileHitBox().isOverlappingWith( rec ) )
+				if ( mTiles.find( pos - Vec2i( x,y ) )->second.TileHitBox().isOverlappingWith( rec ) )
 				{
 					return true;
 				}
