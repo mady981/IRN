@@ -134,13 +134,13 @@ void Game::ComposeFrame()
     {
         gfx.PutPixel( gfx.ScreenWidth / 2,gfx.ScreenHeight / 2,Colors::Blue );
         pWorld->Draw( gfx );
-        text.DrawText( "IRN",gfx.ScreenWidth / 2 - ( text.getGlythWidth() * 3 ) / 2,10,gfx );
+        text.DrawText( L"IRN",Vec2_{ gfx.ScreenWidth / 2 - ( text.getGlythWidth() * 3 ) / 2 ,10 },gfx );
     }
     else
     {
-        text.DrawText( "In Menue",{ 100,100 },gfx );
-        text.DrawText( "World 1",{ 100,200 },gfx );
-        text.DrawText( "World 2",{ 100,300 },gfx );
+        text.DrawText( L"In Menue",{ 100,100 },gfx );
+        text.DrawText( L"World 1",{ 100,200 },gfx );
+        text.DrawText( L"World 2",{ 100,300 },gfx );
         if ( World1SelectionHitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) )
         {
             gfx.DrawRecOutline( World1SelectionHitBox,1,Colors::LightGray );

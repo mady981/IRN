@@ -10,6 +10,14 @@
 
 class Text
 {
+private:
+	Text()
+		:
+		font( SurfaceCodex::Retrieve( L"../Engine/Sprite/FontSheet16x18.bmp" ) ),
+		chroma( Colors::Black ),
+		CharWidth( 16 ),
+		CharHeight( 18 )
+	{}
 public:
 	Text( const int Rows,const int Collums,const Surface* font,Color chroma = Colors::Black )
 		:
@@ -18,7 +26,7 @@ public:
 		CharWidth( font->getWidth() / Rows ),
 		CharHeight( font->getHeight() / Collums )
 	{}
-	void DrawText( const std::string& text,const Vec2i& pos,Graphics& gfx ) const
+	void DrawText( const std::wstring& text,const Vec2i& pos,Graphics& gfx ) const
 	{
 		int currletter = 0;
 		for ( auto c : text )
@@ -26,10 +34,6 @@ public:
 			gfx.DrawSprite( Vec2_{ pos.x + currletter * CharWidth,pos.y },CharMaping( c ),*font,false,SpriteEffect::Chroma( chroma ) );
 			++currletter;
 		}
-	}
-	void DrawText( const std::string& text,int x,int y,Graphics& gfx ) const
-	{
-		DrawText( text,Vec2i( x,y ),gfx );
 	}
 	void DrawNumber( int num,const Vec2i& pos,Graphics& gfx ) const
 	{
@@ -43,16 +47,30 @@ public:
 	{
 		return ( int )CharHeight;
 	}
-private:
-	RecI CharMaping( char c ) const
+public:
+	static Text& Go()
 	{
-		const char y = c / ( font->getWidth() / CharWidth );
-		const char x = c % ( font->getWidth() / CharWidth );
+		static Text text;
+		return text;
+	}
+	static void DrawText_( const std::wstring& text,const Vec2i& pos,Graphics& gfx )
+	{
+		Go().DrawText( text,pos,gfx );
+	}
+	static void DrawNumber_( int num,const Vec2i& pos,Graphics& gfx )
+	{
+		Go().DrawNumber( num,pos,gfx );
+	}
+private:
+	RecI CharMaping( wchar_t c ) const
+	{
+		const wchar_t y = c / ( font->getWidth() / CharWidth );
+		const wchar_t x = c % ( font->getWidth() / CharWidth );
 		return RecI( x * CharWidth,( x + 1 ) * CharWidth,y * CharHeight,( y + 1 ) * CharHeight );
 	}
-	std::string ToStr( int num_in ) const
+	std::wstring ToStr( int num_in ) const
 	{
-		std::stringstream dec_str;
+		std::wostringstream dec_str;
 		dec_str << num_in;
 		return dec_str.str();
 	}
