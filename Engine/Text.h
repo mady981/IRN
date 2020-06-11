@@ -48,18 +48,26 @@ public:
 		return ( int )CharHeight;
 	}
 public:
-	static Text& Go()
+	static Text& Go_()
 	{
 		static Text text;
 		return text;
 	}
 	static void DrawText_( const std::wstring& text,const Vec2i& pos,Graphics& gfx )
 	{
-		Go().DrawText( text,pos,gfx );
+		Go_().DrawText( text,pos,gfx );
 	}
 	static void DrawNumber_( int num,const Vec2i& pos,Graphics& gfx )
 	{
-		Go().DrawNumber( num,pos,gfx );
+		Go_().DrawNumber( num,pos,gfx );
+	}
+	static int getGlythWidth_()
+	{
+		return (int)Go_().CharWidth;
+	}
+	static int getGlythHeight_()
+	{
+		return (int)Go_().CharHeight;
 	}
 private:
 	RecI CharMaping( wchar_t c ) const

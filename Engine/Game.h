@@ -56,7 +56,6 @@ private:
     std::mt19937 rng;
     WorldObject* pWorld = nullptr;
     FrameTimer ft;
-    Text text = Text( 32,4,SurfaceCodex::Retrieve( L"../Engine/Sprite/FontSheet16x18.bmp" ) );
     Bencher bench;
 private:
     GameState g_state = GameState::InMenue;
@@ -64,6 +63,6 @@ private:
     std::vector<Vec2i> layout1;
     std::vector<Vec2i> layout2;
     std::vector<Vec2i> layout3;
-    RecI World1SelectionHitBox = RecI( { 100 - 2,200 - 2 },text.getGlythWidth() * 7,text.getGlythHeight() );
-    RecI World2SelectionHitBox = RecI( { 100 - 2,300 - 2 },text.getGlythWidth() * 7,text.getGlythHeight() );
+    RecI World1SelectionHitBox = RecI( { 100 - 2,200 - 2 },Text::getGlythWidth_() * 7,Text::getGlythHeight_() );
+    RecI World2SelectionHitBox = RecI( { 100 - 2,300 - 2 },Text::getGlythWidth_() * 7,Text::getGlythHeight_() );
 };
