@@ -111,6 +111,10 @@ void Game::HandleWorldObject()
             pWorld = new WorldObject( layout2,nullptr );
         }
     }
+    if ( g_state == GameState::InMenue && wnd.mouse.LeftIsPressed() && QuitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) )
+    {
+        wnd.Kill();
+    }
 }
 
 void Game::UpdateModel()
@@ -141,13 +145,18 @@ void Game::ComposeFrame()
         Text::DrawText_( L"In Menue",{ 100,100 },gfx );
         Text::DrawText_( L"World 1",{ 100,200 },gfx );
         Text::DrawText_( L"World 2",{ 100,300 },gfx );
-        if ( World1SelectionHitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) )
+        Text::DrawText_( L"Quit",{ 100,gfx.ScreenHeight - Text::getGlythHeight_() * 2 },gfx );
+        if ( World1SelectionHitBox.isCollidingWith( Vec2_( wnd.mouse.GetPos() ) ) )
         {
             gfx.DrawRecOutline( World1SelectionHitBox,1,Colors::LightGray );
         }
-        if ( World2SelectionHitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) )
+        if ( World2SelectionHitBox.isCollidingWith( Vec2_( wnd.mouse.GetPos() ) ) )
         {
             gfx.DrawRecOutline( World2SelectionHitBox,1,Colors::LightGray );
+        }
+        if ( QuitBox.isCollidingWith( Vec2_( wnd.mouse.GetPos() ) ) )
+        {
+            gfx.DrawRecOutline( QuitBox,1,Colors::LightGray );
         }
     }
 }

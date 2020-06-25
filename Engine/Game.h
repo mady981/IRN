@@ -65,4 +65,5 @@ private:
     std::vector<Vec2i> layout3;
     RecI World1SelectionHitBox = RecI( { 100 - 2,200 - 2 },Text::getGlythWidth_() * 7,Text::getGlythHeight_() );
     RecI World2SelectionHitBox = RecI( { 100 - 2,300 - 2 },Text::getGlythWidth_() * 7,Text::getGlythHeight_() );
+    Rec_<int> QuitBox = Rec_<int>( { 100 - 2,gfx.ScreenHeight - Text::getGlythHeight_() * 2 - 2 },Text::getGlythWidth_() * 4,Text::getGlythHeight_() );
 };

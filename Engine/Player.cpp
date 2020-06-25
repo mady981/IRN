@@ -80,8 +80,8 @@ void Player::Draw( const Vec2f& pos_c,Graphics& gfx ) const
     gfx.DrawOutline( HpBarPos,HpBarWidth,HPBarHeight,1,Colors::Gray );
     if ( isInvincible )
     {
-        text.DrawText( L"Invincible",Vec2_{ 10,10 },gfx );
+        Text::DrawText_( L"Invincible",Vec2_{ 10,10 },gfx );
     }
-    text.DrawNumber( HitPoints,HpBarPos + Vec2i( HpBarWidth + 5,0 ),gfx );
+    Text::DrawNumber_( HitPoints,HpBarPos + Vec2i( HpBarWidth + 5,0 ),gfx );
 }
 
