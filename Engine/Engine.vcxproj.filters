@@ -31,6 +31,9 @@
     <Filter Include="IRN\World">
       <UniqueIdentifier>{5535bdc7-c59b-4662-90e2-736513f0d27e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SaveFile">
+      <UniqueIdentifier>{d4c0e6f2-f65b-4fa8-90bb-180b3ff7e6fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliException.h">
@@ -115,6 +118,9 @@
       <Filter>Framework\Adition</Filter>
     </ClInclude>
     <ClInclude Include="Bencher.h">
+      <Filter>Framework\Adition</Filter>
+    </ClInclude>
+    <ClInclude Include="Serialization.h">
       <Filter>Framework\Adition</Filter>
     </ClInclude>
   </ItemGroup>
@@ -203,5 +209,10 @@
     <Image Include="Sprite\FontSheet16x18.bmp">
       <Filter>Sprite</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="SaveFile\test.txt">
+      <Filter>SaveFile</Filter>
+    </Text>
   </ItemGroup>
 </Project>

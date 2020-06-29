@@ -20,6 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "Serialization.h"
 
 Game::Game( MainWindow& wnd )
 	:

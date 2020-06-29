@@ -163,6 +163,7 @@
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Serialization.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="SpriteEffect.h" />
@@ -275,6 +276,9 @@
     <Image Include="Sprite\GrassTile.bmp" />
     <Image Include="Sprite\MountainBackground.bmp" />
     <Image Include="Sprite\Player.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="SaveFile\test.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
