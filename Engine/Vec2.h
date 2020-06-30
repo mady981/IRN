@@ -99,6 +99,22 @@ public:
 		}
 		return { x1,y1 };
 	}
+	int get1D( int width ) const
+	{
+		return (int)y * width + (int)x;
+	}
+	Vec2_<int> Castfloat2int()
+	{
+		if ( x < 0 )
+		{
+			x -= 1;
+		}
+		if ( y < 0 )
+		{
+			y -= 1;
+		}
+		return *this;
+	}
 public:
 	T x;
 	T y;

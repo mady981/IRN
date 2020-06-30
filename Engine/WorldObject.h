@@ -10,7 +10,7 @@
 class WorldObject
 {
 public:
-	WorldObject( std::vector<Vec2i>& layout,Player* player );
+	WorldObject( Player* player );
 	~WorldObject();
 	void Tick( float dt );
 	void HandleImputs( Keyboard& kbd );

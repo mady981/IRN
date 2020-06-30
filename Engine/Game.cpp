@@ -91,11 +91,11 @@ void Game::HandleWorldObject()
         {
             Player* pPlayerCopy = pWorld->getPl();
             delete pWorld;
-            pWorld = new WorldObject( layout3,pPlayerCopy );
+            pWorld = new WorldObject( pPlayerCopy );
         }
         else
         {
-            pWorld = new WorldObject( layout3,nullptr );
+            pWorld = new WorldObject( nullptr );
         }
     }
     if ( g_state == GameState::InMenue && wnd.mouse.LeftIsPressed() && World2SelectionHitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) )
@@ -105,11 +105,11 @@ void Game::HandleWorldObject()
         {
             Player* pPlayerCopy = pWorld->getPl();
             delete pWorld;
-            pWorld = new WorldObject( layout2,pPlayerCopy );
+            pWorld = new WorldObject( pPlayerCopy );
         }
         else
         {
-            pWorld = new WorldObject( layout2,nullptr );
+            pWorld = new WorldObject( nullptr );
         }
     }
     if ( g_state == GameState::InMenue && wnd.mouse.LeftIsPressed() && QuitBox.isCollidingWith( Vec2f( wnd.mouse.GetPos() ) ) )

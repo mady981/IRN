@@ -1,10 +1,10 @@
 #include "WorldObject.h"
 
-WorldObject::WorldObject( std::vector<Vec2i>& layout,Player* player )
+WorldObject::WorldObject( Player* player )
 	:
-	cam( { 0,0 } ),
-	map( layout )
+	cam( { 0,0 } )
 {
+	map.GenerateChunk( Vec2_{ 0,0 } );
 	if ( player )
 	{
 		pl = player;
