@@ -83,7 +83,7 @@ void Player::Draw( const Vec2f& pos_c,Graphics& gfx ) const
         Text::DrawText_( L"Invincible",Vec2_{ 10,10 },gfx );
     }
     Text::DrawNumber_( HitPoints,HpBarPos + Vec2i( HpBarWidth + 5,0 ),gfx );
-    Text::DrawNumber_( pos.x,Vec2_{ gfx.ScreenWidth - 50,20 },gfx );
-    Text::DrawNumber_( pos.y,Vec2_{ gfx.ScreenWidth - 50,40 },gfx );
+    Text::DrawNumber_( (int)pos.x,Vec2_{ gfx.ScreenWidth - 50,20 },gfx );
+    Text::DrawNumber_( (int)pos.y,Vec2_{ gfx.ScreenWidth - 50,40 },gfx );
 }
 

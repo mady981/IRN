@@ -115,6 +115,14 @@ public:
 		}
 		return *this;
 	}
+	Vec2_& Abs()
+	{
+		return *this = getAbs;
+	}
+	Vec2_ getAbs() const
+	{
+		return { x < 0 ? -x : x,y < 0 ? -y : y };
+	}
 public:
 	T x;
 	T y;

@@ -4,7 +4,10 @@ WorldObject::WorldObject( Player* player )
 	:
 	cam( { 0,0 } )
 {
-	map.GenerateChunk( Vec2_{ 0,0 } );
+	for ( int i = -3; i <= 3; ++i )
+	{
+		map.GenerateChunk( Vec2_{ i,0 } );
+	}
 	if ( player )
 	{
 		pl = player;
