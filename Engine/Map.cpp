@@ -206,7 +206,7 @@ bool Map::CollidingWith( const Vec2f& pos,const RecF& rec ) const
 			const auto i = chunks.find( chunkPos );
 			if ( i != chunks.end() )
 			{
-				Vec2_<int> chunk_tile_pos = Vec2_{ (int)pos.x - ( (int)pos.x / ChunkDimantion ) * ChunkDimantion + x,(int)pos.y - ( (int)pos.y / ChunkDimantion ) * ChunkDimantion + y }.getAbs();
+				Vec2_<int> chunk_tile_pos = Vec2_{ (int)pos.x - chunkPos.x * ChunkDimantion + x,(int)pos.y - chunkPos.y * ChunkDimantion + y }.getAbs();
 				//Vec2_<int> tilepos = { (int)pos.x + x,(int)pos.y + y };
 				const auto t = i->second.tiles.data()[chunk_tile_pos.get1D( ChunkDimantion )];
 				if ( t.getId() != -1 )
