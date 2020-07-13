@@ -1,6 +1,7 @@
 #pragma once
 #include "Graphics.h"
 #include "Keyboard.h"
+#include <optional>
 
 class Camera
 {
@@ -8,6 +9,7 @@ public:
 	Camera( const Vec2f& cPos );
 	void BindToPlayer( const Vec2f& PlayerPos );
 	void HandleImputs( Keyboard& kbd,class WorldObject& world );
+	void Move( const Vec2f& dir,std::optional<float> camspeed );
 	void Move( const Vec2f& dir );
 	void Update( float dt );
 	Vec2f cPos_get() const;

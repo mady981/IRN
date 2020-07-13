@@ -39,9 +39,10 @@ void Entity::TakeDamage( int damagetaken )
 	}
 }
 
-void Entity::setDir( const Vec2f& dir,bool jump,WorldObject& world )
+void Entity::setDir( const Vec2f& dir,std::optional<float> speed,bool jump,WorldObject& world )
 {
-	vel = dir * Speed;
+
+	vel = dir * speed.value_or( Speed );
 	if ( dir.x != 0 )
 	{
 		facing = (int)dir.x;
@@ -58,6 +59,11 @@ void Entity::setDir( const Vec2f& dir,bool jump,WorldObject& world )
 			currJumpSpeed = JumpSpeed;
 		}
 	}
+}
+
+void Entity::setDir( const Vec2f& dir,bool jump,WorldObject& world )
+{
+	setDir( dir,{},jump,world );
 }
 
 void Entity::DealDamage( Entity& target ) const

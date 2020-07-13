@@ -45,13 +45,25 @@ void Camera::HandleImputs( Keyboard& kbd,WorldObject& world )
 		{
 			cdir.x += 1.0f;
 		}
-		Move( cdir );
+		if ( kbd.KeyIsPressed( VK_CONTROL ) )
+		{
+			Move( cdir,50.0f );
+		}
+		else
+		{
+			Move( cdir );
+		}
 	}
+}
+
+void Camera::Move( const Vec2f& dir,std::optional<float> camspeed )
+{
+	cVel = dir * camspeed.value_or( FreeCamMoveSpeed );
 }
 
 void Camera::Move( const Vec2f& dir )
 {
-	cVel = dir * FreeCamMoveSpeed;
+	Move( dir,{} );
 }
 
 void Camera::Update( float dt )

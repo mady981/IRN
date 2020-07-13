@@ -3,6 +3,7 @@
 #include "Rec.h"
 #include "Surface.h"
 #include "Map.h"
+#include <optional>
 
 class Entity
 {
@@ -14,6 +15,7 @@ public:
 	virtual void TakeDamage( int damage );
 	virtual void Draw( const Vec2f& cPos,Graphics& gfx ) const = 0;
 protected:
+	virtual void setDir( const Vec2f& dir,std::optional<float> speed,bool jump,class WorldObject& world );
 	virtual void setDir( const Vec2f& dir,bool jump,class WorldObject& world );
 	virtual void DealDamage( Entity& target ) const;
 public:
