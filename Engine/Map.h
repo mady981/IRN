@@ -26,7 +26,7 @@ private:
 		private:
 			Vec2i pos;
 			int id;
-			const Surface* pSprite = SurfaceCodex::Retrieve( L"GrassTile.bmp" );
+			const Surface* pSprite = SurfaceCodex::Retrieve( L"../Engine/Sprite/GrassTile.bmp" );
 		};
 	public:
 		Chunk( const Vec2_<int>& chunk_pos );
@@ -51,7 +51,7 @@ public:
 	std::mt19937 rng = std::mt19937( std::random_device()( ) );
 	static constexpr int ChunkDimantion = 16;
 	std::map<Vec2_<int>,Chunk> chunks;
-	const int HalfRenderHeight = Graphics::ScreenHeight / SurfaceCodex::Retrieve( L"GrassTile.bmp" )->getHeight() / 2 + 1;
-	const int HalfRenderWidth = Graphics::ScreenWidth / SurfaceCodex::Retrieve( L"GrassTile.bmp" )->getWidth() / 2 + 1;
+	const int HalfRenderHeight = Graphics::ScreenHeight / SurfaceCodex::Retrieve( L"../Engine/Sprite/GrassTile.bmp" )->getHeight() / 2 + 1;
+	const int HalfRenderWidth = Graphics::ScreenWidth / SurfaceCodex::Retrieve( L"../Engine/Sprite/GrassTile.bmp" )->getWidth() / 2 + 1;
 	bool ShowTileHitBox = false;
 };
