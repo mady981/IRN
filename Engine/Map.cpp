@@ -13,11 +13,10 @@ void Map::GenerateChunk( const Vec2_<int>& chunk_pos )
 		c = chunks.find( tc );
 		if ( c != chunks.end() )
 		{
-			rngpos = false;
 			for ( int sy = 0; sy < 16; ++sy )
 			{
 				int sx = x < 0 ? 15 : 0;
-				if ( c->second.tile.data()[sy * ChunkDimantion + sx].getId() != -1 )
+				if ( c->second.tiles.data()[sy * ChunkDimantion + sx].getId() != -1 )
 				{
 					if ( x > 0 )
 					{
@@ -38,7 +37,6 @@ void Map::GenerateChunk( const Vec2_<int>& chunk_pos )
 	{
 		std::uniform_int_distribution<int> syDist( 0,15 );
 		start_pos = { -1,syDist( rng ) };
-		rngpos = true;
 	}
 	std::vector<Vec2_<int>> filler;
 	chunks.emplace( chunk_pos,Chunk( chunk_pos ) );
@@ -100,7 +98,7 @@ void Map::GenerateChunk( const Vec2_<int>& chunk_pos )
 		{
 			ipos = p;
 		}
-		chunks.find( chunk_pos )->second.tile[ipos.get1D( ChunkDimantion )].Init( p + chunk_pos * ChunkDimantion,1 );
+		chunks.find( chunk_pos )->second.tiles[ipos.get1D( ChunkDimantion )].Init( p + chunk_pos * ChunkDimantion,1 );
 	}
 	for ( auto& fill : filler )
 	{
@@ -108,9 +106,8 @@ void Map::GenerateChunk( const Vec2_<int>& chunk_pos )
 		{
 			fill.x = 15 - fill.x;
 		}
-		chunks.find( chunk_pos )->second.tile[fill.get1D( ChunkDimantion )].Init( fill + chunk_pos * ChunkDimantion,1 );
+		chunks.find( chunk_pos )->second.tiles[fill.get1D( ChunkDimantion )].Init( fill + chunk_pos * ChunkDimantion,1 );
 	}
-	rev = reverse;
 }
 
 bool Map::setTile( const Vec2i& pos,const int id )
@@ -119,10 +116,22 @@ bool Map::setTile( const Vec2i& pos,const int id )
 	if ( i != chunks.end() )
 	{
 		Vec2_<int> chunk_tile_pos = Vec2_{ pos.x - ( pos.x / ChunkDimantion ),pos.y - ( pos.y / ChunkDimantion ) }.getAbs();
-		i->second.tile.data()[chunk_tile_pos.get1D( ChunkDimantion )].setId( -1 );
+		i->second.tiles.data()[chunk_tile_pos.get1D( ChunkDimantion )].setId( id );
 		return true;
 	}
 	return false;
+}
+
+void Map::setTile_GenChunk( const Vec2i& pos,const int id )
+{
+	auto i = chunks.find( pos / ChunkDimantion );
+	if ( i == chunks.end() )
+	{
+		chunks.emplace( pos / ChunkDimantion,Chunk( pos / ChunkDimantion ) );
+		i = chunks.find( pos / ChunkDimantion );
+	}
+	Vec2_<int> chunk_tile_pos = Vec2_{ pos.x - ( pos.x / ChunkDimantion ),pos.y - ( pos.y / ChunkDimantion ) }.getAbs();
+	i->second.tiles.data()[chunk_tile_pos.get1D( ChunkDimantion )].setId( id );
 }
 
 int Map::getContens( const Vec2i& pos ) const
@@ -131,27 +140,56 @@ int Map::getContens( const Vec2i& pos ) const
 	if ( i != chunks.end() )
 	{
 		Vec2_<int> chunk_tile_pos = Vec2_{ pos.x - ( pos.x / ChunkDimantion ) * ChunkDimantion,pos.y - ( pos.y / ChunkDimantion ) * ChunkDimantion }.getAbs();
-		return i->second.tile.data()[chunk_tile_pos.get1D( ChunkDimantion )].getId();
+		return i->second.tiles.data()[chunk_tile_pos.get1D( ChunkDimantion )].getId();
 	}
 	return -1;
 }
 
 void Map::Draw( const Vec2f& cPos,Graphics& gfx ) const
 {
-	for ( int my = (int)cPos.y - HalfRenderHeight; my <= (int)cPos.y + HalfRenderHeight; ++my )
+	int HalfChunkRenderWidth = 2;
+	int HalfChunkRenderHeight = 2;
+	for ( int cy = -HalfChunkRenderHeight; cy <= HalfChunkRenderHeight; ++cy )
 	{
-		for ( int mx = (int)cPos.x - HalfRenderWidth; mx <= (int)cPos.x + HalfRenderWidth; ++mx )
+		for ( int cx = -HalfChunkRenderWidth; cx <= HalfChunkRenderWidth; ++cx )
 		{
-			Vec2_<int> chunkPos = ( Vec2_{ (float)mx,(float)my } / (float)ChunkDimantion ).Castfloat2int();
+			Vec2_<int> chunkPos = ( ( cPos / (float)ChunkDimantion + Vec2_{ (float)cx,(float)cy } ) ).Castfloat2int();
 			const auto i = chunks.find( chunkPos );
 			if ( i != chunks.end() /*&& i->second.isActive*/ )
 			{
-				Vec2_<int> chunk_tile_pos = Vec2_{ mx - ( mx / ChunkDimantion ) * ChunkDimantion,my - ( my / ChunkDimantion ) * ChunkDimantion }.getAbs();
-				//Vec2_<int> tilepos = { mx,my };
-				const auto d = i->second.tile.data()[chunk_tile_pos.get1D( ChunkDimantion )];
-				if ( d.getId() != -1 )
+				//Vec2_<int> chunk_tile_pos = Vec2_{ mx - ( mx / ChunkDimantion ) * ChunkDimantion,my - ( my / ChunkDimantion ) * ChunkDimantion }.getAbs();
+				////Vec2_<int> tilepos = { mx,my };
+				//const auto d = i->second.tiles.data()[chunk_tile_pos.get1D( ChunkDimantion )];
+				//if ( d.getId() != -1 )
+				//{
+				//	d.Draw( cPos,gfx );
+				//}
+				for ( const auto& t : i->second.tiles )
 				{
-					d.Draw( cPos,gfx );
+					if ( t.getId() != -1 )
+					{
+						t.Draw( cPos,gfx );
+					}
+				}
+			}
+		}
+	}
+	if ( ShowTileHitBox )
+	{
+		for ( const auto& c : chunks )
+		{
+			for ( const auto& t : c.second.tiles )
+			{
+				if ( t.getId() != -1 )
+				{
+					const Vec2f offset = Vec2f( t.getPos() ) - cPos;
+					gfx.DrawOutline(
+						Vec2_{
+							int( offset.x * Map::Dimantion() + gfx.ScreenWidth / 2 ),
+							int( offset.y * Map::Dimantion() + gfx.ScreenHeight / 2 )
+						},
+						16,16,0,Colors::Green
+					);
 				}
 			}
 		}
@@ -170,7 +208,7 @@ bool Map::CollidingWith( const Vec2f& pos,const RecF& rec ) const
 			{
 				Vec2_<int> chunk_tile_pos = Vec2_{ (int)pos.x - ( (int)pos.x / ChunkDimantion ) * ChunkDimantion + x,(int)pos.y - ( (int)pos.y / ChunkDimantion ) * ChunkDimantion + y }.getAbs();
 				//Vec2_<int> tilepos = { (int)pos.x + x,(int)pos.y + y };
-				const auto t = i->second.tile.data()[chunk_tile_pos.get1D( ChunkDimantion )];
+				const auto t = i->second.tiles.data()[chunk_tile_pos.get1D( ChunkDimantion )];
 				if ( t.getId() != -1 )
 				{
 					if ( t.TileHitBox().isCollidingWith( rec ) )
@@ -192,12 +230,14 @@ int Map::Dimantion()
 Map::Chunk::Chunk( const Vec2_<int>& chunk_pos )
 	:
 	chunk_pos( chunk_pos ),
-	tile( 256 )
+	tiles( 256 )
 {
-	for ( int t = 0; t < 256; ++t )
+	std::generate( tiles.begin(),tiles.end(),[val = 0,chunk_pos]() mutable
 	{
-		tile.emplace( tile.begin() + t,Tile( Vec2_<int>{ t% ChunkDimantion,t / ChunkDimantion } + chunk_pos * ChunkDimantion,-1 ) );
-	}
+		Vec2i pos = Vec2i{ val % ChunkDimantion,val / ChunkDimantion } + chunk_pos * ChunkDimantion;
+		++val;
+		return Tile( pos,-1 );
+	} );
 }
 
 Map::Chunk::Tile::Tile()
@@ -236,11 +276,11 @@ void Map::Chunk::Tile::Draw( const Vec2f& cPos,Graphics& gfx ) const
 			false,
 			SpriteEffect::Copy{}
 	);
-	Text::DrawNumber_( pos.x,
-		{ int( offset.x * Map::Dimantion() + gfx.ScreenWidth / 2 ),
-		int( offset.y * Map::Dimantion() + gfx.ScreenHeight / 2 ) },
-		gfx
-	);
+	//Text::DrawNumber_( pos.x,
+	//	{ int( offset.x * Map::Dimantion() + gfx.ScreenWidth / 2 ),
+	//	int( offset.y * Map::Dimantion() + gfx.ScreenHeight / 2 ) },
+	//	gfx
+	//);
 	//Text::DrawNumber_( pos.y,
 	//	{ int( offset.x * Map::Dimantion() + gfx.ScreenWidth / 2 ),
 	//	int( offset.y * Map::Dimantion() + gfx.ScreenHeight / 2 ) },
@@ -256,4 +296,9 @@ int Map::Chunk::Tile::getId() const
 void Map::Chunk::Tile::setId( int _id )
 {
 	id = _id;
+}
+
+Vec2i Map::Chunk::Tile::getPos() const
+{
+	return pos;
 }
